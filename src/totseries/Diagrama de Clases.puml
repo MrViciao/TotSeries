@@ -48,6 +48,8 @@ namespace Model {
         -nombre
         -pais
         -nacimiento
+        ==
+        +Usuario(datos)
     }
     
     
@@ -67,21 +69,28 @@ namespace Model {
     class Catalogo{
         ==
         +string toString()
-        +getMejoresEpisodios()
+        +void getMejoresEpisodios()
+        +bool existeEpisodio(int serie, int temporada, int episodio)
     }
 
     class Temporada{
         -int numero
         ==
         +string toString()
+        +getMejoresEpisodios()
+        +bool existeEpisodio(int episodio)
     }
 
     class Serie{
         -int numero
         ==
         +string toString()
+        +getMejoresEpisodios()
+        +bool existeEpisodio(int temporada, int episodio)
     }
     class Valoracion{
+        -int nota
+        -string comentario
     }
     
     class Episodio {
@@ -90,6 +99,7 @@ namespace Model {
         -idioma
         -fecha
         -descripción
+        -valoracion_media
         ==
         +Episodio()
         +string toString()
