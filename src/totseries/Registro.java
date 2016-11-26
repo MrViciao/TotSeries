@@ -6,29 +6,22 @@
 package totseries;
 
 import java.util.Date;
+import java.util.List;
 
-
-public class TotSeries {
+/**
+ *
+ * @author mrviciao
+ */
+public class Registro {
+    private List<Usuario> usuarios;
+    private List<Administrador> administradores;
     
-    private Catalogo catalogo;
-    private Registro registro;
-
-    public void  verEpisodio(int serie, int temporada, int episodio){
-        
-    }
-    
-    public void verCatalogo(){
+    public boolean hasUsuario(String username){
+        return false;
         
     }
     
     public void registrar(String username, String password,
             String name, String pais, Date nacimiento){
     }
-    
-    public void verMejoresEpisodios(){
-        
-    }
-    
-    
-    
 }
