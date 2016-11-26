@@ -1,0 +1,32 @@
+@startuml
+
+title	DS:3 Ver Catalogo
+hide	footbox
+
+actor	Usuario
+participant ":TotSeries" as TotSeries
+participant ":Catalogo" as Catalogo
+participant ":Serie" as Serie
+participant ":Consola" as Consola
+
+
+Usuario -> TotSeries:verCatalogo(): Void
+TotSeries -> Catalogo:toString():String
+note right Catalogo
+    lista_series : String
+    lista_series := ""
+end note
+
+
+loop For serie in series
+    Catalogo -> Serie:toString():String
+    Serie --> Catalogo:text
+    note right Catalogo
+        lista_series += text
+    endnote
+end
+Catalogo --> TotSeries: llista
+TotSeries -> Consola: escriu(lista):Void
+
+
+@enduml

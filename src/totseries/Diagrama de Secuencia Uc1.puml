@@ -1,0 +1,71 @@
+@startuml
+title	DS: Registrarse UC1
+hide	footbox
+
+actor Cliente
+participant ":TotSeries" as TotSeries
+participant ":Registro" as Registro
+participant ":Usuario" as Usuario
+
+participant "nuevo:Usuario" as nUsuario
+participant ":Consola" as Consola
+
+Cliente	-> TotSeries:registrar(username,password, nombre,pais,nacimiento)
+activate TotSeries
+
+note right TotSeries
+    username:String
+    nombre:String
+    password:String
+    nacionalidad:String
+    fechaNacimiento:Date
+end note
+
+note right TotSeries
+        exist := true
+    end note
+
+loop  exist == true
+    TotSeries -> Registro:exist:=hasUsuario(username:string):bool
+    activate Registro
+    note right Registro
+        exist := false
+    end note
+
+    loop usuario in usuarios
+        Registro -> Usuario:getUsername():String
+        activate Usuario
+        Usuario  --> Registro:username_old
+        deactivate Usuario
+        opt username==username_old
+            note left Registro
+                exist := true
+            end note
+        end opt
+    end loop
+
+    Registro-->TotSeries:exist
+    deactivate Registro
+    opt exist ==true
+        TotSeries -> Consola:escriu("Introduzca un nuevo username, el anterior ya existe")
+        activate Consola
+        TotSeries -> Consola:llegeixString():String
+        Consola --> TotSeries:username := String
+        deactivate Consola
+    end opt
+end loop
+
+TotSeries -> Registro:registrar(username,password, nombre,pais,nacimiento):void
+activate Registro
+create nUsuario
+activate nUsuario
+Registro -> nUsuario:Usuario(username,password, nombre,pais,nacimiento):Usuario
+nUsuario --> Registro: new_usuario
+deactivate nUsuario
+Registro -> Registro: usuarios.add(new_usuario):void
+activate Registro
+deactivate Registro
+Registro --> TotSeries
+deactivate Registro
+TotSeries->"Consola":escriu("Se ha agregado el nuevo usuario")
+@enduml

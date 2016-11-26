@@ -1,0 +1,119 @@
+@startuml
+title	DS:4	Ver Episodio
+hide	footbox
+
+actor	Usuario
+participant ":Consola" as Consola
+participant ":TotSeries" as TotSeries
+participant ":Catalogo" as Catalogo
+participant ":Serie" as Serie
+participant ":Temporada" as Temporada
+participant ":Episodio" as Episodio
+
+Usuario -> TotSeries:verEpisodio(serie.temporada,episodio):void
+activate TotSeries
+TotSeries -> Catalogo:existeEpisodio(serie.temporada,episodio):bool
+
+
+activate Catalogo 
+note right Catalogo
+        exist := false
+    end note
+loop For serie in series
+
+    Catalogo -> Serie:getId():Int
+    activate Serie
+    Serie --> Catalogo:id
+    deactivate Serie
+
+
+    opt id==serie
+        note right Catalogo
+            exist := true
+        end note
+    end opt
+end loop
+'
+opt exist
+    Catalogo -> Serie:exist:=existeEpisodio(temporada,episodio):bool
+    activate Serie
+    note right Serie
+        exist := false
+    end note
+    
+    loop For temporada in temporadas
+        Serie -> Temporada:getId():Int
+        activate Temporada
+        Temporada --> Serie:id
+        deactivate Temporada
+
+        opt id==temporada
+            note right Serie
+                exist := true
+            end note
+        end opt
+    end loop
+'
+    opt exist
+        Serie -> Temporada:exist:=existeEpisodio(episodio):bool
+        activate Temporada
+        note right Temporada
+            exist := false
+        end note
+
+        loop For episodio in episodios
+            Temporada -> Episodio:getId():Int
+            activate Episodio
+            Episodio --> Temporada:id
+            deactivate Episodio
+
+
+            opt id==temporada
+                note right Temporada
+                    exist := true
+                end note
+            end opt
+        end loop
+        Temporada --> Serie:exist
+    end opt
+    deactivate Temporada
+    Serie --> Catalogo:exist
+end opt
+'
+deactivate Serie
+Catalogo --> TotSeries:exist
+deactivate Catalogo
+'
+alt exist == true
+    TotSeries -> Catalogo:verEpisodio(serie,temporada,episodio):Void
+    activate Catalogo
+    Catalogo -> Serie:verEpisodio(temporada,episodio):Void
+    activate Serie
+    Serie -> Temporada:verEpisodio():Void
+    activate Temporada
+    Temporada->Episodio:verEpisodio():Void
+    activate Episodio
+    Episodio->Consola:streaming():Void
+    deactivate Episodio
+    deactivate Temporada
+    deactivate Serie
+    deactivate Catalogo
+    ... Viendo episodio ...
+    TotSeries->Consola:escriure("¿Valorar Episodio?"):Void
+    TotSeries -> Consola:llegirString():String
+    Consola --> TotSeries:opcion
+
+
+    opt opcion == true
+        note right TotSeries
+        DS5. Valoracion
+        end note
+     end opt
+else 
+TotSeries->Consola:escriure("No existe el episodio"):Void
+end alt
+
+TotSeries -->Usuario
+deactivate TotSeries
+
+@enduml
