@@ -10,7 +10,7 @@ participant ":Temporada" as Temporada
 participant ":Episodio" as Episodio
 participant ":Consola" as Consola
 
-Usuario -> TotSeries:verMejoresEpisodios():Void
+Usuario -> TotSeries:getMejoresEpisodios():Void
 activate TotSeries
 TotSeries -> Catalogo:getMejoresEpisodios():String
 activate Catalogo
@@ -22,6 +22,9 @@ note right Catalogo
 end note
 
 loop for serie in series
+    note right Catalogo
+        lista_episodio += serie.getNombre():String
+    end note
     Catalogo -> Serie:getMejoresEpisodios():String
     activate Serie
 
@@ -32,6 +35,9 @@ loop for serie in series
     end note
 
     loop for temporada in temporadas
+        note right Serie
+        lista_episodio += temporada.getnumero():int
+        end note
         Serie -> Temporada:getMejoresEpisodios():String
         activate Temporada
 
