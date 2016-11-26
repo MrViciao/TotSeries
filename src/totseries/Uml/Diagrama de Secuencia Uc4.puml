@@ -89,7 +89,7 @@ alt exist == true
     activate Catalogo
     Catalogo -> Serie:verEpisodio(temporada,episodio):Void
     activate Serie
-    Serie -> Temporada:verEpisodio():Void
+    Serie -> Temporada:verEpisodio(episodio):Void
     activate Temporada
     Temporada->Episodio:verEpisodio():Void
     activate Episodio
