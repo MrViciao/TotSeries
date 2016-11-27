@@ -5,11 +5,20 @@
  */
 package totseries;
 
+
 /**
  *
  * @author mrviciao
  */
-public abstract class Cliente {
-    private String username;
-    private String password;
+public class Cliente extends Usuario{
+    private String direccion;
+    private String dni;
+    private boolean vip;
+    
+    public Cliente(String id, String nom, String dni, String adreca, String usuari, String password, boolean vip){
+        super(id, usuari, password, nom);
+        this.direccion=adreca;
+        this.dni=dni;
+        this.vip=vip;
+    }
 }

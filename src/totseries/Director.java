@@ -10,5 +10,7 @@ package totseries;
  * @author mrviciao
  */
 public class Director extends Artista{
-    
+    public Director(String id, String nom, String pais){
+        super(id, nom, pais);
+    }
 }

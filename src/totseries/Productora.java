@@ -13,6 +13,12 @@ import java.util.Date;
  */
 public class Productora {
     private String nombre;
-    private int id;
+    private String id;
     private Date f_creacion;
+    
+    public Productora(){};
+    public Productora(String id, String nombre){
+        this.id=id;
+        this.nombre=nombre;
+    };
 }

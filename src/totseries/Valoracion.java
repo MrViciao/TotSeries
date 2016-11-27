@@ -5,14 +5,23 @@
  */
 package totseries;
 
+import java.util.Date;
+
 /**
  *
  * @author mrviciao
  */
 public class Valoracion {
     
-    private int nota;
-    private String comentario;
+    private String id;
+    private int puntuacion;
+    private Date fecha;
+    
+    public Valoracion(){};
+    public Valoracion(String id, int puntuacion, Date fecha){
+        this.puntuacion=puntuacion;
+        this.fecha=fecha;
+    }
     
     
 }

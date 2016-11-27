@@ -9,6 +9,10 @@ package totseries;
  *
  * @author mrviciao
  */
-public class Administrador {
+public class Administrador extends Usuario{
     
+    public Administrador(){};
+    public Administrador(String id,String username, String password, String nombre){
+        super(id, username, password, nombre);
+    };
 }

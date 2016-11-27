@@ -13,7 +13,7 @@ import java.util.List;
  * @author mrviciao
  */
 public class Registro {
-    private List<Usuario> usuarios;
+    private List<Cliente> clientes;
     private List<Administrador> administradores;
     
     public boolean hasUsuario(String username){

@@ -10,9 +10,12 @@ package totseries;
  * @author mrviciao
  */
 public abstract class Artista {
+    protected String id;
     protected String nombre;
     protected String pais;
     
-    
+    public Artista(String id, String nombre, String pais){
+        
+    }
     
 }

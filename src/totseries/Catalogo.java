@@ -24,18 +24,18 @@ public class Catalogo {
         return lista;
     }
     
-    boolean existeEpisodio(int serie_id, int temporada_id, int episodio_id){
+    boolean existeEpisodio(String serie_id, int num_temporada, String episodio_id){
         boolean exist=false;
         Serie serie_existente=null;
         for(Serie serie : series){
-            if(serie_id==serie.getId()){
+            if(serie_id.equals(serie.getId())){
                 exist=true;
                 serie_existente=serie;
             }
             
         }
         if(exist){
-            exist=serie_existente.existeEpisodio(temporada_id, episodio_id);
+            exist=serie_existente.existeEpisodio(num_temporada, episodio_id);
         }
         return exist;
     }

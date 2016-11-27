@@ -1,5 +1,20 @@
 package totseries.Parser;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import totseries.Actor;
+import totseries.Administrador;
+import totseries.Artista;
+import totseries.Cliente;
+import totseries.Director;
+import totseries.Episodio;
+import totseries.Productora;
+import totseries.Serie;
+import totseries.Temporada;
+import totseries.Valoracion;
+
 /**
  * Data manager per TotSeries. Crea les estructures de dades necessàries 
  * per a manegar l'aplicació de gestió de TotSeries.
@@ -40,7 +55,7 @@ public class TotSeriesDataManager {
 		/*  TODO: A partir d'aqui creeu el vostre objecte que contingui la informacio
 		 *  d'una nova serie.
 		 */
-
+                Serie serie = new Serie(id, title, desc);
 		System.out.println("\nSerie amb ID: " + id);
 		System.out.println("--------------------------------------------------");
 		System.out.println("Titol: " + title);
@@ -60,7 +75,8 @@ public class TotSeriesDataManager {
 		/*  TODO: A partir d'aqui creeu el vostre objecte que contingui la informacio
 		 *  d'una nova temporada.
 		 */
-
+                
+                Temporada temporada=new Temporada(Integer.parseInt(numTemporada), Integer.parseInt(numEpisodis));
 		System.out.println("Temporada: " + numTemporada + " Numero Episodis: "+ numEpisodis);
                 System.out.println("--------------------------------------------------");
 
@@ -77,18 +93,15 @@ public class TotSeriesDataManager {
          * 
 	 */
 	
-	public void crearEpisodi(String title, String duration, String idioma, String description, String data) {		
+	public void crearEpisodi(String title, String duration, String idioma, String description, String data) throws ParseException {		
 
 		/*  TODO: A partir d'aqui creeu el vostre objecte que contingui la informacio
 		 *  d'una nou episodi.
 		 */
-
-		System.out.println("\nTitol: " + title);
-                System.out.println("--------------------------------------------------");
-                System.out.println("Duració; " + duration);
-                System.out.println("Data d'estrena: " + data);
-                System.out.println("Idioma: " + idioma);
-                System.out.println(description);
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = format.parse(data);
+                Episodio episodio = new Episodio(title, duration, idioma, description, date);
+		System.out.println(episodio.toString());
                 
 	}
 
@@ -106,7 +119,13 @@ public class TotSeriesDataManager {
 
 		/* TODO: Aqui feu el necessari per a crear els artistes per a la serie
 		 */
-
+                if(tipus.equals("actor")){
+                    Artista artista = new Actor(id, nom, nacionalitat);
+                }
+                else if(tipus.equals("director")){
+                    Artista artista = new Director(id, nom, nacionalitat);
+                }
+                
 		System.out.println("\nArtista amb ID: " + id);
 		System.out.println("--------------------------------------");
 		System.out.println("Nom: " + nom);
@@ -127,7 +146,7 @@ public class TotSeriesDataManager {
 
 		/* TODO: Aqui feu el necessari per a crear les productores per a les series
 		 */
-
+                Productora productora = new Productora(id, nom);
 		System.out.println("\nProductora amb ID: " + id);
 		System.out.println("--------------------------------------");
 		System.out.println("Nom: " + nom);
@@ -144,10 +163,13 @@ public class TotSeriesDataManager {
 	 * @param data data en la que es va fer la puntuacio
 	 */
 	
-	public void crearValoracio(String id, String client, String episodi, String puntuacio, String data) {
+	public void crearValoracio(String id, String client, String episodi, String puntuacio, String data) throws ParseException {
 
 		/* TODO: A partir d'aqui creeu la valoracio
 		 */
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = format.parse(data);
+                Valoracion valoracion = new Valoracion(id, Integer.parseInt(puntuacio), date);
 		System.out.println("\nValoracio amb ID: " + id);
 		System.out.println("--------------------------------------");
 		System.out.println("Client: " + client);
@@ -168,7 +190,7 @@ public class TotSeriesDataManager {
 
 		/* TODO: Creeu aqui el vostre admin
 		 */
-
+                Administrador administrador = new Administrador(id, usuari, password, nom); 
 		System.out.println("\nAdmin ID: " + id);
 		System.out.println("-----------------");
 		System.out.println("Nom: " + nom);
@@ -192,7 +214,7 @@ public class TotSeriesDataManager {
 
 		/* TODO: Creeu aqui el vostre client
 		 */
-
+                Cliente cliente = new Cliente(id, nom, dni, adreca, usuari, password, Boolean.valueOf(vip));
 		System.out.println("\nClient ID: " + id);
 		System.out.println("-----------------");
 		System.out.println("Nom: " + nom);
