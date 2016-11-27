@@ -5,6 +5,7 @@
  */
 package totseries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,10 +20,11 @@ public class Serie {
     private List<Temporada> temporadas;
 
     public Serie() {
-
+        temporadas=new ArrayList<>();
     }
 
     public Serie(String id, String titulo, String descripcion) {
+        this();
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -30,15 +32,18 @@ public class Serie {
 
     @Override
     public String toString() {
+        String text="Titol: " + titulo + " - " + id + "\n";
+        text+="--------------------------------------------------\n";
+        text+="Descripcion: " + descripcion + "\n\n";
+        return text;
+    }
+
+    public String getMejoresEpisodio() {
         String lista = "";
         for (Temporada temporada : temporadas) {
             lista += temporada.toString();
         }
         return lista;
-    }
-
-    void getMejoresEpisodio() {
-
     }
 
     boolean existeEpisodio(int num_temporada, String episodio_id) {
@@ -69,5 +74,14 @@ public class Serie {
      */
     public void setId(String Id) {
         this.id = Id;
+    }
+    
+    public void addTemporada(Temporada temporada){
+        temporadas.add(temporada);
+    }
+    
+    public Temporada getLastTemporada(){
+        if(temporadas.size()==0) return null;
+        return temporadas.get(temporadas.size()-1);
     }
 }

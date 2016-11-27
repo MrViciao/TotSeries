@@ -5,16 +5,24 @@
  */
 package totseries;
 
-import java.util.Date;
-
 /**
  *
  * @author mrviciao
  */
-public class Usuario {
-    private String pais;
-    private Date nacimiento;
-    private boolean vip; 
+public abstract class Usuario {
     
+    protected String id;
+    protected String username;
+    protected String password;
+    protected String nombre;
     
+    public Usuario(){
+        
+    }
+    public Usuario(String id,String username, String password, String nombre){
+        this.id=id;
+        this.username=username;
+        this.password=password;
+        this.nombre=nombre;
+    }
 }

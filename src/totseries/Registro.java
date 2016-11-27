@@ -5,6 +5,7 @@
  */
 package totseries;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,11 @@ import java.util.List;
 public class Registro {
     private List<Cliente> clientes;
     private List<Administrador> administradores;
+    
+    public Registro(){
+        this.clientes = new ArrayList<>();
+        this.administradores = new ArrayList<>();
+    }
     
     public boolean hasUsuario(String username){
         return false;

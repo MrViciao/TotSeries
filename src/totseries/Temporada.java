@@ -5,6 +5,7 @@
  */
 package totseries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +19,12 @@ public class Temporada {
     private int num_episodios;
 
     public Temporada() {
+        episodios = new ArrayList<>();
     }
 
     ;
     public Temporada(int num_temporada, int n_episodios) {
+        this();
         this.num_episodios = n_episodios;
         this.num_temporada = num_temporada;
     }
@@ -76,6 +79,10 @@ public class Temporada {
      */
     public void setNum_episodios(int num_episodios) {
         this.num_episodios = num_episodios;
+    }
+    
+    public void addEpisodio(Episodio episodio){
+        episodios.add(episodio);
     }
 
 }

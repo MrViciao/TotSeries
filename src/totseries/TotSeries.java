@@ -18,6 +18,7 @@ public class TotSeries {
     }
     
     public void verCatalogo(){
+        System.err.println(catalogo.toString());
         
     }
     
@@ -27,6 +28,34 @@ public class TotSeries {
     
     public void verMejoresEpisodios(){
         
+    }
+
+    /**
+     * @return the catalogo
+     */
+    public Catalogo getCatalogo() {
+        return catalogo;
+    }
+
+    /**
+     * @param catalogo the catalogo to set
+     */
+    public void setCatalogo(Catalogo catalogo) {
+        this.catalogo = catalogo;
+    }
+
+    /**
+     * @return the registro
+     */
+    public Registro getRegistro() {
+        return registro;
+    }
+
+    /**
+     * @param registro the registro to set
+     */
+    public void setRegistro(Registro registro) {
+        this.registro = registro;
     }
     
     

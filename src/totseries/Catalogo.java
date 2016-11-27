@@ -5,6 +5,7 @@
  */
 package totseries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,10 @@ public class Catalogo {
     
     private List<Serie> series;
     
+    public Catalogo(){
+        this.series = new ArrayList<>();
+    }
+    
     @Override
     public String toString(){
         String lista="";
@@ -24,7 +29,7 @@ public class Catalogo {
         return lista;
     }
     
-    boolean existeEpisodio(String serie_id, int num_temporada, String episodio_id){
+    public boolean existeEpisodio(String serie_id, int num_temporada, String episodio_id){
         boolean exist=false;
         Serie serie_existente=null;
         for(Serie serie : series){
@@ -39,8 +44,17 @@ public class Catalogo {
         }
         return exist;
     }
-    void getMejoresEpisodios(){
+    public void getMejoresEpisodios(){
         
+    }
+    
+    public void addSerie(Serie serie){
+        series.add(serie);
+    }
+    
+    public Serie getLastSerie(){
+        if(series.size()==0) return null;
+        return series.get(series.size()-1);
     }
     
     
