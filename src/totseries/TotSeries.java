@@ -5,8 +5,6 @@
  */
 package totseries;
 
-import java.util.Date;
-
 
 public class TotSeries {
     
@@ -18,12 +16,12 @@ public class TotSeries {
     }
     
     public void verCatalogo(){
-        System.err.println(catalogo.toString());
+        System.out.println(catalogo.toString());
         
     }
     
-    public void registrar(String username, String password,
-            String name, String pais, Date nacimiento){
+    public void registrar(String id, String nom, String dni, String adreca, String usuari, String password, boolean vip){
+        registro.registrar(id, nom, dni, adreca, usuari, password, vip);
     }
     
     public void verMejoresEpisodios(){

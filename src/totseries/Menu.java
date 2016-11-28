@@ -27,6 +27,21 @@ public class Menu {
         while(selected!=0){
             Consola.printMenu();
             selected=Consola.llegeixInt();
+            switch(selected){
+                case 1:
+                    System.out.println("falta hacer que se introduzcan los datos por consola");
+                    tot_series.registrar("", "", "", "", "", "", false);
+                    break;
+                case 3:
+                    tot_series.verCatalogo();
+                    break;
+                case 4:
+                    System.out.println("Not working");
+                    break;
+                case 6:
+                    System.out.println("Not working");
+                    break;
+            }
         }
         
         

@@ -37,7 +37,6 @@ public class Catalogo {
                 exist=true;
                 serie_existente=serie;
             }
-            
         }
         if(exist){
             exist=serie_existente.existeEpisodio(num_temporada, episodio_id);

@@ -27,7 +27,8 @@ public class Registro {
         
     }
     
-    public void registrar(String username, String password,
-            String name, String pais, Date nacimiento){
+    public void registrar(String id, String nom, String dni, String adreca, String usuari, String password, boolean vip){
+        Cliente cliente = new Cliente(id, nom, dni, adreca, usuari, password, vip);
+        clientes.add(cliente);
     }
 }
