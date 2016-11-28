@@ -30,7 +30,7 @@ public class Temporada {
         this.idTemporada = idTemporada;
     }
 
-    public int size_episodios() {
+    public int size() {
         return this.episodios.size();
     }
     
@@ -56,6 +56,16 @@ public class Temporada {
                 exist = true;
         }
         return exist;
+    }
+    Episodio verEpisodio(String idEpisodio){
+        Iterator<Episodio> iterador = episodios.iterator();
+        Episodio episodio;
+        while(iterador.hasNext()){
+            episodio=iterador.next();
+            if(episodio.equals(idEpisodio))
+                return episodio;
+        }
+        return NULL;
     }
     @Override
     public String toString() {
