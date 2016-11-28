@@ -5,59 +5,79 @@
  */
 package totseries;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  *
- * @author mrviciao
+ * @author Abel
  */
 public class Episodio {
     private String titulo;
     private String duracion;
     private String idioma;
     private String descripcion;
-    private float valoracion_media;
+    private float promedio;
     private Date fecha;
     private String id;
-    
     private List<Valoracion> valoraciones;
     
-    public Episodio(){};
     public Episodio(String title, String duration, String idioma, String description, Date data){
         this.titulo=title;
         this.duracion=duration;
         this.idioma=idioma;
         this.descripcion=description;
         this.fecha=data;
+        this.promedio = 0;
+        this.valoraciones = new ArrayList<>();
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public float getPromedio() {
+        return promedio;
+    }
+    
+    
+    private void setPromedio(){
+        Iterator<Valoracion> iterador= valoraciones.iterator();
+        Valoracion valoracion;
+        int valor=0;
+        while(iterador.hasNext()){
+            valoracion = iterador.next();
+            valor+=valoracion.getPuntuacion();
+        }
+        this.promedio = valor/this.valoraciones.size();
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String Id) {
+        this.id = Id;
+    }
+    
+    public boolean equals(String idEpisodio){
+        return this.id == idEpisodio;
     }
     
     @Override
     public String toString(){
-        String text="Titol: " + titulo + "\n";
-        text+="--------------------------------------------------\n";
-        text+="Duracion: " + duracion + "\n";
-        text+="Estreno: " + fecha + "\n";
-        text+="Idioma: " + idioma + "\n";
-        text+="Descripcion: " + descripcion + "\n";
-        return text;
-    }
-    
-    private void calcular_media(){
-        
-    }
-
-    /**
-     * @return the Id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param Id the Id to set
-     */
-    public void setId(String Id) {
-        this.id = Id;
+        String string="\n Titulo: " + titulo +
+        " Duracion: " + duracion+
+        " Idioma" + idioma +
+        " Creacion: " + fecha+
+        " identificador: " + id +
+        " valoracion : " + promedio +
+        " Descripcion: " + descripcion + "\n";
+        return string;
     }
 }
