@@ -5,7 +5,7 @@ title	DSS1.	Registro
 hide	footbox
 'definicio	d'actors
 actor	Usuario	as	user
-user	->	":Totseries":solicitar Registro
+user	->	":Totseries":registro()
 ":Totseries" -> user :solicita Nombre
 user -> ":Totseries":introduce Nombre
 ":Totseries" -> user :solocita Password
@@ -14,7 +14,7 @@ user -> ":Totseries" :introduce Password
 user -> ":Totseries" :introduce ID
 ":Totseries" -> user :solicita Fecha de Nacimiento
 user -> ":Totseries" :introduce fecha de nacimiento
-opt ID == existente
+opt exist(ID)
     ":Totseries" -> user :solicita ID
     user -> ":Totseries" :introduce ID
 end
