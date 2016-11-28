@@ -16,14 +16,12 @@ public class Valoracion {
     private String id;
     private int puntuacion;
     private Date fecha;
-    private int visualizaciones;
-    
-    public Valoracion(){};
+
     public Valoracion(String id, int puntuacion, Date fecha){
         this.puntuacion=puntuacion;
         this.fecha=fecha;
         this.fecha = fecha;
-        this.visualizaciones = 0;
+
     }
     
     public String getId() {
@@ -49,8 +47,6 @@ public class Valoracion {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public void setVisualizacion(){
-        this.visualizaciones++;
-    }
+
     
 }
