@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package totseries;
+package Model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 /**
  *
- * @author mrviciao
+ * @author Abel
  */
 public class Serie {
 
@@ -18,26 +13,29 @@ public class Serie {
     private String titulo;
     private String descripcion;
     private List<Temporada> temporadas;
+    private List<Artista> artistas;
+    private Productora productora;
 
     public Serie() {
-        temporadas=new ArrayList<>();
+        this.temporadas=new ArrayList<>();
     }
 
     public Serie(String id, String titulo, String descripcion) {
-        this();
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
+        this.artistas= new ArrayList<>();
+        this.productora = new Productora();
     }
 
     @Override
     public String toString() {
-        String text="Titol: " + titulo + " - " + id + "\n";
-        text+="--------------------------------------------------\n";
-        text+="Descripcion: " + descripcion + "\n\n";
-        return text;
+        String string="\n Titol: " + titulo
+                        +" Identificador: " + id
+                        +"Descripcion: " + descripcion + "\n";
+        return string;
     }
-
+    
     public String getMejoresEpisodio() {
         String lista = "";
         for (Temporada temporada : temporadas) {
@@ -46,32 +44,19 @@ public class Serie {
         return lista;
     }
 
-    boolean existeEpisodio(int num_temporada, String episodio_id) {
-        boolean exist = false;
-        Temporada temporada_existente = null;
-        for (Temporada temporada : temporadas) {
-            if (num_temporada == temporada.getNum_temporada()) {
-                exist = true;
-                temporada_existente = temporada;
-            }
-
-        }
-        if (exist) {
-            exist = temporada_existente.existeEpisodio(episodio_id);
-        }
-        return exist;
+    boolean existeEpisodio(int idTemporada, String idEpisodio) {
+        if(idTemporada >= 0 && idTemporada < this.temporadas.size())
+            return this.temporadas.get(idTemporada).existeEpisodio(idEpisodio);
+        else
+            return false;
     }
-
-    /**
-     * @return the Id
-     */
+    
+    public Episodio verEpisodio(int idTemporada,String idEpisodio);
+        return this.temporadas.get(idTemporada).verEpisodio(idEpisodio);
+    
     public String getId() {
         return id;
     }
-
-    /**
-     * @param Id the Id to set
-     */
     public void setId(String Id) {
         this.id = Id;
     }
@@ -83,5 +68,8 @@ public class Serie {
     public Temporada getLastTemporada(){
         if(temporadas.size()==0) return null;
         return temporadas.get(temporadas.size()-1);
+    }
+    public boolean equals (String idSerie){
+        return this.id == idSerie;
     }
 }
