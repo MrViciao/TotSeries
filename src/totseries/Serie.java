@@ -1,4 +1,4 @@
-package Model;
+package totseries;
 
 import java.util.ArrayList;
 import java.util.Iterator;
