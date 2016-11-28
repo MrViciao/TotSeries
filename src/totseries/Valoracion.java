@@ -23,5 +23,29 @@ public class Valoracion {
         this.fecha=fecha;
     }
     
+    public String getId() {
+        return usuario;
+    }
+
+    public void setId(String id) {
+        this.usuario = id;
+    }
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
     
 }
