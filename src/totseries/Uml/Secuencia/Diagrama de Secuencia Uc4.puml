@@ -3,13 +3,15 @@ title	DS:4	Ver Episodio
 hide	footbox
 
 actor	Usuario
-participant ":Consola" as Consola
+
 participant ":TotSeries" as TotSeries
 participant ":Catalogo" as Catalogo
 participant ":Serie" as Serie
 participant ":Temporada" as Temporada
 participant ":Episodio" as Episodio
-
+participant "cliente:Cliente" as cliente
+participant ":Factura" as factura
+participant ":Consola" as Consola
 Usuario -> TotSeries:verEpisodio(serie.temporada,episodio):void
 activate TotSeries
 TotSeries -> Catalogo:existeEpisodio(serie.temporada,episodio):bool
@@ -99,6 +101,14 @@ alt exist == true
     deactivate Serie
     deactivate Catalogo
     ... Viendo episodio ...
+    TotSeries->cliente:setVisualizacion():Void
+    activate cliente
+    cliente->factura:setVisualizacion():Void
+    activate factura
+    deactivate factura
+    factura->cliente
+    deactivate cliente
+    cliente->TotSeries
     TotSeries->Consola:escriure("¿Valorar Episodio?"):Void
     TotSeries -> Consola:llegirString():String
     Consola --> TotSeries:opcion
@@ -115,5 +125,4 @@ end alt
 
 TotSeries -->Usuario
 deactivate TotSeries
-
 @enduml
