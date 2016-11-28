@@ -1,0 +1,11 @@
+@startuml
+title	DSS:3	Ver Catalogo de Series
+'	ocultar	el	foot	si	son	curts,	sino	deixar-ho
+'	la	comanda	es	la	seguent
+hide	footbox
+'definicio	d'actors
+actor	Usuario	as	user
+user	->	":Totseries":Visualizar Catalogo
+":Totseries" -> user :Muestra Catalogo
+
+@enduml
