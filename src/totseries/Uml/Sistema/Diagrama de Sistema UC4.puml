@@ -5,7 +5,9 @@ title	DSS:4	Ver Episodio
 hide	footbox
 'definicio	d'actors
 actor	Usuario	as	user
-user	->	":Totseries":Visualizar Serie
+user	->	":Totseries":verEpisodio()
+":Totseries" -> user :Solicita Serie
+user -> ":Totseries" :introduce serie
 ":Totseries" -> user :Solicita Temporada
 user -> ":Totseries":introduce Temporada
 ":Totseries" -> user :solocita Episodio
