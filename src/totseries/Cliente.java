@@ -14,11 +14,16 @@ public class Cliente extends Usuario{
     private String direccion;
     private String dni;
     private boolean vip;
+    private List<Factura> facturas;
     
     public Cliente(String id, String nom, String dni, String adreca, String usuari, String password, boolean vip){
         super(id, usuari, password, nom);
         this.direccion=adreca;
         this.dni=dni;
         this.vip=vip;
+        this.facturas= new ArrayList<>();
+    }
+    public void setVisualizacion(){
+        this.facturas.get(this.facturas.size()-1).setVisualizacion();
     }
 }
