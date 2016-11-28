@@ -23,4 +23,7 @@ public class Cliente extends Usuario{
         this.vip=vip;
         this.facturas= new ArrayList<>();
     }
+    public void setVisualizacion(){
+        this.facturas.get(this.facturas.size()-1).setVisualizacion();
+    }
 }
