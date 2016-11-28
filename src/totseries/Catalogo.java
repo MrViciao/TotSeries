@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package totseries;
-
+package Model;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 /**
  *
- * @author mrviciao
+ * @author Abel
  */
 public class Catalogo {
     
@@ -19,42 +13,46 @@ public class Catalogo {
     public Catalogo(){
         this.series = new ArrayList<>();
     }
-    
-    @Override
-    public String toString(){
-        String lista="";
-        for(Serie serie : series){
-            lista+=serie.toString();
+   
+    public boolean existeEpisodio(String idSerie, int idTemporada, String idEpisodio){
+        Iterator<Serie> iterador = this.series.iterator();
+        while(iterador.hasNext()){
+            if(iterador.next().equals(idSerie))
+               return iterador.next().existeEpisodio(idTemporada, idEpisodio);
         }
+        return false;
+    }
+    public String getMejoresEpisodios(){
+        String lista="";
+        Iterator<Serie> iterador = this.series.iterator();
+        while(iterador.hasNext())
+            lista += iterador.next().getMejoresEpisodio();
         return lista;
     }
-    
-    public boolean existeEpisodio(String serie_id, int num_temporada, String episodio_id){
-        boolean exist=false;
-        Serie serie_existente=null;
-        for(Serie serie : series){
-            if(serie_id.equals(serie.getId())){
-                exist=true;
-                serie_existente=serie;
-            }
-        }
-        if(exist){
-            exist=serie_existente.existeEpisodio(num_temporada, episodio_id);
-        }
-        return exist;
+    public Episodio verEpisodio(String idSerie, int idTemporada, String idEpisodio){
+        if(this.existeEpisodio(idSerie,idTemporada,idEpisodio)){
+            return this.getSerie(idSerie).verEpisodio(idTemporada,idEpisodio);
+        }else
+            return NULL;
     }
-    public void getMejoresEpisodios(){
-        
-    }
-    
     public void addSerie(Serie serie){
         series.add(serie);
     }
     
-    public Serie getLastSerie(){
-        if(series.size()==0) return null;
-        return series.get(series.size()-1);
+    @Override
+    public String toString(){
+        String lista="";
+        Iterator<Serie> iterador=this.series.iterator();
+        while(iterador.hasNext()){
+            lista+=iterador.next().toString();
+        }
+        return lista;
     }
-    
-    
+    public Serie getSerie(String idSerie){
+        Iterator<Serie> iterador = this.series.iterator();
+        while(iterador.hasNext()){
+            if(iterador.next().equals(idSerie))
+               return iterador.next();
+        }
+        return NULL;
 }
