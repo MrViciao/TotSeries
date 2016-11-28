@@ -1,0 +1,14 @@
+@startuml
+title	DSS5 Valoracion	
+hide	footbox
+
+actor	Usuario	as	user
+participant ":Totseries" as Totseries
+
+Totseries -> user: Solicita usuario
+user -> Totseries: Introduce usuario
+Totseries -> user: Solicita Valoracion
+user -> Totseries: Introduce Valoracion
+
+
+@enduml
