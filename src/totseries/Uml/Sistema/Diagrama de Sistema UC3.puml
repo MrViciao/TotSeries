@@ -5,7 +5,7 @@ title	DSS:3	Ver Catalogo de Series
 hide	footbox
 'definicio	d'actors
 actor	Usuario	as	user
-user	->	":Totseries":Visualizar Catalogo
+user	->	":Totseries":verCatalogo()
 ":Totseries" -> user :Muestra Catalogo
 
 @enduml
