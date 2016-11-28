@@ -25,7 +25,7 @@ loop For serie in series
         lista_series += text
     endnote
 end
-Catalogo --> TotSeries: llista
+Catalogo --> TotSeries: lista
 TotSeries -> Consola: escriu(lista):Void
 
 
