@@ -1,0 +1,11 @@
+@startuml
+title	DSS:6	Episodios mas valorados
+'	ocultar	el	foot	si	son	curts,	sino	deixar-ho
+'	la	comanda	es	la	seguent
+hide	footbox
+'definicio	d'actors
+actor	Usuario	as	user
+user	->	":Totseries":Visualizar Episodios mas valorados
+":Totseries" -> user :Muestra episodios mas valorados
+
+@enduml

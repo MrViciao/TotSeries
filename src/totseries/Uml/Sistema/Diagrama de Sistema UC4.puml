@@ -1,0 +1,22 @@
+@startuml
+title	DSS:4	Ver Episodio
+'	ocultar	el	foot	si	son	curts,	sino	deixar-ho
+'	la	comanda	es	la	seguent
+hide	footbox
+'definicio	d'actors
+actor	Usuario	as	user
+user	->	":Totseries":Visualizar Serie
+":Totseries" -> user :Solicita Temporada
+user -> ":Totseries":introduce Temporada
+":Totseries" -> user :solocita Episodio
+user -> ":Totseries" :introduce Episodio
+":Totseries" -> user :Realiza Streaming
+":Totseries" -> user :solicita realizar valoracion
+user -> ":Totseries" :Introduce si valora
+opt valorar == true
+    note	right user
+    DS:5 Valorar Episodio
+    endnote
+end
+":Totseries" -> user :Registra visualizacion
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+title	DSS1.	Registro	
+'	ocultar	el	foot	si	son	curts,	sino	deixar-ho
+'	la	comanda	es	la	seguent
+hide	footbox
+'definicio	d'actors
+actor	Usuario	as	user
+user	->	":Totseries":solicitar Registro
+":Totseries" -> user :solicita Nombre
+user -> ":Totseries":introduce Nombre
+":Totseries" -> user :solocita Password
+user -> ":Totseries" :introduce Password
+":Totseries" -> user :solicita ID
+user -> ":Totseries" :introduce ID
+":Totseries" -> user :solicita Fecha de Nacimiento
+user -> ":Totseries" :introduce fecha de nacimiento
+opt ID == existente
+    ":Totseries" -> user :solicita ID
+    user -> ":Totseries" :introduce ID
+end
+":Totseries" -> user :Usuario Creado
+@enduml
