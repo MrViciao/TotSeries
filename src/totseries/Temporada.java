@@ -15,74 +15,68 @@ import java.util.List;
 public class Temporada {
 
     private List<Episodio> episodios;
-    private int num_temporada;
-    private int num_episodios;
+    int idTemporada;
 
-    public Temporada() {
+    public Temporada(int idTemporada) {
         episodios = new ArrayList<>();
+        this.idTemporada = idTemporada;
     }
 
-    ;
-    public Temporada(int num_temporada, int n_episodios) {
-        this();
-        this.num_episodios = n_episodios;
-        this.num_temporada = num_temporada;
+    public int getIdTemporada() {
+        return idTemporada;
     }
 
-
-    @Override
-    public String toString() {
-        String lista = "";
-        for (Episodio episodio : episodios) {
-            lista += episodios.toString();
-        }
-        return lista;
+    public void setIdTemporada(int idTemporada) {
+        this.idTemporada = idTemporada;
     }
 
-    void getMejoresEpisodio() {
-
-    }
-
-    boolean existeEpisodio(String episodio_id) {
-        boolean exist = false;
-        for (Episodio episodio : episodios) {
-            if (episodio_id.equals(episodio.getId())) {
-                exist = true;
-            }
-        }
-        return exist;
-    }
-
-    /**
-     * @return the num_temporada
-     */
-    public int getNum_temporada() {
-        return num_temporada;
-    }
-
-    /**
-     * @param num_temporada the num_temporada to set
-     */
-    public void setNum_temporada(int num_temporada) {
-        this.num_temporada = num_temporada;
-    }
-
-    /**
-     * @return the num_episodios
-     */
-    public int getNum_episodios() {
-        return num_episodios;
-    }
-
-    /**
-     * @param num_episodios the num_episodios to set
-     */
-    public void setNum_episodios(int num_episodios) {
-        this.num_episodios = num_episodios;
+    public int size() {
+        return this.episodios.size();
     }
     
     public void addEpisodio(Episodio episodio){
-        episodios.add(episodio);
+        this.episodios.add(episodio);
+    }
+    public String getMejoresEpisodio() {
+        String lista= "";
+        Iterator<Episodio> iterador = episodios.iterator();
+        Episodio episodio;
+        while(iterador.hasNext()){
+            episodio=iterador.next();
+            if(episodio.getPromedio() > 4)
+                lista += episodio.toString();
+        }
+        return lista;
+    }
+    boolean existeEpisodio(String idEpisodio) {
+        boolean exist = false;
+        Iterator<Episodio> iterador= episodios.iterator();
+        while(iterador.hasNext()) {
+            if (iterador.next().equals(idEpisodio)) 
+                exist = true;
+        }
+        return exist;
+    }
+    Episodio verEpisodio(String idEpisodio){
+        Iterator<Episodio> iterador = episodios.iterator();
+        Episodio episodio;
+        while(iterador.hasNext()){
+            episodio=iterador.next();
+            if(episodio.equals(idEpisodio))
+                return episodio;
+        }
+        return NULL;
+    }
+    @Override
+    public String toString() {
+        String lista = "";
+        Episodio episodio;
+        Iterator<Episodio> iterador= episodios.iterator();
+        while(iterador.hasNext()) {
+            episodio = iterador.next();
+            lista += episodio.toString();
+        }
+        return lista;
     }
 
 }
