@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package totseries;
+
+import java.util.Date;
+
 /**
  *
  * @author Abel
@@ -13,9 +16,13 @@ public class Productora {
     private String id;
     private Date fCreacion;
     
-    public Productora(String id, String nombre,Date fCreacion){
+    public Productora(String id, String nombre){
         this.id=id;
         this.nombre=nombre;
+    }
+    
+    public Productora(String id, String nombre,Date fCreacion){
+        this(id, nombre);
         this.fCreacion=fCreacion;
     };
     
@@ -48,3 +55,4 @@ public class Productora {
     public void setfCreacion(Date fCreacion) {
         this.fCreacion = fCreacion;
     }
+}

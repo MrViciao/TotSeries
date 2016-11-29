@@ -87,7 +87,7 @@ public class TotSeriesDataManager {
 		 *  d'una nova temporada.
 		 */
                 
-                Temporada temporada=new Temporada(Integer.parseInt(numTemporada), Integer.parseInt(numEpisodis));
+                Temporada temporada=new Temporada(Integer.parseInt(numTemporada));
                 catalogo.getLastSerie().addTemporada(temporada);
 //		System.out.println("Temporada: " + numTemporada + " Numero Episodis: "+ numEpisodis);
 //                System.out.println("--------------------------------------------------");

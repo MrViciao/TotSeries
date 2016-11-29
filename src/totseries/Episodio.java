@@ -21,7 +21,6 @@ public class Episodio {
     private String descripcion;
     private float promedio;
     private Date fecha;
-    private String id;
     private List<Valoracion> valoraciones;
     
     public Episodio(String title, String duration, String idioma, String description, Date data){
@@ -59,27 +58,21 @@ public class Episodio {
         }
         this.promedio = valor/this.valoraciones.size();
     }
-
-    public String getId() {
-        return id;
-    }
-    public void setId(String Id) {
-        this.id = Id;
-    }
     
+    /*
     public boolean equals(String idEpisodio){
         return this.id == idEpisodio;
     }
+*/
     
     @Override
     public String toString(){
         String string="\n Titulo: " + titulo +
-        " Duracion: " + duracion+
-        " Idioma" + idioma +
-        " Creacion: " + fecha+
-        " identificador: " + id +
-        " valoracion : " + promedio +
-        " Descripcion: " + descripcion + "\n";
+        "\nDuracion: " + duracion+
+        "\nIdioma" + idioma +
+        "\nCreacion: " + fecha+
+        "\nvaloracion : " + promedio +
+        "\nDescripcion: " + descripcion + "\n";
         return string;
     }
 }

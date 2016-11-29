@@ -6,7 +6,6 @@
 package totseries;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,8 +26,9 @@ public class Registro {
         
     }
     
-    public void registrar(String id, String nom, String dni, String adreca, String usuari, String password, boolean vip){
-        Cliente cliente = new Cliente(id, nom, dni, adreca, usuari, password, vip);
+    public void registrar(String nom, String dni, String adreca, String usuari, String password){
+        
+        Cliente cliente = new Cliente("makenewid",  usuari,  password, nom, dni, adreca, false);
         clientes.add(cliente);
     }
 }

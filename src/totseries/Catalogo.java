@@ -1,4 +1,4 @@
-package Model;
+package totseries;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,25 +15,25 @@ public class Catalogo {
     }
    
     public boolean existeEpisodio(String idSerie, int idTemporada, String idEpisodio){
-        Iterator<Serie> iterador = this.series.iterator();
-        while(iterador.hasNext()){
-            if(iterador.next().equals(idSerie))
-               return iterador.next().existeEpisodio(idTemporada, idEpisodio);
+        for(Serie serie : series){
+             if(serie.getId().equals(idSerie))
+               return serie.existeEpisodio(idTemporada, idEpisodio);
         }
         return false;
     }
+    
     public String getMejoresEpisodios(){
         String lista="";
-        Iterator<Serie> iterador = this.series.iterator();
-        while(iterador.hasNext())
-            lista += iterador.next().getMejoresEpisodio();
+        for(Serie serie :series){
+            lista += serie.getMejoresEpisodio();
+        }
         return lista;
     }
     public Episodio verEpisodio(String idSerie, int idTemporada, String idEpisodio){
         if(this.existeEpisodio(idSerie,idTemporada,idEpisodio)){
             return this.getSerie(idSerie).verEpisodio(idTemporada,idEpisodio);
         }else
-            return NULL;
+            return null;
     }
     public void addSerie(Serie serie){
         series.add(serie);
@@ -54,6 +54,10 @@ public class Catalogo {
             if(iterador.next().equals(idSerie))
                return iterador.next();
         }
-        return NULL;
+        return null;
+    }
+    
+    public Serie getLastSerie(){
+        return series.get(series.size()-1);
     }
 }

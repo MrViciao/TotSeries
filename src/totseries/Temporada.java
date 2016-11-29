@@ -6,6 +6,7 @@
 package totseries;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,11 +16,17 @@ import java.util.List;
 public class Temporada {
 
     private List<Episodio> episodios;
-    int idTemporada;
-
-    public Temporada(int idTemporada) {
+    private int idTemporada;
+    private int numEpisodis;
+            
+    public Temporada(){
         episodios = new ArrayList<>();
+        
+    }
+    public Temporada(int idTemporada) {
+        this();
         this.idTemporada = idTemporada;
+        numEpisodis=episodios.size();
     }
 
     public int getIdTemporada() {
@@ -36,6 +43,7 @@ public class Temporada {
     
     public void addEpisodio(Episodio episodio){
         this.episodios.add(episodio);
+        numEpisodis+=1;
     }
     public String getMejoresEpisodio() {
         String lista= "";
@@ -65,7 +73,7 @@ public class Temporada {
             if(episodio.equals(idEpisodio))
                 return episodio;
         }
-        return NULL;
+        return null;
     }
     @Override
     public String toString() {

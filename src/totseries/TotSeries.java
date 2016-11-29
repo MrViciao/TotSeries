@@ -5,6 +5,8 @@
  */
 package totseries;
 
+import totseries.Parser.Consola;
+
 
 public class TotSeries {
     
@@ -20,12 +22,12 @@ public class TotSeries {
         
     }
     
-    public void registrar(String id, String nom, String dni, String adreca, String usuari, String password, boolean vip){
-        registro.registrar(id, nom, dni, adreca, usuari, password, vip);
+    public void registrar(String usuari, String password, String nom, String dni, String adreca){
+        registro.registrar(nom, dni, adreca, usuari, password);
     }
     
     public void verMejoresEpisodios(){
-        
+        Consola.escriu(catalogo.getMejoresEpisodios());
     }
 
     /**

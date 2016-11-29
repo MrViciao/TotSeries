@@ -1,7 +1,6 @@
-package Model;
+package totseries;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 /**
  *
@@ -36,17 +35,16 @@ public class Serie {
 
     @Override
     public String toString() {
-        String string="\n Titol: " + titulo
-                        +" Temporadas:" + temporadas.size()
-                        +" Identificador: " + id
-                        +"Descripcion: " + descripcion + "\n";
+        String string="\nTitol: " + titulo + " - " + id
+                        +" \nTemporadas:" + temporadas.size()
+                        +"\nDescripcion: " + descripcion + "\n";
         return string;
     }
     
     public String getMejoresEpisodio() {
         String lista = "";
         for (Temporada temporada : temporadas) {
-            lista += temporada.toString();
+            lista += temporada.getMejoresEpisodio();
         }
         return lista;
     }
@@ -58,8 +56,9 @@ public class Serie {
             return false;
     }
     
-    public Episodio verEpisodio(int idTemporada,String idEpisodio);
+    public Episodio verEpisodio(int idTemporada,String idEpisodio){
         return this.temporadas.get(idTemporada).verEpisodio(idEpisodio);
+    }
     
     public String getId() {
         return id;
@@ -73,10 +72,10 @@ public class Serie {
     }
     
     public Temporada getLastTemporada(){
-        if(temporadas.size()==0) return null;
+        if(temporadas.isEmpty()) return null;
         return temporadas.get(temporadas.size()-1);
     }
     public boolean equals (String idSerie){
-        return this.id == idSerie;
+        return this.id.equals(idSerie);
     }
 }

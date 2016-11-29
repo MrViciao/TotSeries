@@ -5,24 +5,36 @@
  */
 package totseries;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author mrviciao
  */
-public class Cliente extends Usuario{
+public class Cliente extends Usuario {
+
     private String pais;
     private Date nacimiento;
     private boolean vip;
+    private String dni;
+    private String direccion;
     private List<Factura> facturas;
-    
-    public Cliente(String id, String username, String password, String nombre,String pais,Date nacimiento){
-        super(id, username, password, nom);
-        this.direccion=adreca;
-        this.nacimiento = nacimiento;
-        this.vip=false;
-        this.facturas= new ArrayList<>();
+
+    public Cliente(String id, String username, String password, String nombre) {
+        super(id, username, password, nombre);
+        this.facturas = new ArrayList<>();
     }
+
+    public Cliente(String id, String username, String password,
+            String nombre, String dni, String adreca, boolean vip) {
+        this(id, username, password, nombre);
+        this.direccion = adreca;
+        this.nacimiento = nacimiento;
+        this.vip = vip;
+    }
+
     public String getPais() {
         return pais;
     }
