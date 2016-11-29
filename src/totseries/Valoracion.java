@@ -13,15 +13,14 @@ import java.util.Date;
  */
 public class Valoracion {
     
-    private String id;
+    private String usuario;
     private int puntuacion;
     private Date fecha;
 
-    public Valoracion(String id, int puntuacion, Date fecha){
+    public Valoracion(String usuario, int puntuacion, Date fecha){
+        this.usuario=usuario;
         this.puntuacion=puntuacion;
         this.fecha=fecha;
-        this.fecha = fecha;
-
     }
     
     public String getId() {
@@ -47,6 +46,4 @@ public class Valoracion {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
-    
 }
