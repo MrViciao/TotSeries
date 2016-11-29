@@ -18,7 +18,7 @@ note right Catalogo
 end note
 
 
-loop For serie in series
+loop For serie in Catalogo
     Catalogo -> Serie:toString():String
     Serie --> Catalogo:text
     note right Catalogo
