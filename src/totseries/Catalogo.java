@@ -55,4 +55,5 @@ public class Catalogo {
                return iterador.next();
         }
         return NULL;
+    }
 }
