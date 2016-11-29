@@ -11,19 +11,39 @@ package totseries;
  * @author mrviciao
  */
 public class Cliente extends Usuario{
-    private String direccion;
-    private String dni;
+    private String pais;
+    private Date nacimiento;
     private boolean vip;
     private List<Factura> facturas;
     
-    public Cliente(String id, String nom, String dni, String adreca, String usuari, String password, boolean vip){
-        super(id, usuari, password, nom);
+    public Cliente(String id, String username, String password, String nombre,String pais,Date nacimiento){
+        super(id, username, password, nom);
         this.direccion=adreca;
-        this.dni=dni;
-        this.vip=vip;
+        this.nacimiento = nacimiento;
+        this.vip=false;
         this.facturas= new ArrayList<>();
     }
-    public void setVisualizacion(){
-        this.facturas.get(this.facturas.size()-1).setVisualizacion();
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public Date getNacimiento() {
+        return nacimiento;
+    }
+
+    public void setNacimiento(Date nacimiento) {
+        this.nacimiento = nacimiento;
+    }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
     }
 }
