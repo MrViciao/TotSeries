@@ -18,6 +18,11 @@ public class Serie {
 
     public Serie() {
         this.temporadas=new ArrayList<>();
+        this.id = "";
+        this.titulo = "";
+        this.descripcion = "";
+        this.artistas= new ArrayList<>();
+        this.productora = null;
     }
 
     public Serie(String id, String titulo, String descripcion) {
@@ -26,6 +31,7 @@ public class Serie {
         this.descripcion = descripcion;
         this.artistas= new ArrayList<>();
         this.productora = new Productora();
+        this.temporadas= new ArrayList<>();
     }
 
     @Override
@@ -45,7 +51,7 @@ public class Serie {
         return lista;
     }
 
-    boolean existeEpisodio(int idTemporada, String idEpisodio) {
+    public boolean existeEpisodio(int idTemporada, String idEpisodio) {
         if(idTemporada >= 0 && idTemporada < this.temporadas.size())
             return this.temporadas.get(idTemporada).existeEpisodio(idEpisodio);
         else
