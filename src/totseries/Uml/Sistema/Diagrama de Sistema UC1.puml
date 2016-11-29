@@ -1,22 +1,24 @@
 @startuml
 title	DSS1.	Registro	
-'	ocultar	el	foot	si	son	curts,	sino	deixar-ho
-'	la	comanda	es	la	seguent
 hide	footbox
-'definicio	d'actors
 actor	Usuario	as	user
-user	->	":Totseries":registro()
-":Totseries" -> user :solicita Nombre
-user -> ":Totseries":introduce Nombre
-":Totseries" -> user :solocita Password
-user -> ":Totseries" :introduce Password
-":Totseries" -> user :solicita ID
-user -> ":Totseries" :introduce ID
-":Totseries" -> user :solicita Fecha de Nacimiento
-user -> ":Totseries" :introduce fecha de nacimiento
-opt exist(ID)
-    ":Totseries" -> user :solicita ID
-    user -> ":Totseries" :introduce ID
+
+user	->	":Totseries":iniciarRegistro()
+":Totseries" -> user :escriu("introduzca nombre")
+user -> ":Totseries":llegeixString():String
+":Totseries" -> user :escriu("Introduzca password")
+user -> ":Totseries" :llegeixString():String
+":Totseries" -> user :escriu("Introduzca ID")
+user -> ":Totseries" :llegeixString():String
+":Totseries" -> user :escriu("Introduzca fecha de nacimiento")
+user -> ":Totseries" :llegeixString():String
+":Totseries" -> user :escriu("Introduzca pais de nacimiento")
+user -> ":Totseries" :llegeixString():String
+
+loop ID == existente
+    ":Totseries" -> user :escriu("Introduzca ID")
+    user -> ":Totseries" :llegeixString():String
 end
-":Totseries" -> user :Usuario Creado
+":Totseries" -> user :escriu("Usuario Creado")
 @enduml
+
