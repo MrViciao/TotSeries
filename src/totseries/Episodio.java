@@ -46,7 +46,9 @@ public class Episodio {
         return promedio;
     }
     
-    
+    public Episodio verEpisodio(){
+        return this;
+    }
     private void setPromedio(){
         Iterator<Valoracion> iterador= valoraciones.iterator();
         Valoracion valoracion;
