@@ -10,16 +10,8 @@ participant ":Usuario" as Usuario
 participant "nuevo:Usuario" as nUsuario
 participant ":Consola" as Consola
 
-Cliente	-> TotSeries:registrar(username,password, nombre,pais,nacimiento)
+Cliente	-> TotSeries:registrar(nombre,usuario,pais,usuario,password,nacimiento)
 activate TotSeries
-
-note right TotSeries
-    username:String
-    nombre:String
-    password:String
-    nacionalidad:String
-    fechaNacimiento:Date
-end note
 
 note right TotSeries
         exist := true
@@ -32,13 +24,13 @@ loop  exist == true
         exist := false
     end note
 
-    loop usuario in usuarios
+    loop usuario in Registro
         Registro -> Usuario:getUsername():String
         activate Usuario
         Usuario  --> Registro:username_old
         deactivate Usuario
         opt username==username_old
-            note left Registro
+            note right Registro
                 exist := true
             end note
         end opt
@@ -55,17 +47,17 @@ loop  exist == true
     end opt
 end loop
 
-TotSeries -> Registro:registrar(username,password, nombre,pais,nacimiento):void
+TotSeries -> Registro:registrar(nombre,usuario,pais,usuario,password,nacimiento)
 activate Registro
 create nUsuario
 activate nUsuario
-Registro -> nUsuario:Usuario(username,password, nombre,pais,nacimiento):Usuario
+Registro -> nUsuario:Usuario(nombre,usuario,pais,usuario,password,nacimiento):Usuario
 nUsuario --> Registro: new_usuario
 deactivate nUsuario
-Registro -> Registro: usuarios.add(new_usuario):void
+Registro -> Registro: usuarios.add(new_usuario)
 activate Registro
 deactivate Registro
 Registro --> TotSeries
 deactivate Registro
-TotSeries->"Consola":escriu("Se ha agregado el nuevo usuario")
+TotSeries->"Consola":escriu("Usuario creado")
 @enduml
