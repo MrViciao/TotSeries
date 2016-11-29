@@ -1,0 +1,109 @@
+@startuml
+left to right direction
+
+title Diagrama de Dominio para TotSeries
+
+object Totseries
+
+object Episodio {
+idEpisodio
+nombre
+duracion
+idioma
+fecha
+descripción
+}
+
+object Artista {
+id
+nombre
+nacionalidad
+}
+
+object Productora {
+nombre
+identificador
+añoCreacion
+}
+
+object Cliente {
+nacionalidad
+fechaNacimiento
+}
+
+Object Factura{
+total
+fecha
+}
+
+Object Temporada{
+idTemporada
+episodios
+}
+
+
+
+object Serie{
+idSerie
+descripcion
+titulo
+temporadas
+}
+
+object Usuario{
+nombre
+username
+password
+id
+}
+
+Object Valoracion{
+puntuacion
+fecha
+}
+
+object Catalogo
+Object Tiempo
+Object VIP
+Object Administrador
+Object Actor
+Object Director
+Object Estado
+Object Registro
+
+Totseries "1" -- "1" Catalogo : tiene >
+Totseries "1" -- "1" Registro : tiene >
+
+Registro "1" -- "*" Usuario : tiene >
+Usuario <|-- Cliente
+Usuario <|-- Administrador
+
+Usuario "*" -- "1" Catalogo : visualiza >
+
+Cliente "1" -- "*" Factura : tiene >
+Cliente "1" -- "*" Valoracion : ha realizado >
+Cliente "*" -- "1" Estado : es >
+
+Estado <|-- VIP
+Estado <|-- Basico
+
+Administrador "1" --"1" Estado : cambia >
+
+Catalogo "1" *-- "1..*" Serie : consta >
+
+Serie "1" *-- "1..*" Temporada : consta >
+Serie "1..*" -- "1..*" Artista : tiene >
+Serie "1..*"- "1" Productora : tiene >
+
+Artista  <|-- Actor
+Artista  <|-- Director
+
+Temporada "1" *-- "1..*" Episodio : consta >
+
+Episodio "0..1" -- "*" Cliente : visualiza <
+Episodio "1" -- "*" Valoracion : tiene >
+
+Factura "*" -- "1" Tiempo : genera <
+Cliente "1" --- "1" Valoracion: < Tiene 
+
+@enduml
