@@ -5,12 +5,12 @@ hide	footbox
 actor Cliente
 participant ":TotSeries" as TotSeries
 participant ":Registro" as Registro
-participant ":Usuario" as Usuario
+participant ":Cliente" as Usuario
 
-participant "nuevo:Usuario" as nUsuario
+participant "nuevo:Cliente" as nUsuario
 participant ":Consola" as Consola
 
-Cliente	-> TotSeries:registrar(nombre,usuario,pais,usuario,password,nacimiento)
+Cliente	-> TotSeries:registrar(username,password,nombre,dni,direccion)
 activate TotSeries
 
 note right TotSeries
@@ -24,7 +24,7 @@ loop  exist == true
         exist := false
     end note
 
-    loop usuario in Registro
+    loop cliente in Registro
         Registro -> Usuario:getUsername():String
         activate Usuario
         Usuario  --> Registro:username_old
@@ -39,7 +39,7 @@ loop  exist == true
     Registro-->TotSeries:exist
     deactivate Registro
     opt exist ==true
-        TotSeries -> Consola:escriu("Introduzca un nuevo username, el anterior ya existe")
+        TotSeries -> Consola:escriu("Introduzca un nuevo username, este ya esta cogido")
         activate Consola
         TotSeries -> Consola:llegeixString():String
         Consola --> TotSeries:username := String
@@ -47,17 +47,16 @@ loop  exist == true
     end opt
 end loop
 
-TotSeries -> Registro:registrar(nombre,usuario,pais,usuario,password,nacimiento)
+TotSeries -> Registro:registrar(nom,dni,adreca,usuari,password)
 activate Registro
 create nUsuario
 activate nUsuario
-Registro -> nUsuario:Usuario(nombre,usuario,pais,usuario,password,nacimiento):Usuario
-nUsuario --> Registro: new_usuario
+Registro -> nUsuario:Cliente(id,usuari,password,nom,dni,adreca,false):Cliente
+nUsuario --> Registro: new_cliente
 deactivate nUsuario
-Registro -> Registro: usuarios.add(new_usuario)
+Registro -> Registro: clientes.add(new_cliente)
 activate Registro
 deactivate Registro
 Registro --> TotSeries
 deactivate Registro
-TotSeries->"Consola":escriu("Usuario creado")
 @enduml
