@@ -49,7 +49,7 @@ public class Temporada {
         Episodio episodio;
         while (iterador.hasNext()) {
             episodio = iterador.next();
-            if (episodio.getPromedio() > 4) {
+            if (episodio.getPromedio() >= 4) {
                 lista += episodio.toString();
             }
         }

@@ -10,25 +10,52 @@ participant ":Registro" as Registro
 participant ":Cliente" as Usuario
 participant "nuevo:Cliente" as nUsuario
 
-Cliente -> Menu
-activate Menu
-loop totSeries.hasUsuario(username)== false
-    Menu->Consola:escriu("Introduzca un nuevo username, este ya esta cogido: ")
-    activate Consola
-    Menu->Consola:llegeixString():String
-    Consola->Menu:usern:String
-    deactivate Consola
-    note right Menu
-        username:=usern
+note right Cliente
+        Cliente selecciona caso de uso 1
     end note
+Cliente -> Menu
+
+activate Menu
+    note right Menu
+        username:String
+    end note
+    
+    Menu->Consola:username:=llegeixString():String
+    activate Consola
+    Consola-->Menu:username
+    deactivate Consola
+loop totSeries.hasUsuario(username) == true
+    Menu->Consola:escriu("Username en uso, seleciona otro")
+    activate Consola
+    Menu->Consola:username:=llegeixString():String
+    Consola-->Menu:username
+    deactivate Consola
 end loop
+
+note right Menu
+        Consola pregunta y lee el resto
+        de datos necesarios para registrarse
+        (Obmitidos para no ocupar espacio)
+    end note
+
+note right Menu
+        password, nombre, dni, direccion:String
+    end note
+
 Menu -> TotSeries:registrar(username,password,nombre,dni,direccion):Void
 activate TotSeries
-TotSeries -> Registro:registrar(nom,dni,adreca,usuari,password)
+TotSeries -> Registro:registrar(username,password,nombre,dni,direccion):Void
 activate Registro
+note right Registro
+        id:String
+        id:= "c" + clientes.size()+1
+        (Sigue la misma estructura de id
+        que los datos xml)
+    end note
 create nUsuario
-activate nUsuario
+
 Registro -> nUsuario:Cliente(id,usuari,password,nom,dni,adreca,false):Cliente
+activate nUsuario
 nUsuario --> Registro: new_cliente
 deactivate nUsuario
 Registro -> Registro: clientes.add(new_cliente)
@@ -37,5 +64,6 @@ deactivate Registro
 Registro --> TotSeries
 deactivate Registro
 TotSeries->Menu
-deactivate Menu
+deactivate TotSeries
+
 @enduml

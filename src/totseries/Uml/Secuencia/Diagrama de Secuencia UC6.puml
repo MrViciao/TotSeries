@@ -5,13 +5,19 @@ hide	footbox
 actor Usuario
 participant ":Menu" as Menu
 participant ":TotSeries" as TotSeries
+participant ":Consola" as Consola
 participant ":Catalogo" as Catalogo
 participant ":Serie" as Serie
 participant ":Temporada" as Temporada
 participant ":Episodio" as Episodio
-participant ":Consola" as Consola
+
+
+note right Usuario
+        Selecciona caso 6
+    end note
 Usuario -> Menu
 activate Menu
+
 Menu -> TotSeries:getMejoresEpisodios():String
 activate TotSeries
 TotSeries -> Catalogo:getMejoresEpisodios():String
@@ -19,8 +25,8 @@ activate Catalogo
 
 
 note right Catalogo
-    listaSerie : String
-    listaSerie := ""
+    lista_episodio : String
+    lista_episodio := ""
 end note
 
 loop for serie in series
@@ -29,7 +35,6 @@ loop for serie in series
     end note
     Catalogo -> Serie:getMejoresEpisodios():String
     activate Serie
-
 
     note right Serie
     lista_episodio : String
@@ -54,7 +59,6 @@ loop for serie in series
             activate Episodio
             Episodio --> Temporada:valoracion
             deactivate Episodio
-
 
             opt valoracion >= 4
                 Temporada -> Episodio:toString():String
@@ -83,12 +87,16 @@ loop for serie in series
      note right Catalogo
         lista_episodio += lista_episodio
     end note
+
+    opt lista_episodio.isEmpty()
+        note right Catalogo
+            lista_episodio="Ninguna serie tiene nota alta"
+        end note
+        
 end loop
 Catalogo --> TotSeries:lista_episodio
 deactivate Catalogo
-
-TotSeries -> Menu : lista_episodio
-deactivate TotSeries
+TotSeries --> Menu:lista_episodio
 Menu -> Consola : escriu(lista_episodio):Void
 activate Consola
 Consola --> Menu

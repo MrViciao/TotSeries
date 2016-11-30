@@ -13,15 +13,14 @@ public class TotSeries {
     private Registro registro;
     private Cliente actualCliente;
 
-    public String reproducirEpisodio(String serie_id, int temporada_id, int episodio_id) {
+    public void reproducirEpisodio(String serie_id, int temporada_id, int episodio_id) {
         if (!catalogo.existeEpisodio(serie_id, temporada_id, episodio_id)) {
-            return "No existe episodio\n";
+            Consola.escriu("No existe episodio\n");
         }
 
         Episodio episodio = catalogo.verEpisodio(serie_id, temporada_id, episodio_id);
+        Consola.escriu("Reproduciendo episodio.\n");
         actualCliente.addVisualizacion();
-        return "Reproduciendo episodio.\n";
-
     }
     
     public void valorarEpisodio(String serie_id, int temporada_id, int episodio_id, int puntuacion) {

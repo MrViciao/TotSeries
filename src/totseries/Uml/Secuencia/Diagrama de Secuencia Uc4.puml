@@ -4,7 +4,8 @@ title	DS:4	Ver Episodio
 hide	footbox
 
 actor	Usuario
-
+participant ":Menu" as Menu
+participant ":Consola" as Consola
 participant ":TotSeries" as TotSeries
 participant ":Catalogo" as Catalogo
 participant ":Serie" as Serie
@@ -12,9 +13,14 @@ participant ":Temporada" as Temporada
 participant ":Episodio" as Episodio
 participant "cliente:Cliente" as cliente
 participant ":Factura" as factura
-participant ":Consola" as Consola
-participant ":Menu" as Menu
-Usuario -> TotSeries:verEpisodio(serieId, temporadaId, episodioId):void
+
+
+note right Usuario
+            Selecciona el caso de uso 4
+        end note
+Usuario -> Menu
+activate Menu
+Menu -> TotSeries:verEpisodio(serieId, temporadaId, episodioId):void
 activate TotSeries
 TotSeries -> Catalogo:existeEpisodio(serie_id,temporada_id,episodio_id):bool
 
@@ -103,18 +109,16 @@ opt exist == true
     factura->cliente
     deactivate cliente
     cliente->TotSeries
-    TotSeries --> Menu 
 end opt
     TotSeries --> Menu
     deactivate TotSeries
-    activate Menu
     
     Menu->Consola:escriure("Quiere valorar el episodio? Escribe true para valorar:"):Void
     Consola -> Menu:llegirString():String
     Consola --> Menu:opcion
 
     opt opcion == true
-        note left Menu
+        note right Menu
         DS5. Valoracion
         end note
      end opt

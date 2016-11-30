@@ -92,11 +92,11 @@ public class Menu {
                     Consola.escriu("introduce una nota: ");
                     int puntuacion = puntuacion = Consola.llegeixInt();
                     while (puntuacion < 0 || puntuacion > 5) {
-                        Consola.escriu("Escribela entre 0 y 5!");
+                        Consola.escriu("Escribela entre 0 y 5!\n");
                         puntuacion = Consola.llegeixInt();
                     }
                     totSeries.valorarEpisodio(serieId, temporadaId, episodioId, puntuacion);
-                    Consola.escriu("Episodio valorado");
+                    Consola.escriu("Episodio valorado\n");
                     break;
 
                 case 6:

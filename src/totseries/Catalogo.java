@@ -32,7 +32,7 @@ public class Catalogo {
         for (Serie serie : series) {
             lista += serie.getMejoresEpisodio();
         }
-        if (lista.equals("")) {
+        if (lista.isEmpty()) {
             lista = "Ninguno de nuestros episodios tiene una media suficiente."
                     + "\nPrueba a valorar una serie para subir su nota\n";
         }
@@ -71,12 +71,14 @@ public class Catalogo {
 
     @Override
     public String toString() {
-        String lista = "";
-        Iterator<Serie> iterador = this.series.iterator();
-        while (iterador.hasNext()) {
-            lista += iterador.next().toString();
+        String lista_series = "";
+        for (Serie serie : series) {
+            lista_series += serie.toString();
         }
-        return lista;
+        if (series.size() == 0) {
+            lista_series = "No hay series";
+        }
+        return lista_series;
     }
 
     public Serie getSerie(String idSerie) {

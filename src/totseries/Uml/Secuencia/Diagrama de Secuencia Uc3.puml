@@ -3,14 +3,19 @@
 title	DS:3 Ver Catalogo
 hide	footbox
 
-actor	Usuario
+actor	Cliente
 participant ":Menu" as Menu
 participant ":TotSeries" as TotSeries
 participant ":Catalogo" as Catalogo
 participant ":Serie" as Serie
 participant ":Consola" as Consola
 
-Usuario -> Menu
+
+note right Cliente
+    selecciona el caso 3
+endnote
+
+Cliente -> Menu
 activate Menu
 Menu -> TotSeries:verCatalogo(): String
 activate TotSeries
@@ -22,7 +27,7 @@ note right Catalogo
 end note
 
 
-loop For serie in Catalogo
+loop For serie in catalogo
     Catalogo -> Serie:toString():String
     activate Serie
     Serie --> Catalogo:text
@@ -31,11 +36,20 @@ loop For serie in Catalogo
         lista_series += text
     endnote
 end
-Catalogo --> TotSeries: lista
+
+opt series.size()==0
+    note right Catalogo
+        lista_series = "No hay series"
+    endnote
+end
+Catalogo --> TotSeries: lista_series
 deactivate Catalogo
-TotSeries -> Menu : lista
-deactivate TotSeries
-Menu -> Consola: escriu(lista):Void
+
+TotSeries --> Menu: lista_series
+
+Menu -> Consola: escriu(lista_series):Void
+activate Consola
+
 
 
 @enduml

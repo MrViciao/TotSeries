@@ -35,7 +35,7 @@ public class Registro {
     }
     
     public void registrar(String nom, String dni, String adreca, String usuari, String password){
-        String id="c"+clientes.size()+administradores.size()+1;
+        String id="c"+clientes.size()+1;
         Cliente cliente = new Cliente(id,  usuari,  password, nom, dni, adreca, false);
         clientes.add(cliente);
     }
