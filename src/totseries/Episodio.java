@@ -77,10 +77,6 @@ public class Episodio {
         this.setPromedio();
     }
     
-    public boolean equals(int idEpisodio){
-        return this.id == idEpisodio;
-    }
-    
     @Override
     public String toString(){
         String string="\n Titulo: " + titulo +

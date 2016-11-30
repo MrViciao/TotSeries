@@ -17,11 +17,6 @@ public class Valoracion {
     private int puntuacion;
     private Date fecha;
     
-    public Valoracion(int puntuacion){
-        this.puntuacion=puntuacion;
-        this.fecha=new Date();
-    }
-    
     public Valoracion(String usuario, int puntuacion){
         this.usuario=usuario;
         this.puntuacion=puntuacion;
@@ -55,6 +50,6 @@ public class Valoracion {
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fecha = fecha; 
     }
 }

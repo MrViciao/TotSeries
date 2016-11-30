@@ -20,6 +20,14 @@ namespace java.util {
 }
 
 namespace Vista {
+
+    class Menu{
+        -totSeries
+        ==
+        +Menu(TotSeries totSeries)
+        +void run()
+        +void printMenu()
+    }
     class Consola{
     ==
     +void escriu(String s)
@@ -28,6 +36,8 @@ namespace Vista {
     +int llegeixInt()
     +string llegeixString()
     }
+
+    Menu "1" - "1" Consola : usa >
 }
 
 namespace Model {
@@ -35,49 +45,71 @@ namespace Model {
     
     class Registro{
     ==
-    +boolean hasUsuario(string username)
-    +registrar(String username,String password,String nombre,String pais,Date fNacimiento)
+    +Registro()
+    +boolean hasUsuario(String username)
+    +registrar(String nom, String dni, String adreca, String usuari, String password)
     }
 
     class Usuario {
+        - String id
         - String username
         - String password
         - String nombre
-        - String id
     }
     class Cliente {
         - String pais
         - Date nacimiento
-        - Boolean VIP
+        - Boolean vip
+        - String dni
+        - String direccion
         ==
+        + Cliente(String id, String username, String password, String nombre)
+        + Cliente(String id, String username, String password,
+            String nombre, String dni, String adreca, boolean vip)
+        + Factura getLastFactura()
+        + addVisualizacion()
     }
     class Administrador{
         ==
+        + Administrador(String id, String username, String password, String nombre){
     }
 
     class Factura{
         -float total
         -Date fecha
         -int visualizaciones
+        ==
+        + Factura()
+        + Factura(int precio)
+        + addVisualizacion()
     }
     
     class Catalogo{
         ==
-        +String toString()
-        +String getMejoresEpisodios()
-        +void addSerie(Serie serie)
-        +bool existeEpisodio(String idSerie, int idTemporada,String idEpisodio)
-        +Episodio verEpisodio(String idSerie,int idTemporada,String idEpisodio)
+        + String toString()
+        + String getMejoresEpisodios()
+        + void addSerie(Serie serie)
+        + boolean existeEpisodio(String idSerie, int idTemporada,int idEpisodio)
+        + Episodio getEpisodio(String idSerie,int idTemporada,int idEpisodio)
+        + String verTemporadas(String idSerie)
+        + String verEpisodios(String idSerie, int idTemporada)
+        + String toString()
+        + Serie getLastSerie()
+        + Serie getSerie(String idSerie)
     }
     class Temporada{
-        -int idTemporada
+        - int id
+        - int numEpisodis
         ==
-        +String toString()
-        +String getMejoresEpisodios()
-        +bool existeEpisodio(String idEpisodio)
-        +Episodio verEpisodio(int episodio)
-        +void addEpisodio(Episodio espisodio)
-        +int size()
+        + String toString()
+        + String getMejoresEpisodios()
+        + boolean existeEpisodio(int idEpisodio)
+        + Episodio getEpisodio(int episodio)
+        + void addEpisodio(Episodio espisodio)
+        + int size()
+        + String verEpisodios()
+        + Episodio find(int idEpisodio)
+        + void addEpisodio(Episodio)
     }
 
     class Serie{
@@ -85,50 +117,71 @@ namespace Model {
         -String nombre
         -String descripcion
         ==
-        +String toString()
-        +String getMejoresEpisodios()
-        +bool existeEpisodio(int temporada, String idEpisodio)
-        +bool equals(String idSerie)
-        +Temporada getLastTemporada()
-        +void addTemporada(Temporada temporada)
-        +Episodio verEpisodio(int idTemporada,String idEpisodio) 
+        + Serie(String id, String titulo, String descripcion)
+        + String toString()
+        + String getMejoresEpisodios()
+        + boolean existeEpisodio(int temporada, int idEpisodio)
+        + boolean equals(String idSerie)
+        + Temporada getLastTemporada()
+        + void addTemporada(Temporada temporada)
+        + Episodio getEpisodio(int idTemporada,int idEpisodio)
+        + String verEpisodios(int idTemporada)
+        + Temporada getLastTemporada()
+        + boolean hasTemporada(int idTemporada)
     }
     class Valoracion{
         -String usuario
         -int puntuacion
         -Date fecha
+        ==
+        + Valoracion(String usuario, int puntuacion)
+        + Valoracion(String usuario, int puntuacion, Date fecha)
+        
     }
     
     class Episodio {
-        -String titulo
-        -String duracion
-        -String idioma
-        -String descripcion
-        -float promedio
-        -Date fecha
-        -String descripción
-        -String id
+        - int id
+        - String titulo
+        - String duracion
+        - String idioma
+        - String descripcion
+        - float promedio
+        - Date fecha
+        - String descripción
+        
         ==
-        +Episodio verEpisodio()
-        +String toString()
-        +bool equals(String idEpisodio)
+        + Episodio verEpisodio()
+        + Episodio(String title, String duration, String idioma, String description, Date data)
+        + String toString()
+        + void setPromedio()
+        + void addValoracion(Valoracion valoracion)
     }
 
     
     abstract class Artista {
-        -String id
-        -String nombre
-        -String nacionalidad
+        - String id
+        - String nombre
+        - String nacionalidad
+        ==
+        + Artista(String id, String nombre, String pais)
     }
 
     class Productora {
-        -string nombre
-        -String id
-        -Date fCreacion
+        - string nombre
+        - String id
+        - Date fCreacion
+        ==
+        + Productora(String id, String nombre)
     }
 
-    class Actor
-    class Director
+    class Actor{
+    ==
+    Actor(String id, String nom, String pais)
+    }
+    class Director{
+    ==
+    Director(String id, String nom, String pais)
+    }
 
     Registro "1" -- "0..* | usuarios" Cliente : contine >
     Registro "1" -- "0..* | administradores" Administrador : contine >
@@ -142,14 +195,15 @@ namespace Model {
     Catalogo "1" *-- "1..* | series" Serie : consta >
     Serie "1" *-- "1..* | temporadas" Temporada : consta >
     Serie "1..*" - "1..* | artistas" Artista : tiene >
-    Serie "1..*" - "1 | productora" Productora : tiene >
+    Serie "1..*" - "1..* | productoras" Productora : tiene >
     Temporada "1" *- "1..* | episodios" Episodio : consta >
     Episodio "1" - "0..* | valoraciones" Valoracion : tiene >
 
 }
 
 Controlador.Totseries "1" -- "1 | catalogo" Model.Catalogo : tiene >
+Controlador.Totseries "1" -- "1" Vista.Consola : usa >
 Controlador.Totseries "1" -- "1 | registro" Model.Registro : tiene >
-Controlador.Totseries "1" -- "1" Vista.Consola : Usa
+Controlador.Totseries "1" -- "1" Vista.Menu : Usa
 java.util.Scanner "-sc | 1" <-- "1" Vista.Consola : Usa 
 @enduml

@@ -18,7 +18,7 @@ activate Menu
 Menu -> TotSeries :valorarEpisodio(serieId:String, temporadaId:int, \nepisodioId:int, puntuacion:int);
 activate TotSeries
 
-TotSeries -> Catalogo:getEpisodio(serie,temporada,episodio):Episodio
+TotSeries -> Catalogo:getEpisodio(serie:string,\ntemporada:int,episodio:int):Episodio
     activate Catalogo
     Catalogo -> Serie:getEpisodio(temporada:int,\nepisodio:int):Episodio
     activate Serie
@@ -36,11 +36,15 @@ TotSeries -> Catalogo:getEpisodio(serie,temporada,episodio):Episodio
     deactivate Catalogo
 
 create Valoracion
-TotSeries -> Valoracion:Valoracion(usuario,puntuacion,fecha):Valoracion
+note right TotSeries
+    usuario:string
+    usuario:=usuarioActual.getUsername()
+end note
+TotSeries -> Valoracion:Valoracion(usuario:String,puntuacion:int):Valoracion
 activate Valoracion
 Valoracion --> TotSeries: valoracion
 deactivate Valoracion
-TotSeries -> Episodio: addValoracion(valoracion):void
+TotSeries -> Episodio: addValoracion(valoracion:Valoracion):void
 activate Episodio
 Episodio -> Episodio:addValoracion(valoracion):Void
 Episodio->TotSeries
