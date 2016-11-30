@@ -86,19 +86,6 @@ public class Consola {
     public static Date llegeixDataSistema() {
         return new Date();
     }
-    
-    public static void printMenu(){
-        System.out.println("====");
-        System.out.println("Menu");
-        System.out.println("-----");
-        System.out.println("1.Añadir Cliente");
-        System.out.println("3.Ver Catalogo");
-        System.out.println("4.Ver episodio");
-        System.out.println("6.Ver mejores Episodios");
-        System.out.println("0.Exit");
-        System.out.println("====");
-    }
-
 }
 
 

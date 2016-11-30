@@ -6,7 +6,6 @@
 package totseries;
 
 import totseries.Parser.Consola;
-import totseries.Parser.TotSeriesDataManager;
 
 /**
  *
@@ -17,20 +16,23 @@ public class Menu {
     /**
      * @param totseries
      */
-    
-    private TotSeries totSeries;
-    
-    public Menu(TotSeries totSeries){
-        this.totSeries=totSeries;
+    private final TotSeries totSeries;
+
+    public Menu(TotSeries totSeries) {
+        this.totSeries = totSeries;
     }
+
     public void run() {
-        
+
         int selected = 1;
         while (selected != 0) {
-            Consola.printMenu();
+            printMenu();
             selected = Consola.llegeixInt();
             switch (selected) {
                 case 1:
+                    Consola.escriu("================\n"
+                            + "= Registrar\n"
+                            + "================\n");
                     Consola.escriu("Escriu username: ");
                     String username = Consola.llegeixString();
                     Consola.escriu("Escriu password: ");
@@ -43,26 +45,51 @@ public class Menu {
                     String direccion = Consola.llegeixString();
                     totSeries.registrar(username, password, nombre, dni, direccion);
                     break;
+                    
                 case 3:
+                    Consola.escriu("================\n"
+                            + "= Ver Catalogo\n"
+                            + "================\n");
                     totSeries.verCatalogo();
                     break;
+                    
                 case 4:
+                    Consola.escriu("================\n"
+                            + "= Ver Episodio\n"
+                            + "================\n");
                     totSeries.verCatalogo();
                     Consola.escriu("Escriu el id de una serie: ");
-                    String serieId=Consola.llegeixString();
+                    String serieId = Consola.llegeixString();
                     totSeries.verTemporadas(serieId);
                     Consola.escriu("Escriu una temporada: ");
-                    int temporadaId=Consola.llegeixInt();
+                    int temporadaId = Consola.llegeixInt();
+                    totSeries.verEpisodios(serieId, temporadaId);
                     Consola.escriu("Escriu un episodi: ");
-                    int episodioId=Consola.llegeixInt();
+                    int episodioId = Consola.llegeixInt();
                     totSeries.reproducirEpisodio(serieId, temporadaId, episodioId);
                     break;
+                    
                 case 6:
+                    Consola.escriu("================\n"
+                            + "= Ver Mejores Episodios\n"
+                            + "================\n");
                     totSeries.verMejoresEpisodios();
                     break;
             }
         }
 
+    }
+    
+        
+    public static void printMenu(){
+        Consola.escriu("================\n");
+        Consola.escriu("= Menu\n");
+        Consola.escriu("================\n");
+        Consola.escriu("1.Añadir Cliente\n");
+        Consola.escriu("3.Ver Catalogo\n");
+        Consola.escriu("4.Ver episodio\n");
+        Consola.escriu("6.Ver mejores Episodios\n");
+        Consola.escriu("0.Exit\n\n");
     }
 
 }

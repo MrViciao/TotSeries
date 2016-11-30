@@ -32,8 +32,10 @@ public class Catalogo {
         for (Serie serie : series) {
             lista += serie.getMejoresEpisodio();
         }
-        if (lista.equals("")) lista="Ninguno de nuestros episodios tiene una media suficiente."
-                + "\nPrueba a valorar una serie para subir su nota\n";
+        if (lista.equals("")) {
+            lista = "Ninguno de nuestros episodios tiene una media suficiente."
+                    + "\nPrueba a valorar una serie para subir su nota\n";
+        }
         return lista;
     }
 
@@ -51,6 +53,14 @@ public class Catalogo {
             return "No existe Serie\n";
         }
         return serie.verTemporadas();
+    }
+
+    public String verEpisodios(String idSerie, int idTemporada) {
+        Serie serie = getSerie(idSerie);
+        if (serie == null) {
+            return "No existe Serie\n";
+        }
+        return serie.verEpisodios(idTemporada);
     }
 
     //Metodos de clase

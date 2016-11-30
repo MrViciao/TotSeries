@@ -5,7 +5,6 @@
  */
 package totseries;
 
-import totseries.Parser.Consola;
 import totseries.Parser.TotSeriesDataManager;
 
 /**
@@ -20,19 +19,19 @@ public class Main {
     public static void main(String[] args) {
         TotSeries tot_series = new TotSeries();
         tot_series = cargarDatos(tot_series);
-        
+
         //Este es un usuario que esta aqui para no hacer login.
-        Cliente user =new Cliente("c0", "test", "test", "test");
+        Cliente user = new Cliente("c0", "test", "test", "test");
         tot_series.setActualCliente(user);
-        
-        Menu menu =new Menu(tot_series);
+
+        Menu menu = new Menu(tot_series);
         menu.run();
     }
 
     public static TotSeries cargarDatos(TotSeries tot_Series) {
         TotSeriesDataManager dataManager = new TotSeriesDataManager();
         dataManager.obtenirDades("data/TotSeries.xml");
-        dataManager.cargarDatos(tot_Series);
+        tot_Series = dataManager.cargarDatos(tot_Series);
         return tot_Series;
     }
 

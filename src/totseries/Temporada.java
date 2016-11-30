@@ -16,27 +16,23 @@ import java.util.List;
 public class Temporada {
 
     private List<Episodio> episodios;
-    private int idTemporada;
+    private int id;
     private int numEpisodis;
 
+    ///////////////////////////////
+    //Constructores
     public Temporada() {
         episodios = new ArrayList<>();
     }
 
     public Temporada(int idTemporada) {
         this();
-        this.idTemporada = idTemporada;
+        this.id = idTemporada;
         numEpisodis = episodios.size();
     }
 
-    public int getIdTemporada() {
-        return idTemporada;
-    }
-
-    public void setIdTemporada(int idTemporada) {
-        this.idTemporada = idTemporada;
-    }
-
+    ///////////////////////////////
+    // Metodos
     public int size() {
         return this.episodios.size();
     }
@@ -60,8 +56,7 @@ public class Temporada {
         return lista;
     }
 
-    boolean existeEpisodio(int idEpisodio) {
-
+    public boolean existeEpisodio(int idEpisodio) {
         for (Episodio episodio : episodios) {
             if (episodio.getId() == idEpisodio) {
                 return true;
@@ -74,9 +69,18 @@ public class Temporada {
         return find(idEpisodio);
     }
 
+    public String verEpisodios() {
+        String lista="";
+        for (Episodio episodio : episodios){
+            lista+=episodio.toString();
+        }
+        if (lista.isEmpty()) lista="No hay episodios disponibles";
+        return lista;
+    }
+
     @Override
     public String toString() {
-        return "Temporada: " + idTemporada + " - Episodios: " + numEpisodis + "\n";
+        return "Temporada: " + id + " - Episodios: " + numEpisodis + "\n";
     }
 
     public Episodio find(int idEpisodio) {
@@ -86,6 +90,16 @@ public class Temporada {
             }
         }
         return null;
+    }
+
+    ///////////////////////////////
+    //Getters and setters 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

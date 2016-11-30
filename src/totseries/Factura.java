@@ -25,6 +25,7 @@ public class Factura {
     public Factura(int precio){
         fecha=new Date();
         this.precio=precio;
+        visualizaciones=0;
     }
     
     public void addVisualizacion(){

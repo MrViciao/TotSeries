@@ -37,7 +37,7 @@ public class Serie {
 
     public boolean existeEpisodio(int idTemporada, int idEpisodio) {
         for (Temporada temporada : temporadas) {
-            if (temporada.getIdTemporada() == idTemporada) {
+            if (temporada.getId() == idTemporada) {
                 return temporada.existeEpisodio(idEpisodio);
             }
         }
@@ -45,17 +45,17 @@ public class Serie {
     }
 
     public Episodio verEpisodio(int idTemporada, int idEpisodio) {
-        return this.temporadas.get(idTemporada).verEpisodio(idEpisodio);
+        return find(idTemporada).verEpisodio(idEpisodio);
     }
     
-    public Episodio verEpisodios(int idTemporada, int idEpisodio) {
-        return this.temporadas.get(idTemporada).verEpisodio(idEpisodio);
+    public String verEpisodios(int idTemporada) {
+        return find(idTemporada).verEpisodios();
     }
 
     //Metodos de clase
     /////////////////
     public void addTemporada(Temporada temporada) {
-        if (hasTemporada(temporada.getIdTemporada())) {
+        if (hasTemporada(temporada.getId())) {
             return;
         }
         temporadas.add(temporada);
@@ -81,8 +81,8 @@ public class Serie {
 
     public boolean hasTemporada(int idTemporada) {
         for (Temporada temporada : temporadas) {
-            if (temporada.getIdTemporada() == idTemporada) {
-                if (temporada.getIdTemporada() == idTemporada) {
+            if (temporada.getId() == idTemporada) {
+                if (temporada.getId() == idTemporada) {
                     return true;
                 }
             }
@@ -106,6 +106,13 @@ public class Serie {
 
     public void setId(String Id) {
         this.id = Id;
+    }
+    
+    public Temporada find(int idTemporada){
+        for (Temporada temporada : temporadas){
+            if (temporada.getId()==idTemporada) return temporada;
+        }
+        return null;
     }
 
 }
