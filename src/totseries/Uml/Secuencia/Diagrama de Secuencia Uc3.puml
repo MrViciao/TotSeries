@@ -4,14 +4,18 @@ title	DS:3 Ver Catalogo
 hide	footbox
 
 actor	Usuario
+participant ":Menu" as Menu
 participant ":TotSeries" as TotSeries
 participant ":Catalogo" as Catalogo
 participant ":Serie" as Serie
 participant ":Consola" as Consola
 
-
-Usuario -> TotSeries:verCatalogo(): Void
+Usuario -> Menu
+activate Menu
+Menu -> TotSeries:verCatalogo(): String
+activate TotSeries
 TotSeries -> Catalogo:toString():String
+activate Catalogo
 note right Catalogo
     lista_series : String
     lista_series := ""
@@ -20,13 +24,18 @@ end note
 
 loop For serie in Catalogo
     Catalogo -> Serie:toString():String
+    activate Serie
     Serie --> Catalogo:text
+    deactivate Serie
     note right Catalogo
         lista_series += text
     endnote
 end
 Catalogo --> TotSeries: lista
-TotSeries -> Consola: escriu(lista):Void
+deactivate Catalogo
+TotSeries -> Menu : lista
+deactivate TotSeries
+Menu -> Consola: escriu(lista):Void
 
 
 @enduml
