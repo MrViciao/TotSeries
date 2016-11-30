@@ -3,14 +3,16 @@ title	DS:6	Ver Episodios mas valorados
 hide	footbox
 
 actor Usuario
+participant ":Menu" as Menu
 participant ":TotSeries" as TotSeries
 participant ":Catalogo" as Catalogo
 participant ":Serie" as Serie
 participant ":Temporada" as Temporada
 participant ":Episodio" as Episodio
 participant ":Consola" as Consola
-
-Usuario -> TotSeries:getMejoresEpisodios():Void
+Usuario -> Menu
+activate Menu
+Menu -> TotSeries:getMejoresEpisodios():String
 activate TotSeries
 TotSeries -> Catalogo:getMejoresEpisodios():String
 activate Catalogo
@@ -85,8 +87,11 @@ end loop
 Catalogo --> TotSeries:lista_episodio
 deactivate Catalogo
 
-TotSeries -> Consola : escriu(lista_episodio):Void
-activate Consola
-deactivate Consola
+TotSeries -> Menu : lista_episodio
 deactivate TotSeries
+Menu -> Consola : escriu(lista_episodio):Void
+activate Consola
+Consola --> Menu
+deactivate Consola
+deactivate Menu
 @enduml
