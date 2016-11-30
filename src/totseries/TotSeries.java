@@ -13,33 +13,24 @@ public class TotSeries {
     private Registro registro;
     private Cliente actualCliente;
 
-    public void reproducirEpisodio(String serie_id, int temporada_id, int episodio_id) {
+    public String reproducirEpisodio(String serie_id, int temporada_id, int episodio_id) {
         if (!catalogo.existeEpisodio(serie_id, temporada_id, episodio_id)) {
-            Consola.escriu("No existe episodio\n");
-            return;
+            return "No existe episodio\n";
         }
 
         Episodio episodio = catalogo.verEpisodio(serie_id, temporada_id, episodio_id);
-        Consola.escriu("Reproduciendo episodio.\n");
-
-        Consola.escriu("Quiere valorar el episodio? Escribe true para valorar: ");
         actualCliente.addVisualizacion();
-        if (!Consola.llegeixString().equals("true")) {
-            return;
-        }
-
-        Consola.escriu("introduce una nota: ");
-        int puntuacion = puntuacion = Consola.llegeixInt();
-        while (puntuacion < 0 || puntuacion > 5) {
-            Consola.escriu("Escribela entre 0 y 5!");
-            puntuacion = Consola.llegeixInt();
-        }
-
-        Valoracion valoracion = new Valoracion(actualCliente.getId(), puntuacion);
-        episodio.addValoracion(valoracion);
+        return "Reproduciendo episodio.\n";
 
     }
-
+    
+    public void valorarEpisodio(String serie_id, int temporada_id, int episodio_id, int puntuacion) {
+        Episodio episodio = catalogo.verEpisodio(serie_id, temporada_id, episodio_id);
+        
+        Valoracion valoracion = new Valoracion(actualCliente.getId(), puntuacion);
+        episodio.addValoracion(valoracion);
+        
+    }
     public String verCatalogo() {
         return catalogo.toString();
     }
@@ -47,16 +38,16 @@ public class TotSeries {
     public String verTemporadas(String idSerie) {
         return catalogo.verTemporadas(idSerie);
     }
+    
+    public boolean hasUsuario(String username) {
+        return registro.hasUsuario(username);
+    }
 
     public String verEpisodios(String idSerie, int idTemporada) {
         return catalogo.verEpisodios(idSerie, idTemporada);
     }
 
     public void registrar(String usuari, String password, String nom, String dni, String adreca) {
-        while (!registro.hasUsuario(usuari)) {
-            Consola.escriu("Introduzca un nuevo username, este ya esta cogido: ");
-            usuari = Consola.llegeixString();
-        }
         registro.registrar(nom, dni, adreca, usuari, password);
     }
 
