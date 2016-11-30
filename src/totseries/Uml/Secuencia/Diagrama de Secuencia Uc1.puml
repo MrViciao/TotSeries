@@ -3,50 +3,27 @@ title	DS: Registrarse UC1
 hide	footbox
 
 actor Cliente
+participant ":Menu" as Menu
+participant ":Consola" as Consola
 participant ":TotSeries" as TotSeries
 participant ":Registro" as Registro
 participant ":Cliente" as Usuario
-
 participant "nuevo:Cliente" as nUsuario
-participant ":Consola" as Consola
 
-Cliente	-> TotSeries:registrar(username,password,nombre,dni,direccion)
-activate TotSeries
-
-note right TotSeries
-        exist := true
+Cliente -> Menu
+activate Menu
+loop totSeries.hasUsuario(username)== false
+    Menu->Consola:escriu("Introduzca un nuevo username, este ya esta cogido: ")
+    activate Consola
+    Menu->Consola:llegeixString():String
+    Consola->Menu:usern:String
+    deactivate Consola
+    note right Menu
+        username:=usern
     end note
-
-loop  exist == true
-    TotSeries -> Registro:exist:=hasUsuario(username:string):bool
-    activate Registro
-    note right Registro
-        exist := false
-    end note
-
-    loop cliente in Registro
-        Registro -> Usuario:getUsername():String
-        activate Usuario
-        Usuario  --> Registro:username_old
-        deactivate Usuario
-        opt username==username_old
-            note right Registro
-                exist := true
-            end note
-        end opt
-    end loop
-
-    Registro-->TotSeries:exist
-    deactivate Registro
-    opt exist ==true
-        TotSeries -> Consola:escriu("Introduzca un nuevo username, este ya esta cogido")
-        activate Consola
-        TotSeries -> Consola:llegeixString():String
-        Consola --> TotSeries:username := String
-        deactivate Consola
-    end opt
 end loop
-
+Menu -> TotSeries:registrar(username,password,nombre,dni,direccion):Void
+activate TotSeries
 TotSeries -> Registro:registrar(nom,dni,adreca,usuari,password)
 activate Registro
 create nUsuario
@@ -59,4 +36,6 @@ activate Registro
 deactivate Registro
 Registro --> TotSeries
 deactivate Registro
+TotSeries->Menu
+deactivate Menu
 @enduml
