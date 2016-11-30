@@ -12,9 +12,10 @@ participant ":Episodio" as Episodio
 participant "cliente:Cliente" as cliente
 participant ":Factura" as factura
 participant ":Consola" as Consola
-Usuario -> TotSeries:verEpisodio(serie.temporada,episodio):void
+participant ":Menu" as Menu
+Usuario -> TotSeries:verEpisodio(serieId, temporadaId, episodioId):void
 activate TotSeries
-TotSeries -> Catalogo:existeEpisodio(serie.temporada,episodio):bool
+TotSeries -> Catalogo:existeEpisodio(serie_id,temporada_id,episodio_id):bool
 
 
 activate Catalogo 
@@ -29,15 +30,8 @@ loop For serie in series
     deactivate Serie
 
 
-    opt id==serie
-        note right Catalogo
-            exist := true
-        end note
-    end opt
-end loop
-'
-opt exist
-    Catalogo -> Serie:exist:=existeEpisodio(temporada,episodio):bool
+    opt id.equals(serie_id):bool
+    Catalogo -> Serie:exist:=existeEpisodio(idTemporada,idEpisodio):bool
     activate Serie
     note right Serie
         exist := false
@@ -49,15 +43,8 @@ opt exist
         Temporada --> Serie:id
         deactivate Temporada
 
-        opt id==temporada
-            note right Serie
-                exist := true
-            end note
-        end opt
-    end loop
-'
-    opt exist
-        Serie -> Temporada:exist:=existeEpisodio(episodio):bool
+        opt idTemporada==id
+        Serie -> Temporada:exist:=existeEpisodio(idEpisodio):bool
         activate Temporada
         note right Temporada
             exist := false
@@ -70,23 +57,25 @@ opt exist
             deactivate Episodio
 
 
-            opt id==temporada
+            opt idEpisodio==id
                 note right Temporada
                     exist := true
                 end note
             end opt
         end loop
         Temporada --> Serie:exist
-    end opt
+        end opt
+    end loop
     deactivate Temporada
     Serie --> Catalogo:exist
-end opt
-'
+    end opt
+end loop
+
 deactivate Serie
 Catalogo --> TotSeries:exist
 deactivate Catalogo
 '
-alt exist == true
+opt exist == true
     TotSeries -> Catalogo:verEpisodio(serie,temporada,episodio):Void
     activate Catalogo
     Catalogo -> Serie:verEpisodio(temporada,episodio):Void
@@ -101,28 +90,29 @@ alt exist == true
     deactivate Serie
     deactivate Catalogo
     ... Viendo episodio ...
-    TotSeries->cliente:setVisualizacion():Void
+    TotSeries->cliente:addVisualizacion():Void
     activate cliente
-    cliente->factura:setVisualizacion():Void
+    cliente->factura:addVisualizacion():Void
     activate factura
     deactivate factura
     factura->cliente
     deactivate cliente
     cliente->TotSeries
-    TotSeries->Consola:escriure("¿Valorar Episodio?"):Void
-    TotSeries -> Consola:llegirString():String
-    Consola --> TotSeries:opcion
-
+    TotSeries --> Menu 
+end opt
+    TotSeries --> Menu
+    deactivate TotSeries
+    activate Menu
+    
+    Menu->Consola:escriure("Quiere valorar el episodio? Escribe true para valorar:"):Void
+    Consola -> Menu:llegirString():String
+    Consola --> Menu:opcion
 
     opt opcion == true
-        note right TotSeries
+        note left Menu
         DS5. Valoracion
         end note
      end opt
-else 
-TotSeries->Consola:escriure("No existe el episodio"):Void
-end alt
 
-TotSeries -->Usuario
 deactivate TotSeries
 @enduml
