@@ -22,13 +22,21 @@ public class Registro {
     }
     
     public boolean hasUsuario(String username){
-        return false;
+        for(Cliente cliente : clientes){
+            if(cliente.getUsername().equals(username))
+                return false;
+        }
+        for(Administrador administrador : administradores){
+            if(administrador.getUsername().equals(username))
+                return false;
+        }
+        return true;
         
     }
     
     public void registrar(String nom, String dni, String adreca, String usuari, String password){
-        
-        Cliente cliente = new Cliente("makenewid",  usuari,  password, nom, dni, adreca, false);
+        String id="c"+clientes.size()+administradores.size()+1;
+        Cliente cliente = new Cliente(id,  usuari,  password, nom, dni, adreca, false);
         clientes.add(cliente);
     }
 }

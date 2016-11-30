@@ -115,7 +115,7 @@ public class TotSeriesDataManager {
                 Date date = format.parse(data);
                 Episodio episodio = new Episodio(title, duration, idioma, description, date);
                 catalogo.getLastSerie().getLastTemporada().addEpisodio(episodio);
-//                System.out.println(episodio.toString());
+                //System.out.println(episodio.toString());
             } catch (ParseException ex) {
                 System.out.println("Error al parsear Date");
             }

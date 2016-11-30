@@ -14,7 +14,7 @@ public class Catalogo {
         this.series = new ArrayList<>();
     }
    
-    public boolean existeEpisodio(String idSerie, int idTemporada, String idEpisodio){
+    public boolean existeEpisodio(String idSerie, int idTemporada, int idEpisodio){
         for(Serie serie : series){
              if(serie.getId().equals(idSerie))
                return serie.existeEpisodio(idTemporada, idEpisodio);
@@ -29,7 +29,7 @@ public class Catalogo {
         }
         return lista;
     }
-    public Episodio verEpisodio(String idSerie, int idTemporada, String idEpisodio){
+    public Episodio verEpisodio(String idSerie, int idTemporada, int idEpisodio){
         if(this.existeEpisodio(idSerie,idTemporada,idEpisodio)){
             return this.getSerie(idSerie).verEpisodio(idTemporada,idEpisodio);
         }else
@@ -49,10 +49,9 @@ public class Catalogo {
         return lista;
     }
     public Serie getSerie(String idSerie){
-        Iterator<Serie> iterador = this.series.iterator();
-        while(iterador.hasNext()){
-            if(iterador.next().equals(idSerie))
-               return iterador.next();
+        for(Serie serie : series){
+            if(serie.getId().equals(idSerie))
+                return serie;
         }
         return null;
     }

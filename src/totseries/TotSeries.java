@@ -13,7 +13,19 @@ public class TotSeries {
     private Catalogo catalogo;
     private Registro registro;
 
-    public void  verEpisodio(int serie, int temporada, int episodio){
+    public void  verEpisodio(String serie_id, int temporada_id, int episodio_id){
+        if (!catalogo.existeEpisodio(serie_id, temporada_id, episodio_id)){
+            Consola.escriu("No existe episodio\n");
+            return;
+        }
+        Episodio episodio = catalogo.verEpisodio(serie_id, temporada_id, episodio_id);
+        Consola.escriu("Reproduciendo\n");
+        Consola.escriu("Quiere valorar el episodio? Escribe yes para valorar");
+        if(!Consola.llegeixString().equals("yes")) return;
+        Consola.escriu("introduce una nota");
+        Valoracion valoracion = new Valoracion(Consola.llegeixInt());
+        episodio.addValoracion(valoracion);
+        
         
     }
     
@@ -23,6 +35,10 @@ public class TotSeries {
     }
     
     public void registrar(String usuari, String password, String nom, String dni, String adreca){
+        while(!registro.hasUsuario(usuari)){
+            Consola.escriu("Introduzca un nuevo username, este ya esta cogido/n");
+            usuari=Consola.llegeixString();
+        }
         registro.registrar(nom, dni, adreca, usuari, password);
     }
     

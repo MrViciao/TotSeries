@@ -2,6 +2,7 @@ package totseries;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author Abel
@@ -16,11 +17,11 @@ public class Serie {
     private Productora productora;
 
     public Serie() {
-        this.temporadas=new ArrayList<>();
+        this.temporadas = new ArrayList<>();
         this.id = "";
         this.titulo = "";
         this.descripcion = "";
-        this.artistas= new ArrayList<>();
+        this.artistas = new ArrayList<>();
         this.productora = null;
     }
 
@@ -28,19 +29,19 @@ public class Serie {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.artistas= new ArrayList<>();
+        this.artistas = new ArrayList<>();
         this.productora = new Productora();
-        this.temporadas= new ArrayList<>();
+        this.temporadas = new ArrayList<>();
     }
 
     @Override
     public String toString() {
-        String string="\nTitol: " + titulo + " - " + id
-                        +" \nTemporadas:" + temporadas.size()
-                        +"\nDescripcion: " + descripcion + "\n";
+        String string = "\nTitol: " + titulo + " - " + id
+                + " \nTemporadas:" + temporadas.size()
+                + "\nDescripcion: " + descripcion + "\n";
         return string;
     }
-    
+
     public String getMejoresEpisodio() {
         String lista = "";
         for (Temporada temporada : temporadas) {
@@ -49,33 +50,39 @@ public class Serie {
         return lista;
     }
 
-    public boolean existeEpisodio(int idTemporada, String idEpisodio) {
-        if(idTemporada >= 0 && idTemporada < this.temporadas.size())
-            return this.temporadas.get(idTemporada).existeEpisodio(idEpisodio);
-        else
-            return false;
+    public boolean existeEpisodio(int idTemporada, int idEpisodio) {
+        for (Temporada temporada : temporadas) {
+            if (temporada.getIdTemporada() == idTemporada) {
+                return temporada.existeEpisodio(idEpisodio);
+            }
+        }
+        return false;
     }
-    
-    public Episodio verEpisodio(int idTemporada,String idEpisodio){
+
+    public Episodio verEpisodio(int idTemporada, int idEpisodio) {
         return this.temporadas.get(idTemporada).verEpisodio(idEpisodio);
     }
-    
+
     public String getId() {
         return id;
     }
+
     public void setId(String Id) {
         this.id = Id;
     }
-    
-    public void addTemporada(Temporada temporada){
+
+    public void addTemporada(Temporada temporada) {
         temporadas.add(temporada);
     }
-    
-    public Temporada getLastTemporada(){
-        if(temporadas.isEmpty()) return null;
-        return temporadas.get(temporadas.size()-1);
+
+    public Temporada getLastTemporada() {
+        if (temporadas.isEmpty()) {
+            return null;
+        }
+        return temporadas.get(temporadas.size() - 1);
     }
-    public boolean equals (String idSerie){
+
+    public boolean equals(String idSerie) {
         return this.id.equals(idSerie);
     }
 }

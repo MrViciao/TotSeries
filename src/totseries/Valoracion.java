@@ -16,7 +16,11 @@ public class Valoracion {
     private String usuario;
     private int puntuacion;
     private Date fecha;
-
+    
+    public Valoracion(int puntuacion){
+        this.puntuacion=puntuacion;
+    }
+    
     public Valoracion(String usuario, int puntuacion, Date fecha){
         this.usuario=usuario;
         this.puntuacion=puntuacion;

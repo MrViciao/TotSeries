@@ -15,6 +15,7 @@ import java.util.List;
  * @author Abel
  */
 public class Episodio {
+    private int id;
     private String titulo;
     private String duracion;
     private String idioma;
@@ -23,14 +24,18 @@ public class Episodio {
     private Date fecha;
     private List<Valoracion> valoraciones;
     
+    public Episodio(){
+        this.valoraciones = new ArrayList<>();
+    }
+    
     public Episodio(String title, String duration, String idioma, String description, Date data){
+        this();
         this.titulo=title;
         this.duracion=duration;
         this.idioma=idioma;
         this.descripcion=description;
         this.fecha=data;
         this.promedio = 0;
-        this.valoraciones = new ArrayList<>();
     }
 
     public String getTitulo() {
@@ -39,6 +44,14 @@ public class Episodio {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public float getPromedio() {
@@ -59,11 +72,14 @@ public class Episodio {
         this.promedio = valor/this.valoraciones.size();
     }
     
-    /*
-    public boolean equals(String idEpisodio){
+    public void addValoracion(Valoracion valoracion){
+        valoraciones.add(valoracion);
+        this.setPromedio();
+    }
+    
+    public boolean equals(int idEpisodio){
         return this.id == idEpisodio;
     }
-*/
     
     @Override
     public String toString(){

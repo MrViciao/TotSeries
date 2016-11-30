@@ -42,7 +42,14 @@ public class Menu {
                     tot_series.verCatalogo();
                     break;
                 case 4:
-                    System.out.println("Not working");
+                    tot_series.verCatalogo();
+                    Consola.escriu("Escriu el id de una serie");
+                    String serieId=Consola.llegeixString();
+                    Consola.escriu("Escriu una temporada");
+                    int temporadaId=Consola.llegeixInt();
+                    Consola.escriu("Escriu un episodi");
+                    int episodioId=Consola.llegeixInt();
+                    tot_series.verEpisodio(serieId, temporadaId, episodioId);
                     break;
                 case 6:
                     tot_series.verMejoresEpisodios();

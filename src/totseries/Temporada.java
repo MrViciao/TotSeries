@@ -43,6 +43,7 @@ public class Temporada {
     
     public void addEpisodio(Episodio episodio){
         this.episodios.add(episodio);
+        episodio.setId(episodios.size());
         numEpisodis+=1;
     }
     public String getMejoresEpisodio() {
@@ -56,24 +57,17 @@ public class Temporada {
         }
         return lista;
     }
-    boolean existeEpisodio(String idEpisodio) {
-        boolean exist = false;
-        Iterator<Episodio> iterador= episodios.iterator();
-        while(iterador.hasNext()) {
-            if (iterador.next().equals(idEpisodio)) 
-                exist = true;
+    boolean existeEpisodio(int idEpisodio) {
+        
+        for (Episodio episodio : episodios){
+            if(episodio.getId()==idEpisodio)
+                return true;
         }
-        return exist;
+        return false;
     }
-    Episodio verEpisodio(String idEpisodio){
-        Iterator<Episodio> iterador = episodios.iterator();
-        Episodio episodio;
-        while(iterador.hasNext()){
-            episodio=iterador.next();
-            if(episodio.equals(idEpisodio))
-                return episodio;
-        }
-        return null;
+    Episodio verEpisodio(int idEpisodio){
+        System.out.println(this.toString());
+        return find(idEpisodio);
     }
     @Override
     public String toString() {
@@ -85,6 +79,14 @@ public class Temporada {
             lista += episodio.toString();
         }
         return lista;
+    }
+    
+    public Episodio find(int idEpisodio){
+        for(Episodio episodio : episodios){
+           if(episodio.getId()==idEpisodio)
+               return episodio;
+        }
+        return null;
     }
 
 }
