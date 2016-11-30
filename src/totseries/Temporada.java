@@ -20,8 +20,7 @@ public class Temporada {
     private int numEpisodis;
             
     public Temporada(){
-        episodios = new ArrayList<>();
-        
+        episodios = new ArrayList<>(); 
     }
     public Temporada(int idTemporada) {
         this();

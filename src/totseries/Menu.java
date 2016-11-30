@@ -20,21 +20,26 @@ public class Menu {
     public static void main(String[] args) {
         TotSeries tot_series = new TotSeries();
         tot_series = cargarDatos(tot_series);
+        
+        //Este es un usuario que esta aqui para no hacer login.
+        Cliente user =new Cliente("c0", "test", "test", "test");
+        tot_series.setActualCliente(user);
+        
         int selected = 1;
         while (selected != 0) {
             Consola.printMenu();
             selected = Consola.llegeixInt();
             switch (selected) {
                 case 1:
-                    Consola.escriu("Escriu username");
+                    Consola.escriu("Escriu username: ");
                     String username = Consola.llegeixString();
-                    Consola.escriu("Escriu password");
+                    Consola.escriu("Escriu password: ");
                     String password = Consola.llegeixString();
-                    Consola.escriu("Escriu nom");
+                    Consola.escriu("Escriu nom: ");
                     String nombre = Consola.llegeixString();
-                    Consola.escriu("Escriu dni");
+                    Consola.escriu("Escriu dni: ");
                     String dni = Consola.llegeixString();
-                    Consola.escriu("Escriu direccion");
+                    Consola.escriu("Escriu direccion: ");
                     String direccion = Consola.llegeixString();
                     tot_series.registrar(username, password, nombre, dni, direccion);
                     break;
@@ -43,13 +48,13 @@ public class Menu {
                     break;
                 case 4:
                     tot_series.verCatalogo();
-                    Consola.escriu("Escriu el id de una serie");
+                    Consola.escriu("Escriu el id de una serie: ");
                     String serieId=Consola.llegeixString();
-                    Consola.escriu("Escriu una temporada");
+                    Consola.escriu("Escriu una temporada: ");
                     int temporadaId=Consola.llegeixInt();
-                    Consola.escriu("Escriu un episodi");
+                    Consola.escriu("Escriu un episodi: ");
                     int episodioId=Consola.llegeixInt();
-                    tot_series.verEpisodio(serieId, temporadaId, episodioId);
+                    tot_series.reproducirEpisodio(serieId, temporadaId, episodioId);
                     break;
                 case 6:
                     tot_series.verMejoresEpisodios();

@@ -25,13 +25,14 @@ public class Cliente extends Usuario {
     public Cliente(String id, String username, String password, String nombre) {
         super(id, username, password, nombre);
         this.facturas = new ArrayList<>();
+        facturas.add(new Factura());
     }
 
     public Cliente(String id, String username, String password,
             String nombre, String dni, String adreca, boolean vip) {
         this(id, username, password, nombre);
         this.direccion = adreca;
-        this.nacimiento = nacimiento;
+        //this.nacimiento = nacimiento;
         this.vip = vip;
     }
 
@@ -57,5 +58,14 @@ public class Cliente extends Usuario {
 
     public void setVip(boolean vip) {
         this.vip = vip;
+    }
+    
+    public Factura getLastFactura() {
+        if(facturas.isEmpty())return null;
+        return this.facturas.get(facturas.size()-1);
+    }
+    
+    public void addVisualizacion(){
+        this.getLastFactura().addVisualizacion();
     }
 }

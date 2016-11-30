@@ -19,6 +19,13 @@ public class Valoracion {
     
     public Valoracion(int puntuacion){
         this.puntuacion=puntuacion;
+        this.fecha=new Date();
+    }
+    
+    public Valoracion(String usuario, int puntuacion){
+        this.usuario=usuario;
+        this.puntuacion=puntuacion;
+        this.fecha=new Date();
     }
     
     public Valoracion(String usuario, int puntuacion, Date fecha){

@@ -15,5 +15,19 @@ public class Factura {
     private float precio;
     private Date fecha;
     private int visualizaciones;
+ 
+    public Factura(){
+        fecha=new Date();
+        precio=2;
+        visualizaciones=0;
+    }
     
+    public Factura(int precio){
+        fecha=new Date();
+        this.precio=precio;
+    }
+    
+    public void addVisualizacion(){
+        visualizaciones+=1;
+    }
 }

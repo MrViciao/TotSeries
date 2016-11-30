@@ -12,26 +12,33 @@ public class TotSeries {
     
     private Catalogo catalogo;
     private Registro registro;
+    private Cliente actualCliente;
 
-    public void  verEpisodio(String serie_id, int temporada_id, int episodio_id){
+    public void reproducirEpisodio(String serie_id, int temporada_id, int episodio_id){
         if (!catalogo.existeEpisodio(serie_id, temporada_id, episodio_id)){
             Consola.escriu("No existe episodio\n");
             return;
         }
         Episodio episodio = catalogo.verEpisodio(serie_id, temporada_id, episodio_id);
         Consola.escriu("Reproduciendo\n");
-        Consola.escriu("Quiere valorar el episodio? Escribe yes para valorar");
+        
+        Consola.escriu("Quiere valorar el episodio? Escribe yes para valorar: ");
         if(!Consola.llegeixString().equals("yes")) return;
-        Consola.escriu("introduce una nota");
-        Valoracion valoracion = new Valoracion(Consola.llegeixInt());
+        
+        Consola.escriu("introduce una nota: ");
+        int puntuacion=puntuacion=Consola.llegeixInt();
+        while (puntuacion<0 || puntuacion>5){
+            Consola.escriu("Escribela entre 0 y 5!");
+            puntuacion=Consola.llegeixInt();
+        }
+        
+        Valoracion valoracion = new Valoracion(actualCliente.getId(), puntuacion);
         episodio.addValoracion(valoracion);
-        
-        
+        actualCliente.addVisualizacion();
     }
     
     public void verCatalogo(){
-        System.out.println(catalogo.toString());
-        
+        Consola.escriu(catalogo.toString());
     }
     
     public void registrar(String usuari, String password, String nom, String dni, String adreca){
@@ -45,6 +52,8 @@ public class TotSeries {
     public void verMejoresEpisodios(){
         Consola.escriu(catalogo.getMejoresEpisodios());
     }
+    ///////////////////////////////
+    //Getters and setters 
 
     /**
      * @return the catalogo
@@ -72,6 +81,20 @@ public class TotSeries {
      */
     public void setRegistro(Registro registro) {
         this.registro = registro;
+    }
+
+    /**
+     * @return the actualUsuario
+     */
+    public Cliente getActualCliente() {
+        return actualCliente;
+    }
+
+    /**
+     * @param actualCliente the actualUsuario to set
+     */
+    public void setActualCliente(Cliente actualCliente) {
+        this.actualCliente = actualCliente;
     }
     
     

@@ -48,6 +48,7 @@ public class Catalogo {
         }
         return lista;
     }
+    
     public Serie getSerie(String idSerie){
         for(Serie serie : series){
             if(serie.getId().equals(idSerie))
