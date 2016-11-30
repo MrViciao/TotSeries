@@ -18,14 +18,15 @@ public class Temporada {
     private List<Episodio> episodios;
     private int idTemporada;
     private int numEpisodis;
-            
-    public Temporada(){
-        episodios = new ArrayList<>(); 
+
+    public Temporada() {
+        episodios = new ArrayList<>();
     }
+
     public Temporada(int idTemporada) {
         this();
         this.idTemporada = idTemporada;
-        numEpisodis=episodios.size();
+        numEpisodis = episodios.size();
     }
 
     public int getIdTemporada() {
@@ -39,51 +40,50 @@ public class Temporada {
     public int size() {
         return this.episodios.size();
     }
-    
-    public void addEpisodio(Episodio episodio){
+
+    public void addEpisodio(Episodio episodio) {
         this.episodios.add(episodio);
         episodio.setId(episodios.size());
-        numEpisodis+=1;
+        numEpisodis += 1;
     }
+
     public String getMejoresEpisodio() {
-        String lista= "";
+        String lista = "";
         Iterator<Episodio> iterador = episodios.iterator();
         Episodio episodio;
-        while(iterador.hasNext()){
-            episodio=iterador.next();
-            if(episodio.getPromedio() > 4)
+        while (iterador.hasNext()) {
+            episodio = iterador.next();
+            if (episodio.getPromedio() > 4) {
                 lista += episodio.toString();
+            }
         }
         return lista;
     }
+
     boolean existeEpisodio(int idEpisodio) {
-        
-        for (Episodio episodio : episodios){
-            if(episodio.getId()==idEpisodio)
+
+        for (Episodio episodio : episodios) {
+            if (episodio.getId() == idEpisodio) {
                 return true;
+            }
         }
         return false;
     }
-    Episodio verEpisodio(int idEpisodio){
-        System.out.println(this.toString());
+
+    public Episodio verEpisodio(int idEpisodio) {
         return find(idEpisodio);
     }
+
     @Override
     public String toString() {
-        String lista = "";
-        Episodio episodio;
-        Iterator<Episodio> iterador= episodios.iterator();
-        while(iterador.hasNext()) {
-            episodio = iterador.next();
-            lista += episodio.toString();
-        }
-        return lista;
+        return "Temporada: " + idTemporada + " - Episodios: " + numEpisodis + "\n";
     }
-    
-    public Episodio find(int idEpisodio){
-        for(Episodio episodio : episodios){
-           if(episodio.getId()==idEpisodio)
-               return episodio;
+
+    public Episodio find(int idEpisodio) {
+        for (Episodio episodio : episodios) {
+            if (episodio.getId() == idEpisodio) {
+                return episodio;
+            }
         }
         return null;
     }

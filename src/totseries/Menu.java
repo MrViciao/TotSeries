@@ -15,15 +15,15 @@ import totseries.Parser.TotSeriesDataManager;
 public class Menu {
 
     /**
-     * @param args the command line arguments
+     * @param totseries
      */
-    public static void main(String[] args) {
-        TotSeries tot_series = new TotSeries();
-        tot_series = cargarDatos(tot_series);
-        
-        //Este es un usuario que esta aqui para no hacer login.
-        Cliente user =new Cliente("c0", "test", "test", "test");
-        tot_series.setActualCliente(user);
+    
+    private TotSeries totSeries;
+    
+    public Menu(TotSeries totSeries){
+        this.totSeries=totSeries;
+    }
+    public void run() {
         
         int selected = 1;
         while (selected != 0) {
@@ -41,34 +41,28 @@ public class Menu {
                     String dni = Consola.llegeixString();
                     Consola.escriu("Escriu direccion: ");
                     String direccion = Consola.llegeixString();
-                    tot_series.registrar(username, password, nombre, dni, direccion);
+                    totSeries.registrar(username, password, nombre, dni, direccion);
                     break;
                 case 3:
-                    tot_series.verCatalogo();
+                    totSeries.verCatalogo();
                     break;
                 case 4:
-                    tot_series.verCatalogo();
+                    totSeries.verCatalogo();
                     Consola.escriu("Escriu el id de una serie: ");
                     String serieId=Consola.llegeixString();
+                    totSeries.verTemporadas(serieId);
                     Consola.escriu("Escriu una temporada: ");
                     int temporadaId=Consola.llegeixInt();
                     Consola.escriu("Escriu un episodi: ");
                     int episodioId=Consola.llegeixInt();
-                    tot_series.reproducirEpisodio(serieId, temporadaId, episodioId);
+                    totSeries.reproducirEpisodio(serieId, temporadaId, episodioId);
                     break;
                 case 6:
-                    tot_series.verMejoresEpisodios();
+                    totSeries.verMejoresEpisodios();
                     break;
             }
         }
 
-    }
-
-    public static TotSeries cargarDatos(TotSeries tot_Series) {
-        TotSeriesDataManager dataManager = new TotSeriesDataManager();
-        dataManager.obtenirDades("data/TotSeries.xml");
-        dataManager.cargarDatos(tot_Series);
-        return tot_Series;
     }
 
 }

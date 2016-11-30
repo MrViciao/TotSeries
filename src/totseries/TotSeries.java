@@ -41,6 +41,10 @@ public class TotSeries {
         Consola.escriu(catalogo.toString());
     }
     
+    public void verTemporadas(String idSerie){
+        Consola.escriu(catalogo.verTemporadas(idSerie));
+    }
+    
     public void registrar(String usuari, String password, String nom, String dni, String adreca){
         while(!registro.hasUsuario(usuari)){
             Consola.escriu("Introduzca un nuevo username, este ya esta cogido/n");
