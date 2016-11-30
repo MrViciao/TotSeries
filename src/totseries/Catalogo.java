@@ -39,9 +39,9 @@ public class Catalogo {
         return lista;
     }
 
-    public Episodio verEpisodio(String idSerie, int idTemporada, int idEpisodio) {
+    public Episodio getEpisodio(String idSerie, int idTemporada, int idEpisodio) {
         if (this.existeEpisodio(idSerie, idTemporada, idEpisodio)) {
-            return this.getSerie(idSerie).verEpisodio(idTemporada, idEpisodio);
+            return this.getSerie(idSerie).getEpisodio(idTemporada, idEpisodio);
         } else {
             return null;
         }

@@ -1,0 +1,54 @@
+@startuml
+title	DS5 Valoracion	
+hide	footbox
+
+participant ":Menu" as Menu
+participant ":Consola" as Consola
+participant ":TotSeries" as TotSeries
+
+participant ":Catalogo" as Catalogo
+participant ":Serie" as Serie
+participant ":Temporada" as Temporada
+participant ":Episodio" as Episodio
+participant "nueva:Valoracion" as Valoracion
+
+
+
+activate Menu
+Menu -> TotSeries :valorarEpisodio(serieId:String, temporadaId:int, \nepisodioId:int, puntuacion:int);
+activate TotSeries
+
+TotSeries -> Catalogo:getEpisodio(serie,temporada,episodio):Episodio
+    activate Catalogo
+    Catalogo -> Serie:getEpisodio(temporada:int,\nepisodio:int):Episodio
+    activate Serie
+    Serie -> Temporada:getEpisodio(episodio:int):Episodio
+    activate Temporada
+    Temporada->Episodio:getEpisodio():Episodio
+    activate Episodio
+    Episodio-->Temporada:episodio
+    deactivate Episodio
+    Temporada-->Serie:episodio
+    deactivate Temporada
+    Serie --> Catalogo:episodio
+    deactivate Serie
+    Catalogo --> TotSeries:episodio
+    deactivate Catalogo
+
+create Valoracion
+TotSeries -> Valoracion:Valoracion(usuario,puntuacion,fecha):Valoracion
+activate Valoracion
+Valoracion --> TotSeries: valoracion
+deactivate Valoracion
+TotSeries -> Episodio: addValoracion(valoracion):void
+activate Episodio
+Episodio -> Episodio:addValoracion(valoracion):Void
+Episodio->TotSeries
+deactivate Episodio
+TotSeries-->Menu
+deactivate TotSeries
+Menu->Consola : escriu("Añadida valoracion"):Void
+activate Consola
+deactivate Consola
+
+@enduml

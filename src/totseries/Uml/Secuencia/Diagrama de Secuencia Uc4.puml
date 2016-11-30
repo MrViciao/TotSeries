@@ -7,12 +7,13 @@ actor	Usuario
 participant ":Menu" as Menu
 participant ":Consola" as Consola
 participant ":TotSeries" as TotSeries
+participant "actualCliente:Cliente" as cliente
+participant ":Factura" as factura
 participant ":Catalogo" as Catalogo
 participant ":Serie" as Serie
 participant ":Temporada" as Temporada
 participant ":Episodio" as Episodio
-participant "cliente:Cliente" as cliente
-participant ":Factura" as factura
+
 
 
 note right Usuario
@@ -20,108 +21,56 @@ note right Usuario
         end note
 Usuario -> Menu
 activate Menu
-Menu -> TotSeries:verEpisodio(serieId, temporadaId, episodioId):void
+Menu -> TotSeries:reproducirEpisodio(serieId:String, \ntemporadaId:int, episodioId:int):boolean
 activate TotSeries
-TotSeries -> Catalogo:existeEpisodio(serie_id,temporada_id,episodio_id):bool
 
-
-activate Catalogo 
-note right Catalogo
-        exist := false
-    end note
-loop For serie in series
-
-    Catalogo -> Serie:getId():Int
-    activate Serie
-    Serie --> Catalogo:id
-    deactivate Serie
-
-
-    opt id.equals(serie_id):bool
-    Catalogo -> Serie:exist:=existeEpisodio(idTemporada,idEpisodio):bool
-    activate Serie
-    note right Serie
-        exist := false
-    end note
-    
-    loop For temporada in temporadas
-        Serie -> Temporada:getId():Int
-        activate Temporada
-        Temporada --> Serie:id
-        deactivate Temporada
-
-        opt idTemporada==id
-        Serie -> Temporada:exist:=existeEpisodio(idEpisodio):bool
-        activate Temporada
-        note right Temporada
-            exist := false
+note right TotSeries
+            UC4.1 Existe Episodio
         end note
 
-        loop For episodio in episodios
-            Temporada -> Episodio:getId():Int
-            activate Episodio
-            Episodio --> Temporada:id
-            deactivate Episodio
-
-
-            opt idEpisodio==id
-                note right Temporada
-                    exist := true
-                end note
-            end opt
-        end loop
-        Temporada --> Serie:exist
-        end opt
-    end loop
-    deactivate Temporada
-    Serie --> Catalogo:exist
-    end opt
-end loop
-
-deactivate Serie
+TotSeries -> Catalogo: existeEpisodio(serieId:String, temporadaId:int, episodioId:int)
+activate Catalogo
 Catalogo --> TotSeries:exist
 deactivate Catalogo
 '
 opt exist == true
-    TotSeries -> Catalogo:verEpisodio(serie,temporada,episodio):Episodio
+    TotSeries -> Catalogo:getEpisodio(serieId:String, \ntemporadaId:int, episodioId:int):Episodio
     activate Catalogo
-    Catalogo -> Serie:verEpisodio(temporada,episodio):Episodio
+    Catalogo -> Serie:getEpisodio(temporadaId:int, \nepisodioId:int):Episodio
     activate Serie
-    Serie -> Temporada:verEpisodio(episodio):Episodio
+    Serie -> Temporada:getEpisodio(episodio:int):Episodio
     activate Temporada
-    Temporada->Episodio:verEpisodio():Episodio
+    Temporada->Episodio:getEpisodio():Episodio
     activate Episodio
-    Episodio->Temporada:Episodio
+    Episodio-->Temporada:episodio
     deactivate Episodio
-    Temporada->Serie:Episodio
+    Temporada-->Serie:episodio
     deactivate Temporada
-    Serie -> Catalogo:Episodio
+    Serie --> Catalogo:episodio
     deactivate Serie
-    Catalogo -> TotSeries:Episodio
+    Catalogo --> TotSeries:episodio
     deactivate Catalogo
-    TotSeries -> Consola : visualizar(Episodio)
+    TotSeries -> Consola : escriu("Reproduciendo"):Void
     ... Viendo episodio ...
     TotSeries->cliente:addVisualizacion():Void
     activate cliente
     cliente->factura:addVisualizacion():Void
     activate factura
     deactivate factura
-    factura->cliente
     deactivate cliente
-    cliente->TotSeries
 end opt
-    TotSeries --> Menu
+    TotSeries --> Menu : exist
     deactivate TotSeries
-    
-    Menu->Consola:escriure("Quiere valorar el episodio? Escribe true para valorar:"):Void
-    Consola -> Menu:llegirString():String
-    Consola --> Menu:opcion
+    opt exist==True
+        Menu->Consola:escriure("Valorar episodio?"):Void
+        Menu -> Consola:llegirString():String
+        Consola --> Menu:opcion
 
-    opt opcion == true
-        note right Menu
-        DS5. Valoracion
-        end note
+        opt opcion == true
+            note right Menu
+            DS5. Valoracion
+            end note
+         end opt
      end opt
-
 deactivate TotSeries
 @enduml

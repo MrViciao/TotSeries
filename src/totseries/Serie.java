@@ -44,8 +44,8 @@ public class Serie {
         return false;
     }
 
-    public Episodio verEpisodio(int idTemporada, int idEpisodio) {
-        return find(idTemporada).verEpisodio(idEpisodio);
+    public Episodio getEpisodio(int idTemporada, int idEpisodio) {
+        return find(idTemporada).getEpisodio(idEpisodio);
     }
     
     public String verEpisodios(int idTemporada) {

@@ -82,7 +82,10 @@ public class Menu {
                     Consola.escriu("Escriu un episodi: ");
                     int episodioId = Consola.llegeixInt();
 
-                    totSeries.reproducirEpisodio(serieId, temporadaId, episodioId);
+                    if(!totSeries.reproducirEpisodio(serieId, temporadaId, episodioId)){
+                        Consola.escriu("Error en la reproduccion. No existe episodio\n");
+                        break;
+                    }
 
                     Consola.escriu("Quiere valorar el episodio? Escribe true para valorar: ");
                     if (!Consola.llegeixString().equals("true")) {

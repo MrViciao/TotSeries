@@ -65,7 +65,7 @@ public class Temporada {
         return false;
     }
 
-    public Episodio verEpisodio(int idEpisodio) {
+    public Episodio getEpisodio(int idEpisodio) {
         return find(idEpisodio);
     }
 
