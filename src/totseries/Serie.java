@@ -49,7 +49,9 @@ public class Serie {
     }
     
     public String verEpisodios(int idTemporada) {
-        return find(idTemporada).verEpisodios();
+        Temporada temporada = find(idTemporada);
+        if(temporada==null) return "No existe temporada\n";
+        return temporada.verEpisodios();
     }
 
     //Metodos de clase

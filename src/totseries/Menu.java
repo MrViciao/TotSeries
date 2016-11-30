@@ -30,7 +30,8 @@ public class Menu {
             selected = Consola.llegeixInt();
             switch (selected) {
                 case 1:
-                    Consola.escriu("================\n"
+                    Consola.escriu(
+                            "================\n"
                             + "= Registrar\n"
                             + "================\n");
                     Consola.escriu("Escriu username: ");
@@ -44,36 +45,43 @@ public class Menu {
                     Consola.escriu("Escriu direccion: ");
                     String direccion = Consola.llegeixString();
                     totSeries.registrar(username, password, nombre, dni, direccion);
+                    Consola.escriu("Registro realizado con exito\n");
                     break;
                     
                 case 3:
-                    Consola.escriu("================\n"
+                    Consola.escriu(
+                            "================\n"
                             + "= Ver Catalogo\n"
                             + "================\n");
-                    totSeries.verCatalogo();
+                    Consola.escriu(totSeries.verCatalogo());
                     break;
                     
                 case 4:
-                    Consola.escriu("================\n"
+                    Consola.escriu(
+                            "================\n"
                             + "= Ver Episodio\n"
                             + "================\n");
-                    totSeries.verCatalogo();
+                    Consola.escriu(totSeries.verCatalogo());
                     Consola.escriu("Escriu el id de una serie: ");
                     String serieId = Consola.llegeixString();
-                    totSeries.verTemporadas(serieId);
+                    
+                    Consola.escriu(totSeries.verTemporadas(serieId));
                     Consola.escriu("Escriu una temporada: ");
                     int temporadaId = Consola.llegeixInt();
-                    totSeries.verEpisodios(serieId, temporadaId);
+                    
+                    Consola.escriu(totSeries.verEpisodios(serieId, temporadaId));
                     Consola.escriu("Escriu un episodi: ");
                     int episodioId = Consola.llegeixInt();
+                    
                     totSeries.reproducirEpisodio(serieId, temporadaId, episodioId);
                     break;
                     
                 case 6:
-                    Consola.escriu("================\n"
+                    Consola.escriu(
+                            "================\n"
                             + "= Ver Mejores Episodios\n"
                             + "================\n");
-                    totSeries.verMejoresEpisodios();
+                    Consola.escriu(totSeries.verMejoresEpisodios());
                     break;
             }
         }
@@ -89,7 +97,7 @@ public class Menu {
         Consola.escriu("3.Ver Catalogo\n");
         Consola.escriu("4.Ver episodio\n");
         Consola.escriu("6.Ver mejores Episodios\n");
-        Consola.escriu("0.Exit\n\n");
+        Consola.escriu("0.Exit\n");
     }
 
 }

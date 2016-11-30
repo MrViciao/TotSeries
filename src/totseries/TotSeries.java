@@ -40,28 +40,28 @@ public class TotSeries {
 
     }
 
-    public void verCatalogo() {
-        Consola.escriu(catalogo.toString());
+    public String verCatalogo() {
+        return catalogo.toString();
     }
 
-    public void verTemporadas(String idSerie) {
-        Consola.escriu(catalogo.verTemporadas(idSerie));
+    public String verTemporadas(String idSerie) {
+        return catalogo.verTemporadas(idSerie);
     }
-    
-    public void verEpisodios(String idSerie, int idTemporada) {
-        Consola.escriu(catalogo.verEpisodios(idSerie, idTemporada));
+
+    public String verEpisodios(String idSerie, int idTemporada) {
+        return catalogo.verEpisodios(idSerie, idTemporada);
     }
 
     public void registrar(String usuari, String password, String nom, String dni, String adreca) {
         while (!registro.hasUsuario(usuari)) {
-            Consola.escriu("Introduzca un nuevo username, este ya esta cogido/n");
+            Consola.escriu("Introduzca un nuevo username, este ya esta cogido: ");
             usuari = Consola.llegeixString();
         }
         registro.registrar(nom, dni, adreca, usuari, password);
     }
 
-    public void verMejoresEpisodios() {
-        Consola.escriu(catalogo.getMejoresEpisodios());
+    public String verMejoresEpisodios() {
+        return catalogo.getMejoresEpisodios();
     }
     ///////////////////////////////
     //Getters and setters 
