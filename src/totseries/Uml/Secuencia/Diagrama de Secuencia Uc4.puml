@@ -1,3 +1,4 @@
+
 @startuml
 title	DS:4	Ver Episodio
 hide	footbox
@@ -76,19 +77,23 @@ Catalogo --> TotSeries:exist
 deactivate Catalogo
 '
 opt exist == true
-    TotSeries -> Catalogo:verEpisodio(serie,temporada,episodio):Void
+    TotSeries -> Catalogo:verEpisodio(serie,temporada,episodio):Episodio
     activate Catalogo
-    Catalogo -> Serie:verEpisodio(temporada,episodio):Void
+    Catalogo -> Serie:verEpisodio(temporada,episodio):Episodio
     activate Serie
-    Serie -> Temporada:verEpisodio(episodio):Void
+    Serie -> Temporada:verEpisodio(episodio):Episodio
     activate Temporada
-    Temporada->Episodio:verEpisodio():Void
+    Temporada->Episodio:verEpisodio():Episodio
     activate Episodio
-    Episodio->Consola:streaming():Void
+    Episodio->Temporada:Episodio
     deactivate Episodio
+    Temporada->Serie:Episodio
     deactivate Temporada
+    Serie -> Catalogo:Episodio
     deactivate Serie
+    Catalogo -> TotSeries:Episodio
     deactivate Catalogo
+    TotSeries -> Consola : visualizar(Episodio)
     ... Viendo episodio ...
     TotSeries->cliente:addVisualizacion():Void
     activate cliente
