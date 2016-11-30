@@ -37,17 +37,17 @@ fecha
 }
 
 Object Temporada{
-idTemporada
-episodios
+id
+numEpisodios
 }
 
 
 
 object Serie{
-idSerie
+id
 descripcion
 titulo
-temporadas
+numTemporadas
 }
 
 object Usuario{
@@ -76,7 +76,7 @@ Totseries "1" -- "1" Registro : tiene >
 
 Registro "1" -- "*" Usuario : tiene >
 Usuario <|-- Cliente
-Usuario <|-- Administrador
+Usuario <|- Administrador
 
 Usuario "*" -- "1" Catalogo : visualiza >
 
@@ -87,13 +87,13 @@ Cliente "*" -- "1" Estado : es >
 Estado <|-- VIP
 Estado <|-- Basico
 
-Administrador "1" --"1" Estado : cambia >
+Administrador "1" - "1" Estado : cambia >
 
 Catalogo "1" *-- "1..*" Serie : consta >
 
 Serie "1" *-- "1..*" Temporada : consta >
 Serie "1..*" -- "1..*" Artista : tiene >
-Serie "1..*"- "1" Productora : tiene >
+Serie "1..*"-- "1..*" Productora : tiene >
 
 Artista  <|-- Actor
 Artista  <|-- Director
@@ -104,6 +104,5 @@ Episodio "0..1" -- "*" Cliente : visualiza <
 Episodio "1" -- "*" Valoracion : tiene >
 
 Factura "*" -- "1" Tiempo : genera <
-Cliente "1" --- "1" Valoracion: < Tiene 
 
 @enduml
