@@ -3,46 +3,44 @@ title	DSS5 Valoracion
 hide	footbox
 
 actor	Usuario	as	user
-participant ":Totseries" as Totseries
-participant ":Consola" as consola
+participant "Menu" as menu
+participant ":Totseries" as TotSeries
 participant "nueva:Valoracion" as valoracion
-participant ":Serie" as serie
-participant ":Temporada" as temporada
-participant ":Episodio" as episodio
-activate Totseries
-note right Totseries
-    episodio:Episodio
-    puntuacion:Int
-    usuario:String
-end note
-
-Totseries -> consola :escriu("Introduzca su usuario")
-activate consola
-consola -> Totseries :usuario:=llegeixString():String
-Totseries -> consola :escriu("Introduzca puntuacion")
-consola -> Totseries :puntuacion:=llegeixInt():Int
-deactivate consola
+participant ":Catalago" as Catalogo
+participant ":Serie" as Serie
+participant ":Temporada" as Temporada
+participant "Episodio" as Episodio
+activate menu
+    menu -> TotSeries :valorarEpisodio(serieId, temporadaId, episodioId, puntuacion)
+activate TotSeries
+  TotSeries -> Catalogo:verEpisodio(serie,temporada,episodio):Episodio
+    activate Catalogo
+    Catalogo -> Serie:verEpisodio(temporada,episodio):Episodio
+    activate Serie
+    Serie -> Temporada:verEpisodio(episodio):Episodio
+    activate Temporada
+    Temporada->Episodio:verEpisodio():Episodio
+    activate Episodio
+    Episodio->Temporada:Episodio
+    deactivate Episodio
+    Temporada->Serie:Episodio
+    deactivate Temporada
+    Serie -> Catalogo:Episodio
+    deactivate Serie
+    Catalogo -> TotSeries:Episodio
+    deactivate Catalogo
 
 
 create valoracion
 activate valoracion
-Totseries -> valoracion:Usuario(username,password, nombre,pais,nacimiento):Usuario
-valoracion --> Totseries: valoracion:=Valoracion
+TotSeries -> valoracion:Valoracion(actualCliente.getId(), puntuacion):Valoracion
+valoracion --> TotSeries: valoracion:=Valoracion
 deactivate valoracion
-
-Totseries -> serie :valorarEpisodio(temporada,episodio,valoracion):Void
-activate serie
-serie -> temporada:valorarEpisodio(episodio,valoracion):Void
-activate temporada
-temporada -> episodio:valorarEpisodio(valoracion):Void
-activate episodio
-episodio -> episodio:addValoracion(valoracion):Void
-episodio -> temporada
-deactivate episodio
-temporada -> serie
-deactivate temporada
-serie -> Totseries
-deactivate serie
-deactivate Totseries
+TotSeries -> Episodio: episodio.addValoracion(valoracion):void
+activate Episodio
+Episodio -> Episodio:addValoracion(valoracion):Void
+Episodio->TotSeries
+deactivate Episodio
+TotSeries --> menu
+deactivate TotSeries
 @enduml
-
