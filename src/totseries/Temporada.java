@@ -66,7 +66,12 @@ public class Temporada {
     }
 
     public Episodio getEpisodio(int idEpisodio) {
-        return find(idEpisodio);
+        for (Episodio episodio : episodios) {
+            if (episodio.getId() == idEpisodio) {
+                return episodio;
+            }
+        }
+        return null;
     }
 
     public String verEpisodios() {
@@ -81,15 +86,6 @@ public class Temporada {
     @Override
     public String toString() {
         return "Temporada: " + id + " - Episodios: " + numEpisodis + "\n";
-    }
-
-    public Episodio find(int idEpisodio) {
-        for (Episodio episodio : episodios) {
-            if (episodio.getId() == idEpisodio) {
-                return episodio;
-            }
-        }
-        return null;
     }
 
     ///////////////////////////////
