@@ -42,9 +42,9 @@ note right Menu
         password, nombre, dni, direccion:String
     end note
 
-Menu -> TotSeries:registrar(username,password,nombre,dni,direccion):Void
+Menu -> TotSeries:registrar(username,password,\nnombre,dni,direccion):Void
 activate TotSeries
-TotSeries -> Registro:registrar(username,password,nombre,dni,direccion):Void
+TotSeries -> Registro:registrar(username,password,\nnombre,dni,direccion):Void
 activate Registro
 note right Registro
         id:String
@@ -54,7 +54,7 @@ note right Registro
     end note
 create nUsuario
 
-Registro -> nUsuario:Cliente(id,usuari,password,nom,dni,adreca,false):Cliente
+Registro -> nUsuario:Cliente(id,usuari,password,\nnom,dni,adreca,false):Cliente
 activate nUsuario
 nUsuario --> Registro: new_cliente
 deactivate nUsuario

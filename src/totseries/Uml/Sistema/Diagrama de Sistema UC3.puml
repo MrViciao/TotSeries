@@ -4,7 +4,7 @@ title	DSS:3	Ver Catalogo de Series
 hide	footbox
 
 actor	Usuario	as	user
-user	->	":Totseries":verCatalogo()
-":Totseries" -> user :escriu(catalogo)
+user	->	":Totseries":verCatalogo():String
+":Totseries" --> user :catalogo
 
 @enduml

@@ -5,23 +5,30 @@ title	DSS:4	Ver Episodio
 hide	footbox
 'definicio	d'actors
 actor	Usuario	as	user
-user	->	":Totseries":verEpisodio()
-":Totseries" -> user :escriu("Seleccione Serie")
-user -> ":Totseries":llegeixString():String
-":Totseries" -> user :escriu("Seleccione Temporada")
-user -> ":Totseries" :llegeixInt():Int
-":Totseries" -> user :escriu("Seleccione Episodio")
-":Totseries" -> user :llegeixString():String
-alt existeEpisodio == true
-    ":Totseries" -> user :reproducirEpisodio()
-    ":Totseries" -> user :escriu("desea valorar?")
-    user -> ":Totseries" :llegeixInt():Int
-    opt valorar == true
+participant ":TotSeries" as TotSeries
+
+
+user	->	TotSeries:verEpisodio()
+'TotSeries -> user :escriu("Seleccione Serie")
+user -> TotSeries:llegeixString(serieID)
+'TotSeries -> user :escriu("Seleccione Temporada")
+user -> TotSeries :llegeixInt(numTemporada)
+'TotSeries -> user :escriu("Seleccione Episodio")
+user -> TotSeries :llegeixInt(numEpisodi)
+note right TotSeries
+    Comprueba que exista la serie
+end note
+TotSeries --> user :exist
+alt exist == true
+    TotSeries --> user :reproduccion
+    'TotSeries -> user :escriu("desea valorar?")
+    user -> TotSeries :llegeixString(vullValorar)
+    opt vullValorar == true
         note right user
         DS:5 Valorar Episodio
         end note
     end
 else
-    ":Totseries" -> user :escriu("No se puede reproducir")
+    TotSeries --> user :escriu("No existe episodio")
 end alt
 @enduml

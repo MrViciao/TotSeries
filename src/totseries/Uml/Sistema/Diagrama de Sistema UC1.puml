@@ -2,23 +2,27 @@
 title	DSS1.	Registro	
 hide	footbox
 actor	Usuario	as	user
+participant ":Totseries" as TotSeries
 
-user	->	":Totseries":iniciarRegistro()
-":Totseries" -> user :escriu("introduzca nombre")
-user -> ":Totseries":llegeixString():String
-":Totseries" -> user :escriu("Introduzca password")
-user -> ":Totseries" :llegeixString():String
-":Totseries" -> user :escriu("Introduzca ID")
-user -> ":Totseries" :llegeixString():String
-":Totseries" -> user :escriu("Introduzca fecha de nacimiento")
-user -> ":Totseries" :llegeixString():String
-":Totseries" -> user :escriu("Introduzca pais de nacimiento")
-user -> ":Totseries" :llegeixString():String
+user	->	TotSeries:iniciarRegistro()
+note right TotSeries
+    Pedimos al usuario sus datos personales
+end note
+user -> TotSeries:llegeixString(username):Bool
+note right TotSeries
+    Comprueba que no exista el usuario
+end note
+TotSeries --> user : exist
 
-loop ID == existente
-    ":Totseries" -> user :escriu("Introduzca ID")
-    user -> ":Totseries" :llegeixString():String
+loop exist == true
+    user -> TotSeries:llegeixString(username):Bool
+    TotSeries --> user : exist
 end
-":Totseries" -> user :escriu("Usuario Creado")
+user -> TotSeries:llegeixString(password):Void
+user -> TotSeries:llegeixString(nombre):Void
+user -> TotSeries:llegeixString(dni):Void
+user -> TotSeries:llegeixString(direccion):Void
+TotSeries --> user :"Registro completado"
+
 @enduml
 

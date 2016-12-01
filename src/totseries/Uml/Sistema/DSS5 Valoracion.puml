@@ -5,9 +5,9 @@ hide	footbox
 actor	Usuario	as	user
 participant ":Totseries" as Totseries
 
-Totseries -> user: escriu("Introduzca valoracion")
-user -> Totseries: llegeixInt():Int
-Totseries -> user: escriu("Se realizo la valoracion")
+'Totseries -> user: escriu("Introduzca valoracion")
+user -> Totseries: llegeixInt(valoracion):String
+Totseries --> user: "Se realizo la valoracion"
 
 
 @enduml

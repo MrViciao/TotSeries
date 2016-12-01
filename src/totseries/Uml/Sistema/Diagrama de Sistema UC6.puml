@@ -6,6 +6,6 @@ hide	footbox
 'definicio	d'actors
 actor	Usuario	as	user
 user	->	":Totseries":getMejoresEpisodios():String
-":Totseries" -> user :escriu(listaMejoresEpisodios)
+":Totseries" --> user :listaMejoresEpisodios
 
 @enduml

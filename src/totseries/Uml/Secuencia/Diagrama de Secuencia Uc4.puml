@@ -5,14 +5,16 @@ hide	footbox
 
 actor	Usuario
 participant ":Menu" as Menu
-participant ":Consola" as Consola
+
 participant ":TotSeries" as TotSeries
 participant "actualCliente:Cliente" as cliente
-participant ":Factura" as factura
+
 participant ":Catalogo" as Catalogo
+participant ":Factura" as factura
 participant ":Serie" as Serie
 participant ":Temporada" as Temporada
 participant ":Episodio" as Episodio
+participant ":Consola" as Consola
 
 
 
@@ -28,7 +30,7 @@ note right TotSeries
             UC4.1 Existe Episodio
         end note
 
-TotSeries -> Catalogo: existeEpisodio(serieId:String, temporadaId:int, episodioId:int)
+TotSeries -> Catalogo: existeEpisodio(serieId:String, \ntemporadaId:int, episodioId:int)
 activate Catalogo
 Catalogo --> TotSeries:exist
 deactivate Catalogo
