@@ -24,9 +24,8 @@ alt exist == true
     'TotSeries -> user :escriu("desea valorar?")
     user -> TotSeries :llegeixString(vullValorar)
     opt vullValorar == true
-        note right user
-        DS:5 Valorar Episodio
-        end note
+        user -> TotSeries: llegeixInt(valoracion):String
+        TotSeries --> user: "Se realizo la valoracion"
     end
 else
     TotSeries --> user :escriu("No existe episodio")
