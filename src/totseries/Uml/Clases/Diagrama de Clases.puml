@@ -6,9 +6,14 @@ left to right direction
 
 namespace Controlador {
     class Totseries{
+    -Cliente actualCliente
     ==
-    +void verEpisodio(String idSerie, int idtemporada, String idEpisodio)
-    +void verCatalogo()
+    +void reproducirEpisodio(String idSerie, int idtemporada, int idEpisodio)
+    +void valorarEpisodio(String serie_id,int temporada_id,int episodio_id,int puntuacion)
+    +String verCatalogo()
+    +String verTemporadas(String idSerie)
+    +String verEpisodios(String idSerie, int idTemporada)
+    +boolean hasUsuario(String username)
     +void registrar(String username,String password,String nombre,String pais,Date fNacimiento)
     +void verMejoresEpisodios()
     }
@@ -22,9 +27,8 @@ namespace java.util {
 namespace Vista {
 
     class Menu{
-        -totSeries
+        -TotSeries totSeries
         ==
-        +Menu(TotSeries totSeries)
         +void run()
         +void printMenu()
     }
@@ -45,7 +49,6 @@ namespace Model {
     
     class Registro{
     ==
-    +Registro()
     +boolean hasUsuario(String username)
     +registrar(String nom, String dni, String adreca, String usuari, String password)
     }
@@ -63,15 +66,10 @@ namespace Model {
         - String dni
         - String direccion
         ==
-        + Cliente(String id, String username, String password, String nombre)
-        + Cliente(String id, String username, String password,
-            String nombre, String dni, String adreca, boolean vip)
         + Factura getLastFactura()
         + addVisualizacion()
     }
     class Administrador{
-        ==
-        + Administrador(String id, String username, String password, String nombre){
     }
 
     class Factura{
@@ -79,14 +77,11 @@ namespace Model {
         -Date fecha
         -int visualizaciones
         ==
-        + Factura()
-        + Factura(int precio)
         + addVisualizacion()
     }
     
     class Catalogo{
         ==
-        + String toString()
         + String getMejoresEpisodios()
         + void addSerie(Serie serie)
         + boolean existeEpisodio(String idSerie, int idTemporada,int idEpisodio)
@@ -95,7 +90,6 @@ namespace Model {
         + String verEpisodios(String idSerie, int idTemporada)
         + String toString()
         + Serie getLastSerie()
-        + Serie getSerie(String idSerie)
     }
     class Temporada{
         - int id
@@ -108,7 +102,6 @@ namespace Model {
         + void addEpisodio(Episodio espisodio)
         + int size()
         + String verEpisodios()
-        + Episodio find(int idEpisodio)
         + void addEpisodio(Episodio)
     }
 
@@ -117,7 +110,6 @@ namespace Model {
         -String nombre
         -String descripcion
         ==
-        + Serie(String id, String titulo, String descripcion)
         + String toString()
         + String getMejoresEpisodios()
         + boolean existeEpisodio(int temporada, int idEpisodio)
@@ -126,6 +118,7 @@ namespace Model {
         + void addTemporada(Temporada temporada)
         + Episodio getEpisodio(int idTemporada,int idEpisodio)
         + String verEpisodios(int idTemporada)
+        + String verTemporadas()
         + Temporada getLastTemporada()
         + boolean hasTemporada(int idTemporada)
     }
@@ -133,10 +126,6 @@ namespace Model {
         -String usuario
         -int puntuacion
         -Date fecha
-        ==
-        + Valoracion(String usuario, int puntuacion)
-        + Valoracion(String usuario, int puntuacion, Date fecha)
-        
     }
     
     class Episodio {
@@ -148,10 +137,7 @@ namespace Model {
         - float promedio
         - Date fecha
         - String descripción
-        
         ==
-        + Episodio verEpisodio()
-        + Episodio(String title, String duration, String idioma, String description, Date data)
         + String toString()
         + void setPromedio()
         + void addValoracion(Valoracion valoracion)
@@ -162,25 +148,17 @@ namespace Model {
         - String id
         - String nombre
         - String nacionalidad
-        ==
-        + Artista(String id, String nombre, String pais)
     }
 
     class Productora {
         - string nombre
         - String id
         - Date fCreacion
-        ==
-        + Productora(String id, String nombre)
     }
 
     class Actor{
-    ==
-    Actor(String id, String nom, String pais)
     }
     class Director{
-    ==
-    Director(String id, String nom, String pais)
     }
 
     Registro "1" -- "0..* | usuarios" Cliente : contine >
