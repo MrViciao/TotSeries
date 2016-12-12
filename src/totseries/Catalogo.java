@@ -1,8 +1,8 @@
 package totseries;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import totseries.totseries.Exceptions.SerieNotFoundException;
 
 /**
  *
@@ -27,14 +27,10 @@ public class Catalogo {
         return false;
     }
 
-    public String getMejoresEpisodios() {
-        String lista = "";
+    public ArrayList<Episodio> getMejoresEpisodio() {
+        ArrayList<Episodio> lista = new ArrayList();
         for (Serie serie : series) {
-            lista += serie.getMejoresEpisodio();
-        }
-        if (lista.isEmpty()) {
-            lista = "Ninguno de nuestros episodios tiene una media suficiente."
-                    + "\nPrueba a valorar una serie para subir su nota\n";
+            lista.addAll(serie.getMejoresEpisodio());
         }
         return lista;
     }
@@ -47,12 +43,9 @@ public class Catalogo {
         }
     }
 
-    public String verTemporadas(String idSerie) {
+    public List<Temporada> getTemporadas(String idSerie) {
         Serie serie = getSerie(idSerie);
-        if (serie == null) {
-            return "No existe Serie\n";
-        }
-        return serie.verTemporadas();
+        return serie.getTemporadas();
     }
 
     public String verEpisodios(String idSerie, int idTemporada) {
@@ -81,17 +74,26 @@ public class Catalogo {
         return lista_series;
     }
 
-    public Serie getSerie(String idSerie) {
+    public Serie getSerie(String idSerie){
         for (Serie serie : series) {
             if (serie.getId().equals(idSerie)) {
                 return serie;
             }
         }
+        //throws new SerieNotFoundException("Serie con idSerie no encontrada");
         return null;
     }
 
     public Serie getLastSerie() {
         return series.get(series.size() - 1);
+    }
+
+    public boolean existSerie(String idSerie) {
+        if (this.getSerie(idSerie) == null) {
+            return false;
+        }
+        return true;
+
     }
 
 }

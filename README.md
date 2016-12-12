@@ -1,15 +1,11 @@
 # TotSeries
 Diseño de Software
 
-Entregar Diagramas de Casos de Uso, uso textual y dominio corregidos junto al codigo nuevo.
+Cosas a coregir
 
-
-Preguntas
-=========
-Registro, hace falta nota con la inicializacion de variables que se pasan por valor en la funcion
-Streaming lo ha de hacer episodio o TotSeries?
-
-Ha de ser funcional el login?
-
-DSS verEpisodio, hace falta hacer que usuario elija y vea la serie, temporada, episodio
-DSS tienen que ser nombres de funciones?
+Poner cliente no registrado; modelar estado(Sera poner una clase estado con herencia) episodio; Modelo dominio
+Retorno de variables en DSS en DSS4
+DS 1 Poner New Cliente, Modificar loop
+DS4ver episodio, COMPROBAR Que esta el cliente registrado o indicar que lo esta desde un principio registrado, comprobar que episodio no se esta reproduciendo
+CAMBIAR LOS TOSTRING POR CLASES, QUE TOTSERIES INTERCTUEN CON CONSOLA
+Cosa mia, trabajar con exceptions, No hbara que comprobar si todo existe 500 veces

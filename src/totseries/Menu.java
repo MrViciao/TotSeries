@@ -74,7 +74,10 @@ public class Menu {
                     Consola.escriu("Escriu el id de una serie: ");
                     String serieId = Consola.llegeixString();
 
-                    Consola.escriu(totSeries.verTemporadas(serieId));
+                    if(!totSeries.verTemporadas(serieId)){
+                        Consola.escriu("Volviendo al menu\n");
+                        break;
+                    }
                     Consola.escriu("Escriu una temporada: ");
                     int temporadaId = Consola.llegeixInt();
 
@@ -107,7 +110,7 @@ public class Menu {
                             "================\n"
                             + "= Ver Mejores Episodios\n"
                             + "================\n");
-                    Consola.escriu(totSeries.verMejoresEpisodios());
+                    totSeries.verMejoresEpisodios();
                     break;
             }
         }

@@ -43,14 +43,11 @@ public class Temporada {
         numEpisodis += 1;
     }
 
-    public String getMejoresEpisodio() {
-        String lista = "";
-        Iterator<Episodio> iterador = episodios.iterator();
-        Episodio episodio;
-        while (iterador.hasNext()) {
-            episodio = iterador.next();
+    public ArrayList<Episodio> getMejoresEpisodio() {
+        ArrayList<Episodio> lista = new ArrayList();
+        for (Episodio episodio : episodios) {
             if (episodio.getPromedio() >= 4) {
-                lista += episodio.toString();
+                lista.add(episodio);
             }
         }
         return lista;
@@ -75,11 +72,13 @@ public class Temporada {
     }
 
     public String verEpisodios() {
-        String lista="";
-        for (Episodio episodio : episodios){
-            lista+=episodio.toString();
+        String lista = "";
+        for (Episodio episodio : episodios) {
+            lista += episodio.toString();
         }
-        if (lista.isEmpty()) lista="No hay episodios disponibles";
+        if (lista.isEmpty()) {
+            lista = "No hay episodios disponibles";
+        }
         return lista;
     }
 

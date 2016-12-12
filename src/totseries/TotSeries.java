@@ -5,7 +5,10 @@
  */
 package totseries;
 
+import java.util.ArrayList;
+import java.util.List;
 import totseries.Parser.Consola;
+import totseries.totseries.Exceptions.SerieNotFoundException;
 
 public class TotSeries {
 
@@ -23,22 +26,38 @@ public class TotSeries {
         actualCliente.addVisualizacion();
         return true;
     }
-    
+
     public void valorarEpisodio(String serie_id, int temporada_id, int episodio_id, int puntuacion) {
         Episodio episodio = catalogo.getEpisodio(serie_id, temporada_id, episodio_id);
-        
+
         Valoracion valoracion = new Valoracion(actualCliente.getId(), puntuacion);
         episodio.addValoracion(valoracion);
-        
+
     }
+
     public String verCatalogo() {
+        //Consola.escriu(catalogo.toString());
         return catalogo.toString();
     }
 
-    public String verTemporadas(String idSerie) {
-        return catalogo.verTemporadas(idSerie);
+    public boolean verTemporadas(String idSerie) {
+        //comprovar que exista serie!
+        try {
+            List<Temporada> temporadas = catalogo.getTemporadas(idSerie);
+            for (Temporada temporada : temporadas) {
+                Consola.escriu(temporada.toString());
+            }
+            if (temporadas.isEmpty()) {
+                Consola.escriu("No hi han tempordas\n");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            Consola.escriu("No existeix la serie!\n");
+            return false;
+        }
     }
-    
+
     public boolean hasUsuario(String username) {
         return registro.hasUsuario(username);
     }
@@ -51,8 +70,14 @@ public class TotSeries {
         registro.registrar(nom, dni, adreca, usuari, password);
     }
 
-    public String verMejoresEpisodios() {
-        return catalogo.getMejoresEpisodios();
+    public void verMejoresEpisodios() {
+        ArrayList<Episodio> bestEpisodios = catalogo.getMejoresEpisodio();
+        for (Episodio episodio : bestEpisodios) {
+            Consola.escriu(episodio.toString());
+        }
+        if (bestEpisodios.isEmpty()) {
+            Consola.escriu("No hi ha millors episodis\n");
+        }
     }
     ///////////////////////////////
     //Getters and setters 

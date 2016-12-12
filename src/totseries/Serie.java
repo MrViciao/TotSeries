@@ -27,10 +27,10 @@ public class Serie {
 
     //metodos de sin responsabilidad
     /////////////////
-    public String getMejoresEpisodio() {
-        String lista = "";
+    public ArrayList<Episodio> getMejoresEpisodio() {
+        ArrayList<Episodio> lista= new ArrayList();
         for (Temporada temporada : temporadas) {
-            lista += temporada.getMejoresEpisodio();
+            lista.addAll(temporada.getMejoresEpisodio());
         }
         return lista;
     }
@@ -115,6 +115,10 @@ public class Serie {
             if (temporada.getId()==idTemporada) return temporada;
         }
         return null;
+    }
+    
+    public List<Temporada> getTemporadas(){
+        return temporadas;
     }
 
 }

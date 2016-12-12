@@ -6,6 +6,7 @@
 package totseries;
 
 import totseries.Parser.TotSeriesDataManager;
+import totseries.vista.MainVista;
 
 /**
  *
@@ -24,6 +25,8 @@ public class Main {
         Cliente user = new Cliente("c0", "test", "test", "test");
         tot_series.setActualCliente(user);
 
+        //MainVista mv = new MainVista();
+        //mv.main(null);
         Menu menu = new Menu(tot_series);
         menu.run();
     }
