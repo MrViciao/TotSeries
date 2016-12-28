@@ -13,6 +13,7 @@ import totseries.Modelo.Media.Catalogo;
 import totseries.Modelo.Media.Episodio;
 import java.util.ArrayList;
 import java.util.List;
+import totseries.Modelo.Media.Reproduccion;
 import totseries.Modelo.Usuario.Usuario;
 import totseries.Parser.Consola;
 
@@ -44,6 +45,7 @@ public class TotSeries {
         cliente.nextActivityState();
         Episodio episodio = catalogo.getEpisodio(serie_id, temporada_id, episodio_id);
         Consola.escriu("Reproduciendo episodio.\n");
+        episodio.addReproduccion(new Reproduccion(cliente.getUsername()));
         cliente.addVisualizacion();
         cliente.nextActivityState();
         return true;

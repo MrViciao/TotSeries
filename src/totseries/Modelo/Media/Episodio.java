@@ -92,4 +92,8 @@ public class Episodio{
     public int countReproducciones(){
         return reproducciones.size();
     }
+    
+    public void addReproduccion(Reproduccion r){
+        reproducciones.add(r);
+    }
 }
