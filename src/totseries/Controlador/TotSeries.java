@@ -69,10 +69,6 @@ public class TotSeries {
     }
     
 
-    public void verCatalogo() {
-        catalogo.showCatalogo();
-    }
-
     public boolean verTemporadas(String idSerie) {
         //comprovar que exista serie!
         try {
@@ -140,6 +136,26 @@ public class TotSeries {
      */
     public void setRegistro(Registro registro) {
         this.registro = registro;
+    }
+    
+    public List<String> mostrarSeries(){
+        return this.catalogo.showCatalogo();
+    }
+    public List<String> mostrarEpisodio(String idSerie,int idTemporada){
+        return this.catalogo.showEpisodio(idSerie,idTemporada);
+    }
+    public List<String> mostrarTemporada(String idSerie){
+        return this.catalogo.showTemporada(idSerie);
+    }
+    public Episodio getEpisodio(String idSerie, int idTemporada, int idEpisodio){
+        return this.catalogo.getSerie(idSerie).getEpisodio(idTemporada, idEpisodio);
+    }
+    public String getDescripcion (String idSerie){
+        return this.catalogo.getDescripcion(idSerie);
+    }
+    public void valorarEpisodio(Episodio episodio, int puntuacion) {
+        Valoracion valoracion = new Valoracion(registro.getLoggedUser().getId(), puntuacion);
+        episodio.addValoracion(valoracion);
     }
 
 }

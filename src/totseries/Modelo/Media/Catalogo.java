@@ -86,8 +86,12 @@ public class Catalogo {
         return this.getSerie(idSerie) != null;
     }
 
-    public void showCatalogo() {
-        Consola.escriu(this.toString());
+    public List<String> showCatalogo(){
+        List<String> lista = null;
+        for (Serie serie : series) {
+            lista.add(serie.getNombre());
+        }
+        return lista;
     }
 
     ///////////////////////////////////////////////////7
