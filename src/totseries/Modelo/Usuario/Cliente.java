@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package totseries;
+package totseries.Modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import totseries.Modelo.Factura;
 
 /**
  *
@@ -21,11 +22,13 @@ public class Cliente extends Usuario {
     private String dni;
     private String direccion;
     private List<Factura> facturas;
+    private ActivityState activity;
 
     public Cliente(String id, String username, String password, String nombre) {
         super(id, username, password, nombre);
         this.facturas = new ArrayList<>();
         facturas.add(new Factura());
+        activity=new IdleState();
     }
 
     public Cliente(String id, String username, String password,
@@ -34,6 +37,7 @@ public class Cliente extends Usuario {
         this.direccion = adreca;
         //this.nacimiento = nacimiento;
         this.vip = vip;
+        activity=new IdleState();
     }
 
     public String getPais() {
@@ -67,5 +71,17 @@ public class Cliente extends Usuario {
     
     public void addVisualizacion(){
         this.getLastFactura().addVisualizacion();
+    }
+    
+    public void setActivityState(ActivityState activity){
+        this.activity=activity;
+    }
+    
+    public void nextActivityState(){
+        activity.nextState(this);
+    }
+    
+    public boolean canViewEpisode(){
+        return activity.canViewEpisode();
     }
 }

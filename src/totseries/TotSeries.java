@@ -5,25 +5,43 @@
  */
 package totseries;
 
+import totseries.Modelo.Media.Temporada;
+import totseries.Modelo.Valoracion;
+import totseries.Modelo.Usuario.Cliente;
+import totseries.Modelo.Usuario.Registro;
+import totseries.Modelo.Media.Catalogo;
+import totseries.Modelo.Media.Episodio;
 import java.util.ArrayList;
 import java.util.List;
 import totseries.Parser.Consola;
-import totseries.totseries.Exceptions.SerieNotFoundException;
 
 public class TotSeries {
 
     private Catalogo catalogo;
     private Registro registro;
     private Cliente actualCliente;
+    private static TotSeries instance;
+
+    public static TotSeries getInstance() {
+        if (instance == null) {
+            return new TotSeries();
+        }
+        return instance;
+    }
 
     public boolean reproducirEpisodio(String serie_id, int temporada_id, int episodio_id) {
+        if (!actualCliente.canViewEpisode()) {
+            return false;
+        }
         if (!catalogo.existeEpisodio(serie_id, temporada_id, episodio_id)) {
             return false;
         }
 
+        actualCliente.nextActivityState();
         Episodio episodio = catalogo.getEpisodio(serie_id, temporada_id, episodio_id);
         Consola.escriu("Reproduciendo episodio.\n");
         actualCliente.addVisualizacion();
+        actualCliente.nextActivityState();
         return true;
     }
 
@@ -35,9 +53,8 @@ public class TotSeries {
 
     }
 
-    public String verCatalogo() {
-        //Consola.escriu(catalogo.toString());
-        return catalogo.toString();
+    public void verCatalogo() {
+        catalogo.showCatalogo();
     }
 
     public boolean verTemporadas(String idSerie) {

@@ -6,19 +6,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import totseries.Actor;
-import totseries.Administrador;
-import totseries.Artista;
-import totseries.Catalogo;
-import totseries.Cliente;
-import totseries.Director;
-import totseries.Episodio;
-import totseries.Productora;
-import totseries.Registro;
-import totseries.Serie;
-import totseries.Temporada;
+import totseries.Modelo.Actor;
+import totseries.Modelo.Usuario.Administrador;
+import totseries.Modelo.Artista;
+import totseries.Modelo.Media.Catalogo;
+import totseries.Modelo.Usuario.Cliente;
+import totseries.Modelo.Director;
+import totseries.Modelo.Media.Episodio;
+import totseries.Modelo.Productora;
+import totseries.Modelo.Usuario.Registro;
+import totseries.Modelo.Media.Serie;
+import totseries.Modelo.Media.Temporada;
 import totseries.TotSeries;
-import totseries.Valoracion;
+import totseries.Modelo.Valoracion;
 
 /**
  * Data manager per TotSeries. Crea les estructures de dades necessàries 

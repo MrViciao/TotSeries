@@ -1,13 +1,14 @@
-package totseries;
+package totseries.Modelo.Media;
 
 import java.util.ArrayList;
 import java.util.List;
+import totseries.Modelo.Artista;
 
 /**
  *
  * @author Abel
  */
-public class Serie {
+public class Serie{
 
     private String id;
     private String titulo;

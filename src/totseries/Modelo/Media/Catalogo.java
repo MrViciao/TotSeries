@@ -1,8 +1,8 @@
-package totseries;
+package totseries.Modelo.Media;
 
 import java.util.ArrayList;
 import java.util.List;
-import totseries.totseries.Exceptions.SerieNotFoundException;
+import totseries.Parser.Consola;
 
 /**
  *
@@ -93,7 +93,10 @@ public class Catalogo {
             return false;
         }
         return true;
-
+    }
+    
+    public void showCatalogo(){
+        Consola.escriu(this.toString());
     }
 
 }

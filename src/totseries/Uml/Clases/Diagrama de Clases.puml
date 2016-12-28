@@ -65,10 +65,43 @@ namespace Model {
         - Boolean vip
         - String dni
         - String direccion
+        - Boolean can_view_ep()
+        - Void nextState()
+        - Void setState()
         ==
         + Factura getLastFactura()
         + addVisualizacion()
     }
+    
+
+    '###############################################
+    interface ActivityState{
+        can_view_episode()
+        nextState()
+    }
+    
+    class IdleState{
+        Boolean can_view_episode()
+        Void nextState(Client cliente)
+    }
+
+    class ActiveState{
+        Boolean can_view_episode()
+        Void nextState(Client cliente)
+    }
+
+    interface StatusState{
+        add_visualizacion()
+    }
+    
+    class VipState{
+        add_visualizacion(Factura fac)
+    }
+
+    class NormalState{
+        add_visualizacion(Factura fac)
+    }
+    '#####################################
     class Administrador{
     }
 
@@ -77,7 +110,7 @@ namespace Model {
         -Date fecha
         -int visualizaciones
         ==
-        + addVisualizacion()
+        + addVisualizacion(Boolean vip)
     }
     
     class Catalogo{
@@ -176,7 +209,14 @@ namespace Model {
     Serie "1..*" - "1..* | productoras" Productora : tiene >
     Temporada "1" *- "1..* | episodios" Episodio : consta >
     Episodio "1" - "0..* | valoraciones" Valoracion : tiene >
+    
+    Cliente "1" - "1 | activity" ActivityState : tiene >
+    ActivityState <|-- IdleState : tiene >
+    ActivityState <|-- ActiveState : tiene >
 
+    Cliente "1" - "1 | status" StatusState : tiene >
+    StatusState <|-- VipState : tiene >
+    StatusState <|-- NormalState : tiene >
 }
 
 Controlador.Totseries "1" -- "1 | catalogo" Model.Catalogo : tiene >

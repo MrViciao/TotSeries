@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package totseries;
+package totseries.Modelo.Usuario;
 
 /**
  *
  * @author mrviciao
  */
-public class Actor extends Artista{
-    public Actor(String id, String nom, String pais){
-        super(id, nom, pais);
-    }
+public interface ActivityState {
+    public void nextState(Cliente c);
+    public boolean canViewEpisode();
 }

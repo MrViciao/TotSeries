@@ -62,7 +62,7 @@ public class Menu {
                             "================\n"
                             + "= Ver Catalogo\n"
                             + "================\n");
-                    Consola.escriu(totSeries.verCatalogo());
+                    totSeries.verCatalogo();
                     break;
 
                 case 4:
@@ -70,7 +70,7 @@ public class Menu {
                             "================\n"
                             + "= Ver Episodio\n"
                             + "================\n");
-                    Consola.escriu(totSeries.verCatalogo());
+                    totSeries.verCatalogo();
                     Consola.escriu("Escriu el id de una serie: ");
                     String serieId = Consola.llegeixString();
 

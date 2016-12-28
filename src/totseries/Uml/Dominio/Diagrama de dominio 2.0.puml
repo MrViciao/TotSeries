@@ -31,17 +31,15 @@ nacionalidad
 fechaNacimiento
 }
 
-Object Factura{
+object Factura{
 total
 fecha
 }
 
-Object Temporada{
+object Temporada{
 id
 numEpisodios
 }
-
-
 
 object Serie{
 id
@@ -57,28 +55,33 @@ password
 id
 }
 
-Object Valoracion{
+object Anonimo{
+}
+
+object Valoracion{
 puntuacion
 fecha
 }
 
 object Catalogo
-Object Tiempo
-Object VIP
-Object Administrador
-Object Actor
-Object Director
-Object Estado
-Object Registro
+object Tiempo
+object VIP
+object Administrador
+object Actor
+object Director
+object Estado
+object Registro
 
 Totseries "1" -- "1" Catalogo : tiene >
 Totseries "1" -- "1" Registro : tiene >
+Totseries "1" -- "1" Anonimo : tiene >
 
 Registro "1" -- "*" Usuario : tiene >
 Usuario <|-- Cliente
 Usuario <|- Administrador
 
 Usuario "*" -- "1" Catalogo : visualiza >
+Anonimo "*" -- "1" Catalogo : visualiza >
 
 Cliente "1" -- "*" Factura : tiene >
 Cliente "1" -- "*" Valoracion : ha realizado >

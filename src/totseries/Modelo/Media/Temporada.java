@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package totseries;
+package totseries.Modelo.Media;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  *
  * @author mrviciao
  */
-public class Temporada {
+public class Temporada{
 
     private List<Episodio> episodios;
     private int id;

@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package totseries;
+package totseries.Modelo.Usuario;
 
+import totseries.Modelo.Usuario.Administrador;
+import totseries.Modelo.Usuario.Cliente;
 import java.util.ArrayList;
 import java.util.List;
+import totseries.Modelo.Usuario.ClienteCreator;
+import totseries.Modelo.Usuario.Usuario;
 
 /**
  *
@@ -36,6 +40,9 @@ public class Registro {
     
     public void registrar(String nom, String dni, String adreca, String usuari, String password){
         String id="c"+clientes.size()+1;
+        
+        //ClienteCreator cc = new ClienteCreator();
+        //Usuario user = cc.createUsuario("c0", "test", "test", "test");
         Cliente cliente = new Cliente(id,  usuari,  password, nom, dni, adreca, false);
         clientes.add(cliente);
     }

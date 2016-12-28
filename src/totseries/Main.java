@@ -5,6 +5,9 @@
  */
 package totseries;
 
+import totseries.Modelo.Usuario.Cliente;
+import totseries.Modelo.Usuario.Usuario;
+import totseries.Modelo.Usuario.ClienteCreator;
 import totseries.Parser.TotSeriesDataManager;
 import totseries.vista.MainVista;
 
@@ -18,12 +21,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TotSeries tot_series = new TotSeries();
+        TotSeries tot_series = TotSeries.getInstance();
         tot_series = cargarDatos(tot_series);
 
         //Este es un usuario que esta aqui para no hacer login.
-        Cliente user = new Cliente("c0", "test", "test", "test");
-        tot_series.setActualCliente(user);
+        ClienteCreator cc = new ClienteCreator();
+        Usuario user = cc.createUsuario("c0", "test", "test", "test");
+        tot_series.setActualCliente((Cliente)user);
 
         //MainVista mv = new MainVista();
         //mv.main(null);
