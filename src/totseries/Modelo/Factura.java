@@ -12,23 +12,30 @@ import java.util.Date;
  * @author mrviciao
  */
 public class Factura {
-    private float precio;
+    
+    public static final int PRICE=1;
+    
+    private float total;
     private Date fecha;
     private int visualizaciones;
  
     public Factura(){
         fecha=new Date();
-        precio=2;
+        total=0;
         visualizaciones=0;
     }
     
     public Factura(int precio){
         fecha=new Date();
-        this.precio=precio;
+        this.total=precio;
         visualizaciones=0;
     }
     
-    public void addVisualizacion(){
+    public void addVisualizacion(boolean isVip){
         visualizaciones+=1;
+        if (isVip){
+            total+=PRICE*0.9;
+        }
+        else total+=PRICE;
     }
 }
