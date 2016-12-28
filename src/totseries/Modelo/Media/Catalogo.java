@@ -138,5 +138,46 @@ public class Catalogo {
         Collections.sort(series, (Serie p1, Serie p2) -> Float.compare(p2.countReproducciones(), p1.countReproducciones()));
         return lista.subList(0, 10);
     }
-
+       public List<String> showCatalogo(){
+        List<String> lista = null;
+        for (Serie serie : series) {
+            lista.add(serie.getNombre());
+        }
+        //throws new SerieNotFoundException("Serie con idSerie no encontrada");
+        return lista;
+    }
+    public List<String> showTemporada(String idSerie){
+        for (Serie serie: this.series){
+            if(serie.equals(idSerie)){
+                return serie.showTemporada();
+            }
+        }
+        return null;
+    }
+    public List<String> showEpisodio(String idSerie,int idTemporada){
+        for (Serie serie: this.series){
+            if(serie.equals(idSerie)){
+                return serie.showEpisodio(idTemporada);
+            }
+        }
+        return null;
+    }
+    
+    public List<Episodio> getEpisodio(String idSerie,int idTemporada){
+        for (Serie serie : series) {
+            if (serie.getId().equals(idSerie)) {
+                return serie.getEpisodio(idTemporada);
+            }
+        }
+        //throws new SerieNotFoundException("Serie con idSerie no encontrada");
+        return null;    
+    }
+    public String getDescripcion (String idSerie){
+        for (Serie serie: this.series){
+            if(serie.equals(idSerie)){
+                return serie.getDescripcion();
+            }
+        }
+        return null;
+    }
 }
