@@ -6,10 +6,10 @@
 package totseries.Vista;
 
 import totseries.Controlador.TotSeries;
-import totseries.Modelo.Media.Temporada;
-import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import static totseries.Main.cargarDatos;
+import totseries.Parser.TotSeriesDataManager;
 
 /**
  *
@@ -20,11 +20,14 @@ public class Vista extends javax.swing.JFrame {
     /**
      * Creates new form Vista
      */
-    public Vista() {
+    public Vista(TotSeries controlador) {
         initComponents();
-        TotSeries controlador = TotSeries.getInstance();
+        this.controlador = controlador;
         this.jMenuAdministrador.setVisible(false);
         this.jMenuCliente.setVisible(false);
+        this.jListTemporadas.setVisible(false);
+        this.jListEpisodios.setVisible(false);
+        this.actualizarCatalogo();
         /*
         this.jMenuItemAsignarVIP.setVisible(false);
         this.jMenuItemCargarFichero.setVisible(false);
@@ -197,7 +200,7 @@ public class Vista extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldVisitados, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -279,7 +282,7 @@ public class Vista extends javax.swing.JFrame {
     private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
         JOptionPane.showMessageDialog(this, "Sin Implementar","Error",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
-    private void atualizarCatalogo(){
+    private void actualizarCatalogo(){
         DefaultListModel model = new DefaultListModel();
         model.clear();
         for(String file: this.controlador.mostrarSeries()){
@@ -337,10 +340,20 @@ public class Vista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            TotSeries tot_series = TotSeries.getInstance();
+            TotSeries tots_series = cargarDatos(tot_series);
+
+            @Override
             public void run() {
-                new Vista().setVisible(true);
+                new Vista(tots_series).setVisible(true);
             }
         });
+    }
+        public static TotSeries cargarDatos(TotSeries tot_Series) {
+        TotSeriesDataManager dataManager = new TotSeriesDataManager();
+        dataManager.obtenirDades("data/TotSeries.xml");
+        tot_Series = dataManager.cargarDatos(tot_Series);
+        return tot_Series;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

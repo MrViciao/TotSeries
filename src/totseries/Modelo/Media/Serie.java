@@ -148,7 +148,7 @@ public class Serie{
         return null;
     }
     public String getNombre(){
-        return this.getNombre();
+        return this.titulo;
     }
 
     public List<String> showTemporada() {

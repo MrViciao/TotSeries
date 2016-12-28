@@ -87,7 +87,7 @@ public class Catalogo {
     }
 
     public List<String> showCatalogo(){
-        List<String> lista = null;
+        List<String> lista = new ArrayList();
         for (Serie serie : series) {
             lista.add(serie.getNombre());
         }

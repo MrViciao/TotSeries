@@ -7,11 +7,9 @@ package totseries;
 
 import totseries.Controlador.TotSeries;
 import totseries.Modelo.Usuario.AdministradorCreator;
-import totseries.Modelo.Usuario.Cliente;
 import totseries.Modelo.Usuario.Usuario;
-import totseries.Modelo.Usuario.ClienteCreator;
 import totseries.Parser.TotSeriesDataManager;
-import totseries.Vista.MainVista;
+//import totseries.Vista.MainVista;
 
 /**
  *
