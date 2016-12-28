@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package totseries;
+package totseries.Controlador;
 
 import totseries.Modelo.Media.Temporada;
 import totseries.Modelo.Media.Valoracion;
@@ -97,8 +97,10 @@ public class TotSeries {
         return catalogo.verEpisodios(idSerie, idTemporada);
     }
 
-    public void registrar(String usuari, String password, String nom, String dni, String adreca) {
+    public boolean registrar(String usuari, String password, String nom, String dni, String adreca) {
+        if (registro.hasUsuario(usuari)) return false;
         registro.registrarCliente(nom, dni, adreca, usuari, password);
+        return true;
     }
 
     public void verMejoresEpisodios() {

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package totseries.Vista;
 
-import Controlador.TotSeries;
+import totseries.Controlador.TotSeries;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +13,13 @@ import javax.swing.JOptionPane;
  * @author Abel
  */
 public class RegistroJDialog extends javax.swing.JDialog {
+
     TotSeries controlador;
+
     /**
      * Creates new form RegistroJDialog
      */
-    public RegistroJDialog(java.awt.Frame parent, boolean modal,TotSeries controlador) {
+    public RegistroJDialog(java.awt.Frame parent, boolean modal, TotSeries controlador) {
         super(parent, modal);
         initComponents();
         this.controlador = controlador;
@@ -214,11 +216,16 @@ public class RegistroJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        if(this.controlador.registrar(this.jTextFieldUsuario.getText(), this.jTextFieldPasword.getText(), this.jTextFieldNombre.getText(), this.jTextFieldDNI.getText(),this.jTextFieldDireccion.getText()))
+        if (this.controlador.registrar(
+                this.jTextFieldUsuario.getText(),
+                this.jTextFieldPasword.getText(),
+                this.jTextFieldNombre.getText(),
+                this.jTextFieldDNI.getText(),
+                this.jTextFieldDireccion.getText())) {
             this.setVisible(false);
-        else{
-            JOptionPane.showMessageDialog(this, "Ya Existe el Usuario","Error",JOptionPane.ERROR_MESSAGE);       
-            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ya Existe el Usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
 

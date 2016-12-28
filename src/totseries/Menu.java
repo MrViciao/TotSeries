@@ -5,6 +5,7 @@
  */
 package totseries;
 
+import totseries.Controlador.TotSeries;
 import totseries.Parser.Consola;
 
 /**

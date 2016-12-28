@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package totseries.vista;
+package totseries.Vista;
 
-import totseries.TotSeries;
+import totseries.Controlador.TotSeries;
 
 /**
  *

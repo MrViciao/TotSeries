@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package totseries.Vista;
 
-import Controlador.TotSeries;
-import Media.Temporada;
+import totseries.Controlador.TotSeries;
+import totseries.Modelo.Media.Temporada;
 import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;

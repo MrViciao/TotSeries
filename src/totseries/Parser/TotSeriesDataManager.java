@@ -17,7 +17,7 @@ import totseries.Modelo.Productora;
 import totseries.Modelo.Usuario.Registro;
 import totseries.Modelo.Media.Serie;
 import totseries.Modelo.Media.Temporada;
-import totseries.TotSeries;
+import totseries.Controlador.TotSeries;
 import totseries.Modelo.Media.Valoracion;
 
 /**

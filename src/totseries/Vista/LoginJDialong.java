@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package totseries.Vista;
 
-import Controlador.TotSeries;
+import totseries.Controlador.TotSeries;
 import javax.swing.JOptionPane;
 
 /**
