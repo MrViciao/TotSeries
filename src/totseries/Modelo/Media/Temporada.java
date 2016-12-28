@@ -105,5 +105,21 @@ public class Temporada {
         }
         return total / episodios.size();
     }
+        public List<Episodio> getEpisodio(){
+        return this.episodios;
+    }
+    public String showTemporada(){
+        String nombre;
+        nombre = "Season: ";
+        nombre += this.getId();
+        return nombre;
+    }
 
+    public List<String> showEpisodio() {
+        List<String> lista = null;
+        for (Episodio epi : this.episodios){
+            lista.add(epi.getTitulo());
+        }
+        return lista;
+    }
 }
