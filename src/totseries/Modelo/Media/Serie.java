@@ -140,5 +140,32 @@ public class Serie{
         }
         return total / temporadas.size();
     }
+    public List<Episodio> getEpisodio(int idTemporada){
+        for (Temporada temporada : temporadas){
+            if (temporada.getId()==idTemporada)
+                return this.temporadas.get(idTemporada).getEpisodio();   
+        }
+        return null;
+    }
+    public String getNombre(){
+        return this.getNombre();
+    }
 
+    public List<String> showTemporada() {
+        List<String> lista = null;
+        for (Temporada tempo: this.temporadas){
+            lista.add(tempo.showTemporada());
+        }
+        return lista;
+    }
+    public List<String> showEpisodio(int idTemporada){
+        for (Temporada temporada : temporadas){
+            if (temporada.getId()==idTemporada)
+                return this.temporadas.get(idTemporada).showEpisodio();   
+        }
+        return null;
+    }
+    public String getDescripcion(){
+        return this.descripcion;
+    }
 }
