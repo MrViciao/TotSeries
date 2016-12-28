@@ -10,7 +10,7 @@ package totseries.Modelo.Usuario;
  * @author mrviciao
  */
 public class AdministradorCreator extends AbstractUsuarioCreator{    
-    public Usuario createUsuario(String id, String username, String password, String nombre) {
+    public Administrador createUsuario(String id, String username, String password, String nombre) {
         return new Administrador(id, username, password, nombre);
     }
 }

@@ -11,7 +11,7 @@ package totseries.Modelo.Usuario;
  */
 public class ClienteCreator extends AbstractUsuarioCreator {
 
-    public Usuario createUsuario(String id, String username, String password, String nombre) {
+    public Cliente createUsuario(String id, String username, String password, String nombre) {
         return new Cliente(id, username, password, nombre);
     }
 }

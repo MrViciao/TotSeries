@@ -17,33 +17,74 @@ import totseries.Modelo.Usuario.Usuario;
  * @author mrviciao
  */
 public class Registro {
-    private List<Cliente> clientes;
-    private List<Administrador> administradores;
-    
-    public Registro(){
-        this.clientes = new ArrayList<>();
-        this.administradores = new ArrayList<>();
+
+    private List<Usuario> usuarios;
+    private Usuario logged;
+
+    public Registro() {
+        this.usuarios = new ArrayList<>();
     }
-    
-    public boolean hasUsuario(String username){
-        for(Cliente cliente : clientes){
-            if(cliente.getUsername().equals(username))
+
+    public boolean hasUsuario(String username) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsername().equals(username)) {
                 return false;
-        }
-        for(Administrador administrador : administradores){
-            if(administrador.getUsername().equals(username))
-                return false;
+            }
         }
         return true;
-        
     }
-    
-    public void registrar(String nom, String dni, String adreca, String usuari, String password){
-        String id="c"+clientes.size()+1;
-        
-        //ClienteCreator cc = new ClienteCreator();
-        //Usuario user = cc.createUsuario("c0", "test", "test", "test");
-        Cliente cliente = new Cliente(id,  usuari,  password, nom, dni, adreca, false);
-        clientes.add(cliente);
+
+    public void registrarAdmin(String usuari, String password, String nom) {
+        String id = "u" + usuarios.size() + 1;
+        AdministradorCreator cc = new AdministradorCreator();
+        Usuario user = cc.createUsuario(id, usuari, password, nom);
+        usuarios.add(user);
     }
+
+    public void registrarCliente(String nom, String dni, String adreca, String usuari, String password) {
+        String id = "u" + usuarios.size() + 1;
+        ClienteCreator cc = new ClienteCreator();
+        Cliente user = cc.createUsuario(id, usuari, password, nom);
+        user.setDni(dni);
+        user.setDireccion(adreca);
+        usuarios.add(user);
+    }
+
+    public void setLoggedUser(Usuario user) {
+        logged = user;
+
+    }
+
+    public Usuario getLoggedUser() {
+        return logged;
+    }
+
+    public boolean isLogged() {
+        return logged != null;
+    }
+
+    public Cliente getLoggedAsCliente() {
+        if (logged instanceof Cliente) {
+            return (Cliente) logged;
+        }
+        return null;
+    }
+
+    public Administrador getLoggedAsAdmin() {
+        if (logged instanceof Administrador) {
+            return (Administrador) logged;
+        }
+        return null;
+    }
+
+    public Usuario login(String username, String password) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsername().equals(username) && usuario.getPassword().equals(password)) {
+                logged = usuario;
+                return usuario;
+            }
+        }
+        return null;
+    }
+
 }

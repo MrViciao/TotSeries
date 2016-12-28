@@ -25,10 +25,9 @@ public class Main {
         tot_series = cargarDatos(tot_series);
 
         //Este es un usuario que esta aqui para no hacer login.
-        ClienteCreator cc = new ClienteCreator();
-        Usuario user = cc.createUsuario("c0", "test", "test", "test");
-        tot_series.setActualCliente((Cliente)user);
-
+        //ClienteCreator cc = new ClienteCreator();
+        //Usuario user = cc.createUsuario("c0", "test", "test", "test");
+        
         //MainVista mv = new MainVista();
         //mv.main(null);
         Menu menu = new Menu(tot_series);

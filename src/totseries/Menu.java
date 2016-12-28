@@ -74,7 +74,7 @@ public class Menu {
                     Consola.escriu("Escriu el id de una serie: ");
                     String serieId = Consola.llegeixString();
 
-                    if(!totSeries.verTemporadas(serieId)){
+                    if (!totSeries.verTemporadas(serieId)) {
                         Consola.escriu("Volviendo al menu\n");
                         break;
                     }
@@ -85,7 +85,7 @@ public class Menu {
                     Consola.escriu("Escriu un episodi: ");
                     int episodioId = Consola.llegeixInt();
 
-                    if(!totSeries.reproducirEpisodio(serieId, temporadaId, episodioId)){
+                    if (!totSeries.reproducirEpisodio(serieId, temporadaId, episodioId)) {
                         Consola.escriu("Error en la reproduccion. No existe episodio\n");
                         break;
                     }
@@ -112,6 +112,18 @@ public class Menu {
                             + "================\n");
                     totSeries.verMejoresEpisodios();
                     break;
+                case 7:
+                    Consola.escriu(
+                            "================\n"
+                            + "= Login\n"
+                            + "================\n");
+                    Consola.escriu("Escriu username: ");
+                    String username1 = Consola.llegeixString();
+
+                    Consola.escriu("Escriu password: ");
+                    String password1 = Consola.llegeixString();
+                    totSeries.login(username1, password1);
+                    break;
             }
         }
 
@@ -125,6 +137,7 @@ public class Menu {
         Consola.escriu("3.Ver Catalogo\n");
         Consola.escriu("4.Ver episodio\n");
         Consola.escriu("6.Ver mejores Episodios\n");
+        Consola.escriu("7.Login\n");
         Consola.escriu("0.Exit\n");
     }
 

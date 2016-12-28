@@ -13,13 +13,13 @@ import totseries.Modelo.Media.Catalogo;
 import totseries.Modelo.Media.Episodio;
 import java.util.ArrayList;
 import java.util.List;
+import totseries.Modelo.Usuario.Usuario;
 import totseries.Parser.Consola;
 
 public class TotSeries {
 
     private Catalogo catalogo;
     private Registro registro;
-    private Cliente actualCliente;
     private static TotSeries instance;
 
     public static TotSeries getInstance() {
@@ -30,28 +30,42 @@ public class TotSeries {
     }
 
     public boolean reproducirEpisodio(String serie_id, int temporada_id, int episodio_id) {
-        if (!actualCliente.canViewEpisode()) {
+        Cliente cliente = registro.getLoggedAsCliente();
+        if (cliente==null){
+            return false;
+        }
+        if (!cliente.canViewEpisode()) {
             return false;
         }
         if (!catalogo.existeEpisodio(serie_id, temporada_id, episodio_id)) {
             return false;
         }
 
-        actualCliente.nextActivityState();
+        cliente.nextActivityState();
         Episodio episodio = catalogo.getEpisodio(serie_id, temporada_id, episodio_id);
         Consola.escriu("Reproduciendo episodio.\n");
-        actualCliente.addVisualizacion();
-        actualCliente.nextActivityState();
+        cliente.addVisualizacion();
+        cliente.nextActivityState();
         return true;
     }
 
     public void valorarEpisodio(String serie_id, int temporada_id, int episodio_id, int puntuacion) {
         Episodio episodio = catalogo.getEpisodio(serie_id, temporada_id, episodio_id);
-
-        Valoracion valoracion = new Valoracion(actualCliente.getId(), puntuacion);
+        Valoracion valoracion = new Valoracion(registro.getLoggedUser().getId(), puntuacion);
         episodio.addValoracion(valoracion);
 
     }
+    
+    public boolean login(String username, String password){
+        if (registro.isLogged()) return false;
+        Usuario user= registro.login(username, password);
+        return user != null;
+    }
+    
+    public void logout(){
+        registro.setLoggedUser(null);
+    }
+    
 
     public void verCatalogo() {
         catalogo.showCatalogo();
@@ -84,7 +98,7 @@ public class TotSeries {
     }
 
     public void registrar(String usuari, String password, String nom, String dni, String adreca) {
-        registro.registrar(nom, dni, adreca, usuari, password);
+        registro.registrarCliente(nom, dni, adreca, usuari, password);
     }
 
     public void verMejoresEpisodios() {
@@ -125,20 +139,6 @@ public class TotSeries {
      */
     public void setRegistro(Registro registro) {
         this.registro = registro;
-    }
-
-    /**
-     * @return the actualUsuario
-     */
-    public Cliente getActualCliente() {
-        return actualCliente;
-    }
-
-    /**
-     * @param actualCliente the actualUsuario to set
-     */
-    public void setActualCliente(Cliente actualCliente) {
-        this.actualCliente = actualCliente;
     }
 
 }
