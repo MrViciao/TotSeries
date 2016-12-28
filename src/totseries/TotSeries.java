@@ -6,7 +6,7 @@
 package totseries;
 
 import totseries.Modelo.Media.Temporada;
-import totseries.Modelo.Valoracion;
+import totseries.Modelo.Media.Valoracion;
 import totseries.Modelo.Usuario.Cliente;
 import totseries.Modelo.Usuario.Registro;
 import totseries.Modelo.Media.Catalogo;
@@ -102,12 +102,9 @@ public class TotSeries {
     }
 
     public void verMejoresEpisodios() {
-        ArrayList<Episodio> bestEpisodios = catalogo.getMejoresEpisodio();
+        List<Episodio> bestEpisodios = catalogo.getEpisodiosMasValorados();
         for (Episodio episodio : bestEpisodios) {
             Consola.escriu(episodio.toString());
-        }
-        if (bestEpisodios.isEmpty()) {
-            Consola.escriu("No hi ha millors episodis\n");
         }
     }
     ///////////////////////////////

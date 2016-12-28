@@ -3,6 +3,7 @@ package totseries.Modelo.Media;
 import java.util.ArrayList;
 import java.util.List;
 import totseries.Modelo.Artista;
+import totseries.Modelo.Productora;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Serie{
     private String descripcion;
     private List<Temporada> temporadas;
     private List<Artista> artistas;
-    private List<Artista> productora;
+    private List<Productora> productora;
 
     public Serie(String id, String titulo, String descripcion) {
         this.id = id;
@@ -28,13 +29,6 @@ public class Serie{
 
     //metodos de sin responsabilidad
     /////////////////
-    public ArrayList<Episodio> getMejoresEpisodio() {
-        ArrayList<Episodio> lista= new ArrayList();
-        for (Temporada temporada : temporadas) {
-            lista.addAll(temporada.getMejoresEpisodio());
-        }
-        return lista;
-    }
 
     public boolean existeEpisodio(int idTemporada, int idEpisodio) {
         for (Temporada temporada : temporadas) {
@@ -120,6 +114,31 @@ public class Serie{
     
     public List<Temporada> getTemporadas(){
         return temporadas;
+    }
+    
+    public int countReproducciones(){
+        int total=0;
+        for(Temporada temporada : temporadas){
+            total+=temporada.countReproducciones();
+        }
+        return total;
+    }
+    
+    
+    public List getEpisodios(){
+        List<Episodio> episodios=new ArrayList<>();
+        for (Temporada temporada : temporadas){
+            episodios.addAll(temporada.getEpisodios());
+        }
+        return episodios;
+    }
+    
+    public float getPromedio() {
+        float total = 0;
+        for (Temporada temporada : temporadas) {
+            total += temporada.getPromedio();
+        }
+        return total / temporadas.size();
     }
 
 }

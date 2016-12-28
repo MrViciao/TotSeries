@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import totseries.Modelo.Valoracion;
 
 /**
  *
@@ -24,6 +23,7 @@ public class Episodio{
     private float promedio;
     private Date fecha;
     private List<Valoracion> valoraciones;
+    private List<Reproduccion> reproducciones;
     
     public Episodio(){
         this.valoraciones = new ArrayList<>();
@@ -87,5 +87,9 @@ public class Episodio{
         "\nvaloracion : " + promedio +
         "\nDescripcion: " + descripcion + "\n";
         return string;
+    }
+    
+    public int countReproducciones(){
+        return reproducciones.size();
     }
 }

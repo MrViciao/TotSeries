@@ -70,7 +70,7 @@ public class Cliente extends Usuario {
     }
     
     public void addVisualizacion(){
-        this.getLastFactura().addVisualizacion();
+        this.getLastFactura().addVisualizacion(vip);
     }
     
     public void setActivityState(ActivityState activity){

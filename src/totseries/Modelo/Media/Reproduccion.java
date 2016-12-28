@@ -5,17 +5,19 @@
  */
 package totseries.Modelo.Media;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  *
  * @author mrviciao
  */
-public abstract class ElementMedia {
-    
-    protected float valoracion_media;
-    protected int reproducciones;
-    
+public class Reproduccion {
 
-    
+    private String usuario;
+    private Date fecha;
+
+    public Reproduccion(String usuario) {
+        this.usuario = usuario;
+        this.fecha = new Date();
+    }
 }

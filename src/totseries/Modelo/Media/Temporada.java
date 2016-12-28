@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author mrviciao
  */
-public class Temporada{
+public class Temporada {
 
     private List<Episodio> episodios;
     private int id;
@@ -40,16 +40,6 @@ public class Temporada{
         this.episodios.add(episodio);
         episodio.setId(episodios.size());
         numEpisodis += 1;
-    }
-
-    public ArrayList<Episodio> getMejoresEpisodio() {
-        ArrayList<Episodio> lista = new ArrayList();
-        for (Episodio episodio : episodios) {
-            if (episodio.getPromedio() >= 4) {
-                lista.add(episodio);
-            }
-        }
-        return lista;
     }
 
     public boolean existeEpisodio(int idEpisodio) {
@@ -94,6 +84,26 @@ public class Temporada{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int countReproducciones() {
+        int total = 0;
+        for (Episodio episodio : episodios) {
+            total += episodio.countReproducciones();
+        }
+        return total;
+    }
+
+    public List getEpisodios() {
+        return episodios;
+    }
+
+    public float getPromedio() {
+        float total = 0;
+        for (Episodio episodio : episodios) {
+            total += episodio.getPromedio();
+        }
+        return total / episodios.size();
     }
 
 }

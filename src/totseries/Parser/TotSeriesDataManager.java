@@ -18,7 +18,7 @@ import totseries.Modelo.Usuario.Registro;
 import totseries.Modelo.Media.Serie;
 import totseries.Modelo.Media.Temporada;
 import totseries.TotSeries;
-import totseries.Modelo.Valoracion;
+import totseries.Modelo.Media.Valoracion;
 
 /**
  * Data manager per TotSeries. Crea les estructures de dades necessàries 
