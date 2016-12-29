@@ -14,16 +14,16 @@ import java.util.Date;
 public class Valoracion {
     
     private String usuario;
-    private int puntuacion;
+    private float puntuacion;
     private Date fecha;
     
-    public Valoracion(String usuario, int puntuacion){
+    public Valoracion(String usuario, float puntuacion){
         this.usuario=usuario;
         this.puntuacion=puntuacion;
         this.fecha=new Date();
     }
     
-    public Valoracion(String usuario, int puntuacion, Date fecha){
+    public Valoracion(String usuario, float puntuacion, Date fecha){
         this.usuario=usuario;
         this.puntuacion=puntuacion;
         this.fecha=fecha;
@@ -37,11 +37,11 @@ public class Valoracion {
         this.usuario = id;
     }
 
-    public int getPuntuacion() {
+    public float getPuntuacion() {
         return puntuacion;
     }
 
-    public void setPuntuacion(int puntuacion) {
+    public void setPuntuacion(float puntuacion) {
         this.puntuacion = puntuacion;
     }
 

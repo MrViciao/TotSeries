@@ -55,7 +55,7 @@ public class TotSeries {
                 new Reproduccion(cliente.getUsername()));
     }
 
-    public void valorarEpisodio(Episodio episodio, int puntuacion) {
+    public void valorarEpisodio(Episodio episodio, float puntuacion) {
         Valoracion valoracion = new Valoracion(registro.getLoggedUser().getId(), puntuacion);
         episodio.addValoracion(valoracion);
     }

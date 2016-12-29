@@ -66,7 +66,7 @@ public class Episodio{
     private void setPromedio(){
         Iterator<Valoracion> iterador= valoraciones.iterator();
         Valoracion valoracion;
-        int valor=0;
+        float valor=0;
         while(iterador.hasNext()){
             valoracion = iterador.next();
             valor+=valoracion.getPuntuacion();
