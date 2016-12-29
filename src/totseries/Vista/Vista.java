@@ -68,10 +68,22 @@ public class Vista extends javax.swing.JFrame {
         jTextFieldMasValorados = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jlistMesValorados = new javax.swing.JList<>();
-        jTextFieldTOP1 = new javax.swing.JLabel();
+        jTextFieldMasVistas = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jListClientes = new javax.swing.JList<>();
         jTextFieldClientes = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jListMesVistes1 = new javax.swing.JList<>();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jlistMesValorados1 = new javax.swing.JList<>();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jListMesVistes2 = new javax.swing.JList<>();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jlistMesValorados2 = new javax.swing.JList<>();
+        jTextFieldMasVistas1 = new javax.swing.JLabel();
+        jTextFieldMasValorados1 = new javax.swing.JLabel();
+        jTextFieldMasVistas2 = new javax.swing.JLabel();
+        jTextFieldMasVistas3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuUsuario = new javax.swing.JMenu();
         jMenuItemLogin = new javax.swing.JMenuItem();
@@ -86,7 +98,6 @@ public class Vista extends javax.swing.JFrame {
         jMenuItemDesloguear = new javax.swing.JMenuItem();
         jMenuAdministrador = new javax.swing.JMenu();
         jMenuItemCargarFichero = new javax.swing.JMenuItem();
-        jMenuItemAsignarVIP = new javax.swing.JMenuItem();
         jMenuItemDeslogearAdmin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -134,7 +145,7 @@ public class Vista extends javax.swing.JFrame {
         jTextFieldCatalogo.setText("Series");
 
         jTextFieldMasValorados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jTextFieldMasValorados.setText("Mas valorados");
+        jTextFieldMasValorados.setText("Ep + valorados");
 
         jlistMesValorados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jlistMesValorados.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -144,14 +155,63 @@ public class Vista extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jlistMesValorados);
 
-        jTextFieldTOP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jTextFieldTOP1.setText("Mes vsites");
+        jTextFieldMasVistas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldMasVistas.setText("Ep + Vistas");
 
         jListClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListClientesMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(jListClientes);
 
         jTextFieldClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTextFieldClientes.setText("Clientes");
+
+        jListMesVistes1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListMesVistes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListMesVistes1reproducirEvent(evt);
+            }
+        });
+        jScrollPane8.setViewportView(jListMesVistes1);
+
+        jlistMesValorados1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jlistMesValorados1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlistMesValorados1reproducirEvent(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jlistMesValorados1);
+
+        jListMesVistes2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListMesVistes2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListMesVistes2reproducirEvent(evt);
+            }
+        });
+        jScrollPane10.setViewportView(jListMesVistes2);
+
+        jlistMesValorados2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jlistMesValorados2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlistMesValorados2reproducirEvent(evt);
+            }
+        });
+        jScrollPane11.setViewportView(jlistMesValorados2);
+
+        jTextFieldMasVistas1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldMasVistas1.setText("Temp + Vistas");
+
+        jTextFieldMasValorados1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldMasValorados1.setText("Temp + valorada");
+
+        jTextFieldMasVistas2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldMasVistas2.setText("Serie + Vistas");
+
+        jTextFieldMasVistas3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldMasVistas3.setText("Serie + Valorada");
 
         jMenuUsuario.setText("Usuario");
         jMenuUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -228,14 +288,6 @@ public class Vista extends javax.swing.JFrame {
         });
         jMenuAdministrador.add(jMenuItemCargarFichero);
 
-        jMenuItemAsignarVIP.setText("AsignarVIP");
-        jMenuItemAsignarVIP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAsignarVIPActionPerformed(evt);
-            }
-        });
-        jMenuAdministrador.add(jMenuItemAsignarVIP);
-
         jMenuItemDeslogearAdmin.setText("Desloguear");
         jMenuItemDeslogearAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,56 +306,86 @@ public class Vista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldTemporadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jTextFieldEpisodios, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTextFieldCatalogo, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMasValorados, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTemporadas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldTOP1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldEpisodios, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTextFieldMasVistas2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldMasVistas1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldMasVistas, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTextFieldMasVistas3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldMasValorados1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldMasValorados, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldClientes)
+                        .addComponent(jTextFieldMasVistas)
+                        .addComponent(jTextFieldMasVistas1)
+                        .addComponent(jTextFieldMasVistas2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldCatalogo)
                         .addComponent(jTextFieldTemporadas)
-                        .addComponent(jTextFieldEpisodios)
-                        .addComponent(jTextFieldMasValorados)
-                        .addComponent(jTextFieldTOP1)
-                        .addComponent(jTextFieldClientes))
-                    .addComponent(jTextFieldCatalogo, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jTextFieldEpisodios)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldMasVistas3)
+                            .addComponent(jTextFieldMasValorados1)
+                            .addComponent(jTextFieldMasValorados))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -403,9 +485,34 @@ public class Vista extends javax.swing.JFrame {
         actualizarMasVistos();
     }//GEN-LAST:event_reproducirEvent
 
-    private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
+    private void jListClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListClientesMouseClicked
+        if (jListClientes.getSelectedValue() == null) {
+            return;
+        }
 
-    }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Quieres hacer vip a esta persona?", "Very important person", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            controlador.hacerVip((Cliente) jListClientes.getSelectedValue());
+            actualizarClientesNonVIP();
+        }
+
+    }//GEN-LAST:event_jListClientesMouseClicked
+
+    private void jListMesVistes1reproducirEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListMesVistes1reproducirEvent
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jListMesVistes1reproducirEvent
+
+    private void jlistMesValorados1reproducirEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistMesValorados1reproducirEvent
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlistMesValorados1reproducirEvent
+
+    private void jListMesVistes2reproducirEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListMesVistes2reproducirEvent
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jListMesVistes2reproducirEvent
+
+    private void jlistMesValorados2reproducirEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistMesValorados2reproducirEvent
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlistMesValorados2reproducirEvent
 
     private void actualizarCatalogo() {
         DefaultListModel model = new DefaultListModel();
@@ -542,6 +649,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JList<Usuario> jListClientes;
     private javax.swing.JList<Episodio> jListEpisodios;
     private javax.swing.JList<Cliente> jListMesVistes;
+    private javax.swing.JList<Cliente> jListMesVistes1;
+    private javax.swing.JList<Cliente> jListMesVistes2;
     private javax.swing.JList<Temporada> jListTemporadas;
     private javax.swing.JMenu jMenuAdministrador;
     private javax.swing.JMenuBar jMenuBar1;
@@ -552,7 +661,6 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItemAsignarVIP;
     private javax.swing.JMenuItem jMenuItemCargarFichero;
     private javax.swing.JMenuItem jMenuItemDeslogearAdmin;
     private javax.swing.JMenuItem jMenuItemDesloguear;
@@ -560,17 +668,27 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistrar;
     private javax.swing.JMenu jMenuUsuario;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel jTextFieldCatalogo;
     private javax.swing.JLabel jTextFieldClientes;
     private javax.swing.JLabel jTextFieldEpisodios;
     private javax.swing.JLabel jTextFieldMasValorados;
-    private javax.swing.JLabel jTextFieldTOP1;
+    private javax.swing.JLabel jTextFieldMasValorados1;
+    private javax.swing.JLabel jTextFieldMasVistas;
+    private javax.swing.JLabel jTextFieldMasVistas1;
+    private javax.swing.JLabel jTextFieldMasVistas2;
+    private javax.swing.JLabel jTextFieldMasVistas3;
     private javax.swing.JLabel jTextFieldTemporadas;
     private javax.swing.JList<Cliente> jlistMesValorados;
+    private javax.swing.JList<Cliente> jlistMesValorados1;
+    private javax.swing.JList<Cliente> jlistMesValorados2;
     // End of variables declaration//GEN-END:variables
 }
