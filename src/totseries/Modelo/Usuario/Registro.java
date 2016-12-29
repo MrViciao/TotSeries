@@ -87,4 +87,8 @@ public class Registro {
         return null;
     }
 
+    public boolean isLoggedAdmin() {
+        return this.logged instanceof Administrador;
+    }
+
 }

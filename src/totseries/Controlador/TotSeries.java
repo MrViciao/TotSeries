@@ -102,6 +102,11 @@ public class TotSeries {
         registro.registrarCliente(nom, dni, adreca, usuari, password);
         return true;
     }
+    public boolean registrar(String usuari, String password, String nom){
+        if(registro.hasUsuario(usuari)) return false;
+        registro.registrarAdmin(usuari, password, nom);
+        return true;
+    }
 
     public void verMejoresEpisodios() {
         List<Episodio> bestEpisodios = catalogo.getEpisodiosMasValorados();
@@ -158,6 +163,10 @@ public class TotSeries {
     public void valorarEpisodio(Episodio episodio, int puntuacion) {
         Valoracion valoracion = new Valoracion(registro.getLoggedUser().getId(), puntuacion);
         episodio.addValoracion(valoracion);
+    }
+
+    public boolean isloggedAdmin() {
+        return this.registro.isLoggedAdmin();
     }
 
 }
