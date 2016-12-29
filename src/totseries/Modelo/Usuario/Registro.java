@@ -28,10 +28,10 @@ public class Registro {
     public boolean hasUsuario(String username) {
         for (Usuario usuario : usuarios) {
             if (usuario.getUsername().equals(username)) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void registrarAdmin(String usuari, String password, String nom) {
