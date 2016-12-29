@@ -218,22 +218,25 @@ public class RegistroJDialog extends javax.swing.JDialog {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         boolean registrar;
-        if(this.checkboxAdmin.getState()){
+        if (this.checkboxAdmin.getState()) {
             registrar = this.controlador.registrar(this.jTextFieldUsuario.getText(),
                     this.jTextFieldPasword.getText(),
                     this.jTextFieldNombre.getText());
-        }else {registrar = this.controlador.registrar(
-                this.jTextFieldUsuario.getText(),
-                this.jTextFieldPasword.getText(),
-                this.jTextFieldNombre.getText(),
-                this.jTextFieldDNI.getText(),
-                this.jTextFieldDireccion.getText());
+        } else {
+            registrar = this.controlador.registrar(
+                    this.jTextFieldUsuario.getText(),
+                    this.jTextFieldPasword.getText(),
+                    this.jTextFieldNombre.getText(),
+                    this.jTextFieldDNI.getText(),
+                    this.jTextFieldDireccion.getText());
             this.setVisible(false);
         }
-        if(registrar)
+        if (registrar) {
             this.setVisible(false);
-        else 
+            JOptionPane.showMessageDialog(this, "Se ha registrado perfectamente");
+        } else {
             JOptionPane.showMessageDialog(this, "Ya Existe el Usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jTextFieldDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDireccionActionPerformed
@@ -241,18 +244,18 @@ public class RegistroJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldDireccionActionPerformed
 
     private void checkboxAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxAdminMouseClicked
-        if(this.checkboxAdmin.getState()){
+        if (this.checkboxAdmin.getState()) {
             this.jLabelDNI.setVisible(false);
             this.jLabelDireccion.setVisible(false);
             this.jTextFieldDNI.setVisible(false);
             this.jTextFieldDireccion.setVisible(false);
-        }else{
+        } else {
             this.jLabelDNI.setVisible(true);
             this.jLabelDireccion.setVisible(true);
             this.jTextFieldDNI.setVisible(true);
             this.jTextFieldDireccion.setVisible(true);
         }
-            
+
     }//GEN-LAST:event_checkboxAdminMouseClicked
 
 

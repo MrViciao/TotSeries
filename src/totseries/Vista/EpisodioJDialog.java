@@ -10,30 +10,32 @@ import totseries.Modelo.Media.Episodio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
 /**
  *
  * @author Abel
  */
 public class EpisodioJDialog extends javax.swing.JDialog {
+
     Episodio episodio;
     TotSeries controlador;
-    boolean valorado;
+
+
     /**
      * Creates new form EpisodioJDialog
      */
-    public EpisodioJDialog(java.awt.Frame parent, boolean modal,Episodio episodio,TotSeries controlador) {
+    public EpisodioJDialog(java.awt.Frame parent, boolean modal, Episodio episodio, TotSeries controlador) {
         super(parent, modal);
         initComponents();
         this.episodio = episodio;
         this.jTextFieldNombre.setText(this.episodio.getTitulo());
         this.jTextFieldDescripcion.setText(episodio.getDescripcion());
         this.jTextField3.setVisible(false);
-        this.jProgressBarDuracion.setVisible(false);
-        this.jButtonValorar.setVisible(false);
-        this.jProgressBarDuracion.setMaximum(5);
+        this.jProgressBarDuracion.setVisible(true);
+        this.jButtonValorar.setEnabled(false);
+        this.jProgressBarDuracion.setMaximum(10);
         this.controlador = controlador;
-        this.valorado = false;
     }
 
     /**
@@ -55,6 +57,11 @@ public class EpisodioJDialog extends javax.swing.JDialog {
         jTextFieldValoracion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTextFieldNombre.setEditable(false);
         jTextFieldNombre.setText("Episodio");
@@ -83,6 +90,13 @@ public class EpisodioJDialog extends javax.swing.JDialog {
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jTextFieldValoracion.setText("0");
+        jTextFieldValoracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldValoracionActionPerformed(evt);
             }
         });
 
@@ -139,33 +153,41 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.setVisible(false);
-        this.jProgressBarDuracion.setVisible(true);
-        for (int i = 0; i < 5; i++) {
-            try {
-                //Pausas de 1 segundo
-                Thread.sleep(1000);
-                this.jProgressBarDuracion.setValue(i);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(EpisodioJDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        this.jButtonValorar.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonReproducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReproducirActionPerformed
+        //Hacer funciones para que no este acoplado!
         this.jTextField3.setVisible(true);
+        this.setVisible(true);
+        this.jProgressBarDuracion.setVisible(true);
         
+        
+        //controlador.reproducirEpisodio(serie_id, ERROR, WIDTH)
+        controlador.getRegistro().getLoggedAsCliente().nextActivityState();
+        this.jButtonValorar.setEnabled(true);
+        controlador.getRegistro().getLoggedAsCliente().nextActivityState();
+        
+
     }//GEN-LAST:event_jButtonReproducirActionPerformed
 
     private void jButtonValorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValorarActionPerformed
-        int valoracion = Integer.parseInt(this.jTextFieldValoracion.getText());
-        if( valoracion > 0 && valoracion <= 5 && !this.valorado){
+        int valoracion = Integer.parseInt(this.jTextFieldValoracion.getText() );
+        if (valoracion >= 0 && valoracion <= 5) {
             this.controlador.valorarEpisodio(this.episodio, valoracion);
-            this.valorado = true;
-        }else
-           JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "A valorado el episodio!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonValorarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jTextFieldValoracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValoracionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldValoracionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

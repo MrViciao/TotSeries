@@ -32,7 +32,9 @@ public class Vista extends javax.swing.JFrame {
         this.jMenuCliente.setVisible(false);
         this.jListTemporadas.setVisible(false);
         this.jListEpisodios.setVisible(false);
+        this.actualizarMasValorados();
         this.actualizarCatalogo();
+        
         /*
         this.jMenuItemAsignarVIP.setVisible(false);
         this.jMenuItemCargarFichero.setVisible(false);
@@ -116,6 +118,11 @@ public class Vista extends javax.swing.JFrame {
 
         jTextFieldVisitados.setEditable(false);
         jTextFieldVisitados.setText("  Más Visitados");
+        jTextFieldVisitados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldVisitadosActionPerformed(evt);
+            }
+        });
 
         jTextFieldValorados.setEditable(false);
         jTextFieldValorados.setText("   Valorados");
@@ -298,7 +305,10 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jListTemporadasMouseClicked
 
     private void jListEpisodiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListEpisodiosMouseClicked
-        
+        if (!controlador.islogged()) {
+            JOptionPane.showMessageDialog(this, "Tienes que estar registrado para poder ver videos");
+            return;
+        }
         EpisodioJDialog repro = new EpisodioJDialog(
                 this, true, this.jListEpisodios.getSelectedValue(), this.controlador);
         repro.setVisible(true);
@@ -324,6 +334,10 @@ public class Vista extends javax.swing.JFrame {
         this.jMenuAdministrador.setVisible(false);
         this.jMenuUsuario.setVisible(true);
     }//GEN-LAST:event_jMenuItemDeslogearAdminActionPerformed
+
+    private void jTextFieldVisitadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldVisitadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldVisitadosActionPerformed
     private void actualizarCatalogo(){
         DefaultListModel model = new DefaultListModel();
         model.clear();
@@ -346,6 +360,18 @@ public class Vista extends javax.swing.JFrame {
             model.addElement(temporada);
         });
         this.jListTemporadas.setModel(model);
+    }
+    
+    private void actualizarMasValorados() {
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        
+        
+        //No acoplar!!
+        controlador.getCatalogo().getEpisodiosMasValorados().forEach((temporada) -> {
+            model.addElement(temporada);
+        });
+        this.jListValorados.setModel(model);
     }
 
     private void actualizarEpisodios() {
@@ -415,8 +441,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JList<Serie> jListCatalogo;
     private javax.swing.JList<Episodio> jListEpisodios;
     private javax.swing.JList<Temporada> jListTemporadas;
-    private javax.swing.JList<String> jListValorados;
-    private javax.swing.JList<String> jListVisitados;
+    private javax.swing.JList<Episodio> jListValorados;
+    private javax.swing.JList<Episodio> jListVisitados;
     private javax.swing.JMenu jMenuAdministrador;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
