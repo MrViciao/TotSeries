@@ -27,6 +27,7 @@ public class Episodio{
     
     public Episodio(){
         this.valoraciones = new ArrayList<>();
+        this.reproducciones = new ArrayList<>();
     }
     
     public Episodio(String title, String duration, String idioma, String description, Date data){

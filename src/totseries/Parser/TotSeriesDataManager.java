@@ -28,11 +28,9 @@ import totseries.Modelo.Media.Valoracion;
 public class TotSeriesDataManager {
 
         Catalogo catalogo;
-        Registro registro;
 
         public TotSeriesDataManager() {
             this.catalogo = new Catalogo();
-            this.registro = new Registro();
         }
 	/**
 	 * Obté les dades del fitxer XML passat per paràmetre
@@ -46,7 +44,6 @@ public class TotSeriesDataManager {
         
         public TotSeries cargarDatos(TotSeries totseries){
             totseries.setCatalogo(this.catalogo);
-            totseries.setRegistro(this.registro);
             return totseries;
         }
 

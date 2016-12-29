@@ -219,7 +219,8 @@ public class RegistroJDialog extends javax.swing.JDialog {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         boolean registrar;
         if (this.checkboxAdmin.getState()) {
-            registrar = this.controlador.registrar(this.jTextFieldUsuario.getText(),
+            registrar = this.controlador.registrar(
+                    this.jTextFieldUsuario.getText(),
                     this.jTextFieldPasword.getText(),
                     this.jTextFieldNombre.getText());
         } else {

@@ -96,11 +96,12 @@ public class Registro {
         Iterator usuario = this.usuarios.iterator();
         List<Usuario> lista = new ArrayList<>();
         Usuario aux;
-        while(usuario.hasNext()){
+        while (usuario.hasNext()) {
             aux = (Usuario) usuario.next();
-            if(aux instanceof Cliente){
-                if(!((Cliente) aux).isVip())
+            if (aux instanceof Cliente) {
+                if (!((Cliente) aux).isVip()) {
                     lista.add(aux);
+                }
             }
         }
         return lista;

@@ -22,6 +22,7 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     Episodio episodio;
     TotSeries controlador;
     boolean valorado;
+    boolean en_reproduccion=false;
 
     /**
      * Creates new form EpisodioJDialog
@@ -172,40 +173,45 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonReproducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReproducirActionPerformed
-        for (int i = 0; i <=5; i++) {
+        controlador.empezarReproduccion(episodio);
+        for (int i = 0; i <= 5; i++) {
+
+            this.jProgressBarDuracion.setValue(i);
+            this.paint(this.getGraphics());
             try {
-                this.jProgressBarDuracion.setValue(i);
-                this.paint(this.getGraphics());
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
+                Logger.getLogger(EpisodioJDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
+        System.out.println("totseries.Vista.EpisodioJDialog.jButtonReproducirActionPerformed()");
+        controlador.finalizarReproduccion(episodio, true);
         this.jTextFieldValoracion.setVisible(true);
         this.jButtonValorar.setVisible(true);
         this.jButtonReproducir.setEnabled(false);
-        //controlador.reproducirEpisodio(serie_id, ERROR, WIDTH)
-        //controlador.getRegistro().getLoggedAsCliente().nextActivityState();
-        //this.jButtonValorar.setEnabled(true);
-        //controlador.getRegistro().getLoggedAsCliente().nextActivityState();
-        
-
     }//GEN-LAST:event_jButtonReproducirActionPerformed
 
     private void jButtonValorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValorarActionPerformed
-        int valoracion = Integer.parseInt(this.jTextFieldValoracion.getText() );
-        if(!this.valorado){
+        int valoracion = Integer.parseInt(this.jTextFieldValoracion.getText());
+        if (!this.valorado) {
             if (valoracion >= 0 && valoracion <= 5) {
                 this.controlador.valorarEpisodio(this.episodio, valoracion);
                 JOptionPane.showMessageDialog(this, "A valorado el episodio!");
                 this.valorado = true;
-            } else 
-                JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5", "Error", JOptionPane.ERROR_MESSAGE);  
-        }else
+            } else {
+                JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Ya se ha valorado el episodio", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonValorarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
+        if (en_reproduccion){
+            en_reproduccion=false;
+            controlador.finalizarReproduccion(episodio, false);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void jTextFieldValoracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValoracionActionPerformed

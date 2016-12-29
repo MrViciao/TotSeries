@@ -23,100 +23,95 @@ public class TotSeries {
     private Registro registro;
     private static TotSeries instance;
 
+    private TotSeries() {
+        catalogo = new Catalogo();
+        registro = new Registro();
+    }
+
     public static TotSeries getInstance() {
         if (instance == null) {
             return new TotSeries();
         }
         return instance;
     }
-
-    public boolean reproducirEpisodio(String serie_id, int temporada_id, int episodio_id) {
+    
+    // rEPRODUCCION
+    ////////////////////////////////////////////
+    public void empezarReproduccion(Episodio episodio) {
         Cliente cliente = registro.getLoggedAsCliente();
-        if (cliente==null){
-            return false;
-        }
         if (!cliente.canViewEpisode()) {
-            return false;
+            return;
         }
-        if (!catalogo.existeEpisodio(serie_id, temporada_id, episodio_id)) {
-            return false;
-        }
-
         cliente.nextActivityState();
-        Episodio episodio = catalogo.getEpisodio(serie_id, temporada_id, episodio_id);
-        Consola.escriu("Reproduciendo episodio.\n");
-        episodio.addReproduccion(new Reproduccion(cliente.getUsername()));
-        cliente.addVisualizacion();
-        cliente.nextActivityState();
-        return true;
     }
 
-    public void valorarEpisodio(String serie_id, int temporada_id, int episodio_id, int puntuacion) {
-        Episodio episodio = catalogo.getEpisodio(serie_id, temporada_id, episodio_id);
+    public void finalizarReproduccion(Episodio episodio, boolean finalizado) {
+        Cliente cliente = registro.getLoggedAsCliente();
+        cliente.nextActivityState();
+        if (!finalizado) {
+            return;
+        }
+        episodio.addReproduccion(
+                new Reproduccion(cliente.getUsername()));
+    }
+
+    public void valorarEpisodio(Episodio episodio, int puntuacion) {
         Valoracion valoracion = new Valoracion(registro.getLoggedUser().getId(), puntuacion);
         episodio.addValoracion(valoracion);
-
     }
     
-    public boolean login(String username, String password){
-        if (registro.isLogged()) return false;
-        Usuario user= registro.login(username, password);
-        return user != null;
-    }
+    // LOGIN Y REGISTRO
+    ////////////////////////////////////////////
     
-    public void logout(){
-        registro.setLoggedUser(null);
-    }
-    public boolean islogged(){
-        return this.registro.isLogged();
-    }
-
-    public boolean verTemporadas(String idSerie) {
-        //comprovar que exista serie!
-        try {
-            List<Temporada> temporadas = catalogo.getTemporadas(idSerie);
-            for (Temporada temporada : temporadas) {
-                Consola.escriu(temporada.toString());
-            }
-            if (temporadas.isEmpty()) {
-                Consola.escriu("No hi han tempordas\n");
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-            Consola.escriu("No existeix la serie!\n");
+    public boolean login(String username, String password) {
+        if (registro.isLogged()) {
             return false;
         }
+        Usuario user = registro.login(username, password);
+        return user != null;
+    }
+
+    public void logout() {
+        registro.setLoggedUser(null);
+    }
+
+    public boolean islogged() {
+        return this.registro.isLogged();
     }
 
     public boolean hasUsuario(String username) {
         return registro.hasUsuario(username);
     }
 
-    public String verEpisodios(String idSerie, int idTemporada) {
-        return catalogo.verEpisodios(idSerie, idTemporada);
-    }
-
     public boolean registrar(String usuari, String password, String nom, String dni, String adreca) {
-        if (registro.hasUsuario(usuari)) return false;
+        if (registro.hasUsuario(usuari)) {
+            return false;
+        }
         registro.registrarCliente(nom, dni, adreca, usuari, password);
         return true;
     }
-    public boolean registrar(String usuari, String password, String nom){
-        if(registro.hasUsuario(usuari)) return false;
+
+    public boolean registrar(String usuari, String password, String nom) {
+        if (registro.hasUsuario(usuari)) {
+            return false;
+        }
         registro.registrarAdmin(usuari, password, nom);
         return true;
     }
-
-    public void verMejoresEpisodios() {
-        List<Episodio> bestEpisodios = catalogo.getEpisodiosMasValorados();
-        for (Episodio episodio : bestEpisodios) {
-            Consola.escriu(episodio.toString());
-        }
+    
+    public boolean isloggedAdmin() {
+        return this.registro.isLoggedAdmin();
     }
+    
+    //////////////////////////////////////////////
+    public List<Usuario> getClientesNonVIP() {
+        return this.registro.getClientesNonVIP();
+    }
+    /////////////////////////////////////////////
+   
+    
     ///////////////////////////////
     //Getters and setters 
-
     /**
      * @return the catalogo
      */
@@ -138,66 +133,12 @@ public class TotSeries {
         return registro;
     }
 
-    /**
-     * @param registro the registro to set
-     */
-    public void setRegistro(Registro registro) {
-        this.registro = registro;
-    }
-    
-    public List getSeries(){
+    public List getSeries() {
         return catalogo.getSeries();
     }
     
     
-    //////////////////////////////////////////////
-    
-    public List<String> mostrarSeries(){
-        return this.catalogo.showCatalogo();
-    }
-    public List<String> mostrarEpisodio(String idSerie,int idTemporada){
-        return this.catalogo.showEpisodio(idSerie,idTemporada);
-    }
-    public List<String> mostrarTemporada(String idSerie){
-        return this.catalogo.showTemporada(idSerie);
-    }
-    public Episodio getEpisodio(String idSerie, int idTemporada, int idEpisodio){
-        return this.catalogo.getSerie(idSerie).getEpisodio(idTemporada, idEpisodio);
-    }
-    public String getDescripcion (String idSerie){
-        return this.catalogo.getDescripcion(idSerie);
-    }
-    public void valorarEpisodio(Episodio episodio, int puntuacion) {
-        Valoracion valoracion = new Valoracion(registro.getLoggedUser().getId(), puntuacion);
-        episodio.addValoracion(valoracion);
-    }
-    
-    
-    public List<Usuario> getClientesNonVIP(){
-        return this.registro.getClientesNonVIP();
-    }
-    public boolean isloggedAdmin() {
-        return this.registro.isLoggedAdmin();
-    }
-    public void setVip(Usuario usuario){
-        this.registro.setVIP(usuario);
-    }
-    public void empezarReproduccion(Episodio episodio) {
-        Cliente cliente = registro.getLoggedAsCliente();
-        if (!cliente.canViewEpisode()) {
-            return;
-        }
-        cliente.nextActivityState();
-    }
-
-    public void finalizarReproduccion(Episodio episodio, boolean finalizado) {
-        Cliente cliente = registro.getLoggedAsCliente();
-        cliente.nextActivityState();
-        if (!finalizado) {
-            return;
-        }
-        episodio.addReproduccion(
-                new Reproduccion(cliente.getUsername()));
-    }
-
+    public void setVip(Usuario usuario){ 
+        this.registro.setVIP(usuario); 
+    } 
 }
