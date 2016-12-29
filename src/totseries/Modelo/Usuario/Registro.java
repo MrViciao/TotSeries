@@ -93,11 +93,11 @@ public class Registro {
     }
 
     public List<Usuario> getClientesNonVIP() {
-        Iterator cliente = this.usuarios.iterator();
+        Iterator usuario = this.usuarios.iterator();
         List<Usuario> lista = new ArrayList<>();
         Usuario aux;
-        while(cliente.hasNext()){
-            aux = (Usuario) cliente.next();
+        while(usuario.hasNext()){
+            aux = (Usuario) usuario.next();
             if(aux instanceof Cliente){
                 if(!((Cliente) aux).isVip())
                     lista.add(aux);
@@ -105,5 +105,11 @@ public class Registro {
         }
         return lista;
     }
-
+    public void setVIP(Usuario user){
+        Iterator usuario = this.usuarios.iterator();
+        while (usuario.hasNext()){
+            if(usuario.next().equals(user))
+                ((Cliente) user).setVip(true);
+        }
+    }
 }

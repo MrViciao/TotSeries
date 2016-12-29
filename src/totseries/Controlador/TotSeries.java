@@ -179,5 +179,25 @@ public class TotSeries {
     public boolean isloggedAdmin() {
         return this.registro.isLoggedAdmin();
     }
+    public void setVip(Usuario usuario){
+        this.registro.setVIP(usuario);
+    }
+    public void empezarReproduccion(Episodio episodio) {
+        Cliente cliente = registro.getLoggedAsCliente();
+        if (!cliente.canViewEpisode()) {
+            return;
+        }
+        cliente.nextActivityState();
+    }
+
+    public void finalizarReproduccion(Episodio episodio, boolean finalizado) {
+        Cliente cliente = registro.getLoggedAsCliente();
+        cliente.nextActivityState();
+        if (!finalizado) {
+            return;
+        }
+        episodio.addReproduccion(
+                new Reproduccion(cliente.getUsername()));
+    }
 
 }

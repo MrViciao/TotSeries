@@ -13,6 +13,7 @@ import static totseries.Main.cargarDatos;
 import totseries.Modelo.Media.Episodio;
 import totseries.Modelo.Media.Serie;
 import totseries.Modelo.Media.Temporada;
+import totseries.Modelo.Usuario.Usuario;
 import totseries.Parser.TotSeriesDataManager;
 
 /**
@@ -39,19 +40,7 @@ public class Vista extends javax.swing.JFrame {
         this.jListTemporadas.setVisible(false);
         this.jListTOP.setVisible(false);
         this.jTextFieldTOP.setVisible(false);
-        
-        /*
-        this.jMenuItemAsignarVIP.setVisible(false);
-        this.jMenuItemCargarFichero.setVisible(false);
-        this.jListTemporadas.setVisible(false);
-        this.jListEpisodios.setVisible(false);
-        this.jListValorados.setVisible(false);
-        this.jListVisitados.setVisible(false);
-        this.jTextFieldTemporadas.setVisible(false);
-        this.jTextFieldEpisodios.setVisible(false);
-        this.jTextFieldValorados.setVisible(false);
-        this.jTextFieldVisitados.setVisible(false);
-         */
+
     }
 
     /**
@@ -253,12 +242,9 @@ public class Vista extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jTextFieldTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,13 +256,11 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(jTextFieldCatalogo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextFieldTOP, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -344,8 +328,9 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCargarFicheroActionPerformed
 
     private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
+        this.controlador.setVip(this.jListTOP.getSelectedValue());
         this.actualizarClientesNonVIP();
-        JOptionPane.showMessageDialog(this, "Sin Implementar", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Se asigno un VIP");
     }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
 
     private void jMenuItemDesloguearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDesloguearActionPerformed
@@ -484,7 +469,7 @@ public class Vista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<Serie> jListCatalogo;
     private javax.swing.JList<Episodio> jListEpisodios;
-    private javax.swing.JList<Episodio> jListTOP;
+    private javax.swing.JList<Usuario> jListTOP;
     private javax.swing.JList<Temporada> jListTemporadas;
     private javax.swing.JMenu jMenuAdministrador;
     private javax.swing.JMenuBar jMenuBar1;
