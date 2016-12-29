@@ -103,12 +103,15 @@ public class TotSeries {
         return this.registro.isLoggedAdmin();
     }
     
+    // Registro
     //////////////////////////////////////////////
     public List<Usuario> getClientesNonVIP() {
         return this.registro.getClientesNonVIP();
-    }
-    /////////////////////////////////////////////
-   
+    }    
+        
+    public void hacerVip(Cliente cliente){ 
+        this.registro.setVIP(cliente); 
+    } 
     
     ///////////////////////////////
     //Getters and setters 
@@ -132,13 +135,19 @@ public class TotSeries {
     public Registro getRegistro() {
         return registro;
     }
-
+    
+    // MEDIA
+    /////////////////////////////////////////
     public List getSeries() {
         return catalogo.getSeries();
     }
     
+    public List getEpisodiosMasVistos() {
+        return catalogo.getEpisodiosMasVistos();
+    }
     
-    public void setVip(Usuario usuario){ 
-        this.registro.setVIP(usuario); 
-    } 
+    public List getEpisodiosMasValorados() {
+        return catalogo.getEpisodiosMasValorados();
+    }
+
 }

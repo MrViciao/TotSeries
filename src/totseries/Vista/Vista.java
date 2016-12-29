@@ -5,14 +5,18 @@
  */
 package totseries.Vista;
 
+import java.io.File;
 import java.util.Iterator;
 import totseries.Controlador.TotSeries;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import static totseries.Main.cargarDatos;
 import totseries.Modelo.Media.Episodio;
 import totseries.Modelo.Media.Serie;
 import totseries.Modelo.Media.Temporada;
+import totseries.Modelo.Usuario.Cliente;
 import totseries.Modelo.Usuario.Usuario;
 import totseries.Parser.TotSeriesDataManager;
 
@@ -26,20 +30,18 @@ public class Vista extends javax.swing.JFrame {
 
     /**
      * Creates new form Vista
+     *
+     * @param controlador
      */
     public Vista(TotSeries controlador) {
         initComponents();
         this.controlador = controlador;
         this.jMenuAdministrador.setVisible(false);
         this.jMenuCliente.setVisible(false);
-        this.jListTemporadas.setVisible(false);
-        this.jListEpisodios.setVisible(false);
         this.actualizarMasValorados();
         this.actualizarCatalogo();
-        this.jListTOP.setEnabled(false);
-        this.jListTemporadas.setVisible(false);
-        this.jListTOP.setVisible(false);
-        this.jTextFieldTOP.setVisible(false);
+        this.actualizarMasVistos();
+        this.jListClientes.setVisible(false);
 
     }
 
@@ -59,11 +61,17 @@ public class Vista extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jListEpisodios = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jListTOP = new javax.swing.JList<>();
+        jListMesVistes = new javax.swing.JList<>();
         jTextFieldEpisodios = new javax.swing.JLabel();
         jTextFieldTemporadas = new javax.swing.JLabel();
         jTextFieldCatalogo = new javax.swing.JLabel();
-        jTextFieldTOP = new javax.swing.JLabel();
+        jTextFieldMasValorados = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jlistMesValorados = new javax.swing.JList<>();
+        jTextFieldTOP1 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jListClientes = new javax.swing.JList<>();
+        jTextFieldClientes = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuUsuario = new javax.swing.JMenu();
         jMenuItemLogin = new javax.swing.JMenuItem();
@@ -103,27 +111,47 @@ public class Vista extends javax.swing.JFrame {
         jListEpisodios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListEpisodios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jListEpisodiosMouseClicked(evt);
+                reproducirEvent(evt);
             }
         });
         jScrollPane3.setViewportView(jListEpisodios);
 
-        jListTOP.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jListTOP.addMouseListener(new java.awt.event.MouseAdapter() {
+        jListMesVistes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListMesVistes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jListTOPMouseClicked(evt);
+                reproducirEvent(evt);
             }
         });
-        jScrollPane5.setViewportView(jListTOP);
+        jScrollPane5.setViewportView(jListMesVistes);
 
+        jTextFieldEpisodios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTextFieldEpisodios.setText("Episodios");
 
+        jTextFieldTemporadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTextFieldTemporadas.setText("Temporadas");
 
+        jTextFieldCatalogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTextFieldCatalogo.setText("Series");
 
-        jTextFieldTOP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jTextFieldTOP.setText("TOP 10");
+        jTextFieldMasValorados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldMasValorados.setText("Mas valorados");
+
+        jlistMesValorados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jlistMesValorados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reproducirEvent(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jlistMesValorados);
+
+        jTextFieldTOP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldTOP1.setText("Mes vsites");
+
+        jListClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane7.setViewportView(jListClientes);
+
+        jTextFieldClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldClientes.setText("Clientes");
 
         jMenuUsuario.setText("Usuario");
         jMenuUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +211,7 @@ public class Vista extends javax.swing.JFrame {
         jMenuItemDesloguear.setText("Desloguear");
         jMenuItemDesloguear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDesloguearActionPerformed(evt);
+                logoutActionPerformed(evt);
             }
         });
         jMenuCliente.add(jMenuItemDesloguear);
@@ -211,7 +239,7 @@ public class Vista extends javax.swing.JFrame {
         jMenuItemDeslogearAdmin.setText("Desloguear");
         jMenuItemDeslogearAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDeslogearAdminActionPerformed(evt);
+                logoutActionPerformed(evt);
             }
         });
         jMenuAdministrador.add(jMenuItemDeslogearAdmin);
@@ -228,39 +256,54 @@ public class Vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jTextFieldCatalogo)
-                        .addGap(73, 73, 73)
-                        .addComponent(jTextFieldTemporadas)
-                        .addGap(78, 78, 78)
-                        .addComponent(jTextFieldEpisodios))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52)
+                        .addComponent(jTextFieldCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldTemporadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTextFieldEpisodios, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMasValorados, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldTOP1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldEpisodios, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldTemporadas, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldCatalogo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldTOP, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldTemporadas)
+                        .addComponent(jTextFieldEpisodios)
+                        .addComponent(jTextFieldMasValorados)
+                        .addComponent(jTextFieldTOP1)
+                        .addComponent(jTextFieldClientes))
+                    .addComponent(jTextFieldCatalogo, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -270,22 +313,19 @@ public class Vista extends javax.swing.JFrame {
     private void jMenuItemLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoginActionPerformed
         LoginJDialong login = new LoginJDialong(this, true, this.controlador);
         login.setVisible(true);
-        if(this.controlador.isloggedAdmin()){            
-            this.jTextFieldTOP.setText("Clientes Sin VIP");
+        if (this.controlador.isloggedAdmin()) {
             this.jMenuAdministrador.setVisible(true);
             this.jMenuUsuario.setVisible(false);
+            this.jListClientes.setVisible(true);
+            this.jListClientes.setEnabled(true);
+            this.jTextFieldClientes.setVisible(true);
+            this.jListMesVistes = null;
             this.actualizarClientesNonVIP();
-            this.jListTOP.setEnabled(true);
-            this.jListTOP.setVisible(true);
-            this.jTextFieldTOP.setVisible(true);
-            this.jMenuItemAsignarVIP.setEnabled(false);
-        }else if (this.controlador.islogged()){
-            this.jTextFieldTOP.setText("");
-            this.jListTOP.setEnabled(false);
+        } else if (this.controlador.islogged()) {
+            this.jTextFieldMasValorados.setText("");
             this.jMenuCliente.setVisible(true);
             this.jMenuUsuario.setVisible(false);
-            this.jListTOP.setVisible(true);
-            this.jTextFieldTOP.setVisible(true);
+            this.jTextFieldMasValorados.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItemLoginActionPerformed
 
@@ -302,54 +342,36 @@ public class Vista extends javax.swing.JFrame {
     private void jListCatalogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListCatalogoMouseClicked
         this.vaciarListaEpisodios();
         this.actualizarTemporadas();
-        this.jListTemporadas.setVisible(true);
     }//GEN-LAST:event_jListCatalogoMouseClicked
 
     private void jListTemporadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListTemporadasMouseClicked
         this.vaciarListaEpisodios();
-        this.jTextFieldEpisodios.setVisible(true);
-        this.jListEpisodios.setVisible(true);
         this.actualizarEpisodios();
     }//GEN-LAST:event_jListTemporadasMouseClicked
 
-    private void jListEpisodiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListEpisodiosMouseClicked
-        if (!controlador.islogged()) {
-            JOptionPane.showMessageDialog(this, "Tienes que estar registrado para poder ver videos");
-            return;
-        }
-        EpisodioJDialog repro = new EpisodioJDialog(
-                this, true, this.jListEpisodios.getSelectedValue(), this.controlador);
-        repro.setVisible(true);
-        
-    }//GEN-LAST:event_jListEpisodiosMouseClicked
-
     private void jMenuItemCargarFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCargarFicheroActionPerformed
-        JOptionPane.showMessageDialog(this, "Sin Implementar", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "No controlamos las excepciones que se puedan producir aqui");
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            TotSeriesDataManager dataManager = new TotSeriesDataManager();
+            dataManager.obtenirDades(file.getAbsolutePath());
+            controlador = dataManager.cargarDatos(controlador);
+            actualizarAll();
+        }
     }//GEN-LAST:event_jMenuItemCargarFicheroActionPerformed
 
-    private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
-        this.controlador.setVip(this.jListTOP.getSelectedValue());
-        this.actualizarClientesNonVIP();
-        JOptionPane.showMessageDialog(this, "Se asigno un VIP");
-    }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
-
-    private void jMenuItemDesloguearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDesloguearActionPerformed
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         this.controlador.logout();
-        this.jTextFieldTOP.setVisible(false);
-        this.jListTOP.setVisible(false);
         this.jMenuCliente.setVisible(false);
-        this.jMenuUsuario.setVisible(true);
-        this.vaciarListaTOP();
-    }//GEN-LAST:event_jMenuItemDesloguearActionPerformed
-
-    private void jMenuItemDeslogearAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDeslogearAdminActionPerformed
-        this.controlador.logout();
-        this.jTextFieldTOP.setVisible(false);
-        this.jListTOP.setVisible(false);
         this.jMenuAdministrador.setVisible(false);
         this.jMenuUsuario.setVisible(true);
-        this.vaciarListaTOP();
-    }//GEN-LAST:event_jMenuItemDeslogearAdminActionPerformed
+        this.jListClientes.setEnabled(false);
+        this.jTextFieldClientes.setVisible(false);
+        this.vaciarListaClientes();
+    }//GEN-LAST:event_logoutActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -359,55 +381,99 @@ public class Vista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jListTOPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListTOPMouseClicked
-        if(!this.jListTOP.isSelectionEmpty())
-            this.jMenuItemAsignarVIP.setEnabled(true);
-    }//GEN-LAST:event_jListTOPMouseClicked
-    private void actualizarCatalogo(){
+    private void reproducirEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reproducirEvent
+        JList list = (JList) evt.getSource();
+        if (list.getSelectedValue() == null) {
+            return;
+        }
+        if (!controlador.islogged()) {
+            JOptionPane.showMessageDialog(this, "Tienes que estar registrado para poder ver videos");
+            return;
+        }
+
+        if (controlador.isloggedAdmin()) {
+            JOptionPane.showMessageDialog(this, "Deja de ver videos y ponte a trabajar");
+            return;
+        }
+
+        EpisodioJDialog repro = new EpisodioJDialog(
+                this, true, (Episodio) list.getSelectedValue(), this.controlador);
+        repro.setVisible(true);
+        actualizarMasValorados();
+        actualizarMasVistos();
+    }//GEN-LAST:event_reproducirEvent
+
+    private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
+
+    }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
+
+    private void actualizarCatalogo() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        this.jListTemporadas.setVisible(true);
-        this.jListEpisodios.setVisible(false);
         Iterator iteratorSerie = this.controlador.getSeries().iterator();
-        while (iteratorSerie.hasNext()){
+        while (iteratorSerie.hasNext()) {
             model.addElement(iteratorSerie.next());
         }
         this.jListCatalogo.setModel(model);
     }
 
     private void actualizarTemporadas() {
+        if (jListCatalogo.getSelectedValue() == null) {
+            return;
+        }
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        this.jListEpisodios.setVisible(true);
         Iterator iteratorTemporada = this.jListCatalogo.getSelectedValue().getTemporadas().iterator();
-        while (iteratorTemporada.hasNext()){
+        while (iteratorTemporada.hasNext()) {
             model.addElement(iteratorTemporada.next());
         }
         this.jListTemporadas.setModel(model);
     }
-    
+
     private void actualizarMasValorados() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        this.jListTOP.setModel(model);
+        Iterator iteratorTemporada = controlador.getEpisodiosMasValorados().iterator();
+        while (iteratorTemporada.hasNext()) {
+            model.addElement(iteratorTemporada.next());
+        }
+        this.jlistMesValorados.setModel(model);
     }
-    private void actualizarClientesNonVIP(){
+
+    private void actualizarMasVistos() {
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        Iterator iteratorTemporada = controlador.getEpisodiosMasVistos().iterator();
+        while (iteratorTemporada.hasNext()) {
+            model.addElement(iteratorTemporada.next());
+        }
+        this.jListMesVistes.setModel(model);
+    }
+
+    private void actualizarClientesNonVIP() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
         Iterator iteratorClientes = this.controlador.getClientesNonVIP().iterator();
-        while(iteratorClientes.hasNext()){
+        while (iteratorClientes.hasNext()) {
             model.addElement(iteratorClientes.next());
         }
-        this.jListTOP.setModel(model);
+        this.jListClientes.setModel(model);
     }
+
     private void actualizarEpisodios() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
         Iterator iteratorEpisodio = this.jListTemporadas.getSelectedValue().getEpisodio().iterator();
-        while(iteratorEpisodio.hasNext()){
+        while (iteratorEpisodio.hasNext()) {
             model.addElement(iteratorEpisodio.next());
         }
         this.jListEpisodios.setModel(model);
+    }
+
+    private void actualizarAll() {
+        actualizarCatalogo();
+        actualizarMasValorados();
+        actualizarMasVistos();
     }
 
     private void vaciarListaEpisodios() {
@@ -415,10 +481,11 @@ public class Vista extends javax.swing.JFrame {
         model.clear();
         this.jListEpisodios.setModel(model);
     }
-    private void vaciarListaTOP(){
+
+    private void vaciarListaClientes() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        this.jListTOP.setModel(model);
+        this.jListClientes.setModel(model);
     }
 
     /**
@@ -452,6 +519,7 @@ public class Vista extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             TotSeries controlador = cargarDatos(TotSeries.getInstance());
+
             @Override
             public void run() {
                 new Vista(controlador).setVisible(true);
@@ -463,13 +531,17 @@ public class Vista extends javax.swing.JFrame {
         TotSeriesDataManager dataManager = new TotSeriesDataManager();
         dataManager.obtenirDades("data/TotSeries.xml");
         tot_Series = dataManager.cargarDatos(tot_Series);
+        tot_Series.registrar("a", "a", "a");
+        tot_Series.registrar("test", "b", "b", "b", "b");
+        tot_Series.registrar("test2", "test2", "test2", "test2", "b");
         return tot_Series;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<Serie> jListCatalogo;
+    private javax.swing.JList<Usuario> jListClientes;
     private javax.swing.JList<Episodio> jListEpisodios;
-    private javax.swing.JList<Usuario> jListTOP;
+    private javax.swing.JList<Cliente> jListMesVistes;
     private javax.swing.JList<Temporada> jListTemporadas;
     private javax.swing.JMenu jMenuAdministrador;
     private javax.swing.JMenuBar jMenuBar1;
@@ -491,9 +563,14 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel jTextFieldCatalogo;
+    private javax.swing.JLabel jTextFieldClientes;
     private javax.swing.JLabel jTextFieldEpisodios;
-    private javax.swing.JLabel jTextFieldTOP;
+    private javax.swing.JLabel jTextFieldMasValorados;
+    private javax.swing.JLabel jTextFieldTOP1;
     private javax.swing.JLabel jTextFieldTemporadas;
+    private javax.swing.JList<Cliente> jlistMesValorados;
     // End of variables declaration//GEN-END:variables
 }

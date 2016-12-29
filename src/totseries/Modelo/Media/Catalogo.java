@@ -101,6 +101,7 @@ public class Catalogo {
             lista.addAll(serie.getEpisodios());
         });
         Collections.sort(lista, (Episodio p1, Episodio p2) -> Float.compare(p2.getPromedio(), p1.getPromedio()));
+        if (lista.isEmpty())return lista;
         return lista.subList(0, 10);
     }
 
@@ -116,6 +117,7 @@ public class Catalogo {
     public List<Serie> getSeriesMasValoradas() {
         List<Serie> lista = new ArrayList<>();
         Collections.sort(lista, (Serie p1, Serie p2) -> Float.compare(p2.getPromedio(), p1.getPromedio()));
+        if (lista.isEmpty())return lista;
         return lista.subList(0, 10);
     }
 
@@ -125,6 +127,7 @@ public class Catalogo {
             lista.addAll(serie.getEpisodios());
         });
         Collections.sort(lista, (Episodio p1, Episodio p2) -> Float.compare(p2.countReproducciones(), p1.countReproducciones()));
+        if (lista.isEmpty())return lista;
         return lista.subList(0, 10);
     }
 

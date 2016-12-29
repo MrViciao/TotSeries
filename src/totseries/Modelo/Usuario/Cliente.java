@@ -29,6 +29,7 @@ public class Cliente extends Usuario {
         this.facturas = new ArrayList<>();
         facturas.add(new Factura());
         activity=new IdleState();
+        this.vip = false;
     }
 
     public Cliente(String id, String username, String password,
@@ -36,7 +37,7 @@ public class Cliente extends Usuario {
         this(id, username, password, nombre);
         this.direccion = adreca;
         //this.nacimiento = nacimiento;
-        this.vip = vip;
+        this.vip = false;
         activity=new IdleState();
     }
 

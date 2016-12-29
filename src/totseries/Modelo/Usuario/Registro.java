@@ -5,6 +5,7 @@
  */
 package totseries.Modelo.Usuario;
 
+import com.sun.security.ntlm.Client;
 import totseries.Modelo.Usuario.Administrador;
 import totseries.Modelo.Usuario.Cliente;
 import java.util.ArrayList;
@@ -98,6 +99,7 @@ public class Registro {
         Usuario aux;
         while (usuario.hasNext()) {
             aux = (Usuario) usuario.next();
+            
             if (aux instanceof Cliente) {
                 if (!((Cliente) aux).isVip()) {
                     lista.add(aux);
@@ -106,11 +108,7 @@ public class Registro {
         }
         return lista;
     }
-    public void setVIP(Usuario user){
-        Iterator usuario = this.usuarios.iterator();
-        while (usuario.hasNext()){
-            if(usuario.next().equals(user))
-                ((Cliente) user).setVip(true);
-        }
+    public void setVIP(Cliente cliente){
+           cliente.setVip(true);
     }
 }
