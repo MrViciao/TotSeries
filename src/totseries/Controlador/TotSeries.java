@@ -145,6 +145,13 @@ public class TotSeries {
         this.registro = registro;
     }
     
+    public List getSeries(){
+        return catalogo.getSeries();
+    }
+    
+    
+    //////////////////////////////////////////////
+    
     public List<String> mostrarSeries(){
         return this.catalogo.showCatalogo();
     }
@@ -164,6 +171,8 @@ public class TotSeries {
         Valoracion valoracion = new Valoracion(registro.getLoggedUser().getId(), puntuacion);
         episodio.addValoracion(valoracion);
     }
+    
+    
 
     public boolean isloggedAdmin() {
         return this.registro.isLoggedAdmin();

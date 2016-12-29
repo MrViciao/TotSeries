@@ -73,7 +73,8 @@ public class Temporada {
 
     @Override
     public String toString() {
-        return "Temporada: " + id + " - Episodios: " + numEpisodis + "\n";
+        return "Temporada: "+id;
+        //return "Temporada: " + id + " - Episodios: " + numEpisodis + "\n";
     }
 
     ///////////////////////////////

@@ -9,6 +9,9 @@ import totseries.Controlador.TotSeries;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import static totseries.Main.cargarDatos;
+import totseries.Modelo.Media.Episodio;
+import totseries.Modelo.Media.Serie;
+import totseries.Modelo.Media.Temporada;
 import totseries.Parser.TotSeriesDataManager;
 
 /**
@@ -16,7 +19,9 @@ import totseries.Parser.TotSeriesDataManager;
  * @author Abel
  */
 public class Vista extends javax.swing.JFrame {
+
     TotSeries controlador;
+
     /**
      * Creates new form Vista
      */
@@ -39,8 +44,9 @@ public class Vista extends javax.swing.JFrame {
         this.jTextFieldEpisodios.setVisible(false);
         this.jTextFieldValorados.setVisible(false);
         this.jTextFieldVisitados.setVisible(false);
-        */
+         */
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,11 +100,6 @@ public class Vista extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jListTemporadas);
 
-        jListEpisodios.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "item1" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jListEpisodios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListEpisodios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -261,7 +262,7 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCatalogoActionPerformed
 
     private void jMenuItemLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoginActionPerformed
-        LoginJDialong login = new LoginJDialong (this,true,this.controlador);
+        LoginJDialong login = new LoginJDialong(this, true, this.controlador);
         login.setVisible(true);
         if(this.controlador.isloggedAdmin()){
             this.jMenuAdministrador.setVisible(true);
@@ -277,9 +278,9 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuUsuarioActionPerformed
 
     private void jMenuItemRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarActionPerformed
-        RegistroJDialog registro = new RegistroJDialog(this,true,this.controlador);
+        RegistroJDialog registro = new RegistroJDialog(this, true, this.controlador);
         registro.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItemRegistrarActionPerformed
 
     private void jListCatalogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListCatalogoMouseClicked
@@ -297,16 +298,19 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jListTemporadasMouseClicked
 
     private void jListEpisodiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListEpisodiosMouseClicked
-        EpisodioJDialog repro = new EpisodioJDialog(this,true,this.controlador.getEpisodio(this.jListCatalogo.getSelectedValue(),this.jListTemporadas.getSelectedIndex(),this.jListEpisodios.getSelectedIndex()),this.controlador.getDescripcion(this.jListCatalogo.getSelectedValue()),this.controlador);
+        
+        EpisodioJDialog repro = new EpisodioJDialog(
+                this, true, this.jListEpisodios.getSelectedValue(), this.controlador);
         repro.setVisible(true);
+        
     }//GEN-LAST:event_jListEpisodiosMouseClicked
 
     private void jMenuItemCargarFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCargarFicheroActionPerformed
-        JOptionPane.showMessageDialog(this, "Sin Implementar","Error",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Sin Implementar", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jMenuItemCargarFicheroActionPerformed
 
     private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
-        JOptionPane.showMessageDialog(this, "Sin Implementar","Error",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Sin Implementar", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
 
     private void jMenuItemDesloguearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDesloguearActionPerformed
@@ -323,33 +327,44 @@ public class Vista extends javax.swing.JFrame {
     private void actualizarCatalogo(){
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        for(String file: this.controlador.mostrarSeries()){
-            model.addElement(file);
-        }
+        this.jListTemporadas.setVisible(true);
+        this.jListEpisodios.setVisible(false);
+
+        controlador.getSeries().forEach((serie) -> {
+            model.addElement(serie);
+        });
+        
         this.jListCatalogo.setModel(model);
     }
-    private void actualizarTemporadas(){
+
+    private void actualizarTemporadas() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        String selectedValue = this.jListCatalogo.getSelectedValue();
-        for (String temp : this.controlador.mostrarTemporada(selectedValue)) {
-            model.addElement(temp);
-        }
+        this.jListEpisodios.setVisible(true);
+        
+        this.jListCatalogo.getSelectedValue().getTemporadas().forEach((temporada) -> {
+            model.addElement(temporada);
+        });
         this.jListTemporadas.setModel(model);
     }
-    private void actualizarEpisodios(){
+
+    private void actualizarEpisodios() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        for(String episodio: this.controlador.mostrarEpisodio(this.jListCatalogo.getSelectedValue(),this.jListTemporadas.getSelectedIndex())){
+        
+        this.jListTemporadas.getSelectedValue().getEpisodios().forEach((episodio) -> {
             model.addElement(episodio);
-        }
+        });
+        
         this.jListEpisodios.setModel(model);
     }
-    private void vaciarListaEpisodios(){
+
+    private void vaciarListaEpisodios() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
-        this.jListEpisodios.setModel(model);  
+        this.jListEpisodios.setModel(model);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -379,7 +394,7 @@ public class Vista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             TotSeries controlador = cargarDatos(TotSeries.getInstance());
 
             @Override
@@ -388,7 +403,8 @@ public class Vista extends javax.swing.JFrame {
             }
         });
     }
-        public static TotSeries cargarDatos(TotSeries tot_Series) {
+
+    public static TotSeries cargarDatos(TotSeries tot_Series) {
         TotSeriesDataManager dataManager = new TotSeriesDataManager();
         dataManager.obtenirDades("data/TotSeries.xml");
         tot_Series = dataManager.cargarDatos(tot_Series);
@@ -396,9 +412,9 @@ public class Vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jListCatalogo;
-    private javax.swing.JList<String> jListEpisodios;
-    private javax.swing.JList<String> jListTemporadas;
+    private javax.swing.JList<Serie> jListCatalogo;
+    private javax.swing.JList<Episodio> jListEpisodios;
+    private javax.swing.JList<Temporada> jListTemporadas;
     private javax.swing.JList<String> jListValorados;
     private javax.swing.JList<String> jListVisitados;
     private javax.swing.JMenu jMenuAdministrador;

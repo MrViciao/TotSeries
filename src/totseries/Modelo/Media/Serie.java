@@ -89,10 +89,13 @@ public class Serie{
 
     @Override
     public String toString() {
+        /*
         String string = "\nTitol: " + titulo + " - " + id
                 + " \nTemporadas:" + temporadas.size()
                 + "\nDescripcion: " + descripcion + "\n";
         return string;
+    */
+        return titulo;
     }
 
     //Metodos getter/setter
@@ -152,7 +155,7 @@ public class Serie{
     }
 
     public List<String> showTemporada() {
-        List<String> lista = null;
+        List<String> lista = new ArrayList<>();
         for (Temporada tempo: this.temporadas){
             lista.add(tempo.showTemporada());
         }

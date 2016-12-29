@@ -22,12 +22,12 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     /**
      * Creates new form EpisodioJDialog
      */
-    public EpisodioJDialog(java.awt.Frame parent, boolean modal,Episodio episodio,String descripcion,TotSeries controlador) {
+    public EpisodioJDialog(java.awt.Frame parent, boolean modal,Episodio episodio,TotSeries controlador) {
         super(parent, modal);
         initComponents();
         this.episodio = episodio;
         this.jTextFieldNombre.setText(this.episodio.getTitulo());
-        this.jTextFieldDescripcion.setText(descripcion);
+        this.jTextFieldDescripcion.setText(episodio.getDescripcion());
         this.jTextField3.setVisible(false);
         this.jProgressBarDuracion.setVisible(false);
         this.jButtonValorar.setVisible(false);

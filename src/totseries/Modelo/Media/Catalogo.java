@@ -189,4 +189,8 @@ public class Catalogo {
         }
         return null;
     }
+    
+    public List getSeries(){
+        return series;
+    }
 }

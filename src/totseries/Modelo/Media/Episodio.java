@@ -80,6 +80,7 @@ public class Episodio{
     
     @Override
     public String toString(){
+        /*
         String string="\n Titulo: " + titulo +
         "\nDuracion: " + duracion+
         "\nIdioma" + idioma +
@@ -87,6 +88,8 @@ public class Episodio{
         "\nvaloracion : " + promedio +
         "\nDescripcion: " + descripcion + "\n";
         return string;
+    */
+        return id + " - " + titulo;
     }
     
     public int countReproducciones(){
@@ -95,5 +98,9 @@ public class Episodio{
     
     public void addReproduccion(Reproduccion r){
         reproducciones.add(r);
+    }
+    
+    public String getDescripcion(){
+        return descripcion;
     }
 }
