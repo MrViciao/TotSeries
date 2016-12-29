@@ -340,12 +340,12 @@ public class Vista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            TotSeries tot_series = TotSeries.getInstance();
-            TotSeries tots_series = cargarDatos(tot_series);
+            
+            TotSeries controlador = cargarDatos(TotSeries.getInstance());
 
             @Override
             public void run() {
-                new Vista(tots_series).setVisible(true);
+                new Vista(controlador).setVisible(true);
             }
         });
     }
