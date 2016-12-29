@@ -8,6 +8,7 @@ package totseries.Modelo.Usuario;
 import totseries.Modelo.Usuario.Administrador;
 import totseries.Modelo.Usuario.Cliente;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import totseries.Modelo.Usuario.ClienteCreator;
 import totseries.Modelo.Usuario.Usuario;
@@ -89,6 +90,20 @@ public class Registro {
 
     public boolean isLoggedAdmin() {
         return this.logged instanceof Administrador;
+    }
+
+    public List<Usuario> getClientesNonVIP() {
+        Iterator cliente = this.usuarios.iterator();
+        List<Usuario> lista = new ArrayList<>();
+        Usuario aux;
+        while(cliente.hasNext()){
+            aux = (Usuario) cliente.next();
+            if(aux instanceof Cliente){
+                if(!((Cliente) aux).isVip())
+                    lista.add(aux);
+            }
+        }
+        return lista;
     }
 
 }

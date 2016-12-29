@@ -173,7 +173,9 @@ public class TotSeries {
     }
     
     
-
+    public List<Usuario> getClientesNonVIP(){
+        return this.registro.getClientesNonVIP();
+    }
     public boolean isloggedAdmin() {
         return this.registro.isLoggedAdmin();
     }

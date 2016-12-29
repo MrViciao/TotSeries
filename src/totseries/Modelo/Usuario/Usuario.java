@@ -57,5 +57,9 @@ public abstract class Usuario {
     public void setId(String id) {
         this.id = id;
     }
-    
+    @Override
+    public String toString() {
+        return this.nombre;
+        //return "Temporada: " + id + " - Episodios: " + numEpisodis + "\n";
+    }
 }

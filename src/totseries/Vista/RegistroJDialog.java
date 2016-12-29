@@ -255,7 +255,6 @@ public class RegistroJDialog extends javax.swing.JDialog {
             this.jTextFieldDNI.setVisible(true);
             this.jTextFieldDireccion.setVisible(true);
         }
-
     }//GEN-LAST:event_checkboxAdminMouseClicked
 
 

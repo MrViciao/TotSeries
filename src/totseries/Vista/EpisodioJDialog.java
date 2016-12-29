@@ -5,6 +5,7 @@
  */
 package totseries.Vista;
 
+import static java.lang.Thread.sleep;
 import totseries.Controlador.TotSeries;
 import totseries.Modelo.Media.Episodio;
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ public class EpisodioJDialog extends javax.swing.JDialog {
 
     Episodio episodio;
     TotSeries controlador;
-
+    boolean valorado;
 
     /**
      * Creates new form EpisodioJDialog
@@ -31,11 +32,13 @@ public class EpisodioJDialog extends javax.swing.JDialog {
         this.episodio = episodio;
         this.jTextFieldNombre.setText(this.episodio.getTitulo());
         this.jTextFieldDescripcion.setText(episodio.getDescripcion());
-        this.jTextField3.setVisible(false);
         this.jProgressBarDuracion.setVisible(true);
-        this.jButtonValorar.setEnabled(false);
-        this.jProgressBarDuracion.setMaximum(10);
+        this.jButtonValorar.setVisible(false);
+        this.jTextFieldValoracion.setVisible(false);
+        this.jButtonValorar.setVisible(false);
+        this.jProgressBarDuracion.setMaximum(5);
         this.controlador = controlador;
+        this.valorado = false;
     }
 
     /**
@@ -47,30 +50,22 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextFieldNombre = new javax.swing.JTextField();
-        jTextFieldDescripcion = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jButtonValorar = new javax.swing.JButton();
         jButtonReproducir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jProgressBarDuracion = new javax.swing.JProgressBar();
         jTextFieldValoracion = new javax.swing.JTextField();
+        jTextFieldNombre = new javax.swing.JLabel();
+        jTextFieldDescripcion = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-
-        jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setText("Episodio");
-
-        jTextFieldDescripcion.setEditable(false);
-        jTextFieldDescripcion.setText("Descripcion");
-
-        jTextField3.setEditable(false);
-        jTextField3.setText("Duracion");
 
         jButtonValorar.setText("Valorar");
         jButtonValorar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +88,12 @@ public class EpisodioJDialog extends javax.swing.JDialog {
             }
         });
 
+        jProgressBarDuracion.setForeground(new java.awt.Color(204, 0, 102));
+        jProgressBarDuracion.setMaximum(5);
+        jProgressBarDuracion.setRequestFocusEnabled(false);
+        jProgressBarDuracion.setString("0");
+        jProgressBarDuracion.setVerifyInputWhenFocusTarget(false);
+
         jTextFieldValoracion.setText("0");
         jTextFieldValoracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,53 +101,67 @@ public class EpisodioJDialog extends javax.swing.JDialog {
             }
         });
 
+        jTextFieldNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldNombre.setText("Episodio");
+
+        jTextFieldDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jTextFieldDescripcion.setText("Descripcion");
+        jTextFieldDescripcion.setToolTipText("");
+        jTextFieldDescripcion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jTextFieldDescripcion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTextFieldDescripcion.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jTextFieldDescripcion.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        jTextFieldDescripcion.setName(""); // NOI18N
+
+        jTextField3.setText("Duracion");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 24, Short.MAX_VALUE))
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDescripcion)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jButtonCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(50, 50, 50)
                                 .addComponent(jButtonReproducir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonValorar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldValoracion, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jProgressBarDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextFieldValoracion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jTextField3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jProgressBarDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(43, 43, 43))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(jTextFieldNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3)
-                    .addComponent(jProgressBarDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jProgressBarDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonValorar)
                     .addComponent(jButtonReproducir)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jTextFieldValoracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonValorar)
+                    .addComponent(jTextFieldValoracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelar))
+                .addContainerGap())
         );
 
         pack();
@@ -157,28 +172,36 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonReproducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReproducirActionPerformed
-        //Hacer funciones para que no este acoplado!
-        this.jTextField3.setVisible(true);
-        this.setVisible(true);
-        this.jProgressBarDuracion.setVisible(true);
-        
-        
+        for (int i = 0; i <=5; i++) {
+            try {
+                this.jProgressBarDuracion.setValue(i);
+                this.paint(this.getGraphics());
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+            }
+        }
+        this.jTextFieldValoracion.setVisible(true);
+        this.jButtonValorar.setVisible(true);
+        this.jButtonReproducir.setEnabled(false);
         //controlador.reproducirEpisodio(serie_id, ERROR, WIDTH)
-        controlador.getRegistro().getLoggedAsCliente().nextActivityState();
-        this.jButtonValorar.setEnabled(true);
-        controlador.getRegistro().getLoggedAsCliente().nextActivityState();
+        //controlador.getRegistro().getLoggedAsCliente().nextActivityState();
+        //this.jButtonValorar.setEnabled(true);
+        //controlador.getRegistro().getLoggedAsCliente().nextActivityState();
         
 
     }//GEN-LAST:event_jButtonReproducirActionPerformed
 
     private void jButtonValorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValorarActionPerformed
         int valoracion = Integer.parseInt(this.jTextFieldValoracion.getText() );
-        if (valoracion >= 0 && valoracion <= 5) {
-            this.controlador.valorarEpisodio(this.episodio, valoracion);
-            JOptionPane.showMessageDialog(this, "A valorado el episodio!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        if(!this.valorado){
+            if (valoracion >= 0 && valoracion <= 5) {
+                this.controlador.valorarEpisodio(this.episodio, valoracion);
+                JOptionPane.showMessageDialog(this, "A valorado el episodio!");
+                this.valorado = true;
+            } else 
+                JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5", "Error", JOptionPane.ERROR_MESSAGE);  
+        }else
+            JOptionPane.showMessageDialog(this, "Ya se ha valorado el episodio", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButtonValorarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -195,9 +218,9 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButtonReproducir;
     private javax.swing.JButton jButtonValorar;
     private javax.swing.JProgressBar jProgressBarDuracion;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextFieldDescripcion;
-    private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JLabel jTextField3;
+    private javax.swing.JLabel jTextFieldDescripcion;
+    private javax.swing.JLabel jTextFieldNombre;
     private javax.swing.JTextField jTextFieldValoracion;
     // End of variables declaration//GEN-END:variables
 }
