@@ -67,7 +67,9 @@ public class TotSeries {
     public void logout(){
         registro.setLoggedUser(null);
     }
-    
+    public boolean islogged(){
+        return this.registro.isLogged();
+    }
 
     public boolean verTemporadas(String idSerie) {
         //comprovar que exista serie!

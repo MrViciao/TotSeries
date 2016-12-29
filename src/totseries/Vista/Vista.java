@@ -66,10 +66,11 @@ public class Vista extends javax.swing.JFrame {
         jTextFieldTemporadas = new javax.swing.JTextField();
         jTextFieldEpisodios = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuLogin = new javax.swing.JMenu();
+        jMenuUsuario = new javax.swing.JMenu();
         jMenuItemLogin = new javax.swing.JMenuItem();
         jMenuItemRegistrar = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenu();
+        jMenuItemDesloguear = new javax.swing.JMenuItem();
         jMenuAdministrador = new javax.swing.JMenu();
         jMenuItemCargarFichero = new javax.swing.JMenuItem();
         jMenuItemAsignarVIP = new javax.swing.JMenuItem();
@@ -131,10 +132,10 @@ public class Vista extends javax.swing.JFrame {
         jTextFieldEpisodios.setEditable(false);
         jTextFieldEpisodios.setText("     Episodios");
 
-        jMenuLogin.setText("Usuario");
-        jMenuLogin.addActionListener(new java.awt.event.ActionListener() {
+        jMenuUsuario.setText("Usuario");
+        jMenuUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuLoginActionPerformed(evt);
+                jMenuUsuarioActionPerformed(evt);
             }
         });
 
@@ -144,7 +145,7 @@ public class Vista extends javax.swing.JFrame {
                 jMenuItemLoginActionPerformed(evt);
             }
         });
-        jMenuLogin.add(jMenuItemLogin);
+        jMenuUsuario.add(jMenuItemLogin);
 
         jMenuItemRegistrar.setText("Registrar");
         jMenuItemRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -152,11 +153,20 @@ public class Vista extends javax.swing.JFrame {
                 jMenuItemRegistrarActionPerformed(evt);
             }
         });
-        jMenuLogin.add(jMenuItemRegistrar);
+        jMenuUsuario.add(jMenuItemRegistrar);
 
-        jMenuBar1.add(jMenuLogin);
+        jMenuBar1.add(jMenuUsuario);
 
         jMenuCliente.setText("Cliente");
+
+        jMenuItemDesloguear.setText("Desloguear");
+        jMenuItemDesloguear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDesloguearActionPerformed(evt);
+            }
+        });
+        jMenuCliente.add(jMenuItemDesloguear);
+
         jMenuBar1.add(jMenuCliente);
 
         jMenuAdministrador.setText("Administrador");
@@ -244,11 +254,15 @@ public class Vista extends javax.swing.JFrame {
     private void jMenuItemLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoginActionPerformed
         LoginJDialong login = new LoginJDialong (this,true,this.controlador);
         login.setVisible(true);
+        if(this.controlador.islogged()){
+            this.jMenuCliente.setVisible(true);
+            this.jMenuUsuario.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItemLoginActionPerformed
 
-    private void jMenuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLoginActionPerformed
+    private void jMenuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuUsuarioActionPerformed
 
-    }//GEN-LAST:event_jMenuLoginActionPerformed
+    }//GEN-LAST:event_jMenuUsuarioActionPerformed
 
     private void jMenuItemRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarActionPerformed
         RegistroJDialog registro = new RegistroJDialog(this,true,this.controlador);
@@ -282,6 +296,12 @@ public class Vista extends javax.swing.JFrame {
     private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
         JOptionPane.showMessageDialog(this, "Sin Implementar","Error",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
+
+    private void jMenuItemDesloguearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDesloguearActionPerformed
+        this.controlador.logout();
+        this.jMenuCliente.setVisible(false);
+        this.jMenuUsuario.setVisible(true);
+    }//GEN-LAST:event_jMenuItemDesloguearActionPerformed
     private void actualizarCatalogo(){
         DefaultListModel model = new DefaultListModel();
         model.clear();
@@ -367,9 +387,10 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuCliente;
     private javax.swing.JMenuItem jMenuItemAsignarVIP;
     private javax.swing.JMenuItem jMenuItemCargarFichero;
+    private javax.swing.JMenuItem jMenuItemDesloguear;
     private javax.swing.JMenuItem jMenuItemLogin;
     private javax.swing.JMenuItem jMenuItemRegistrar;
-    private javax.swing.JMenu jMenuLogin;
+    private javax.swing.JMenu jMenuUsuario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

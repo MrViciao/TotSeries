@@ -216,7 +216,7 @@ public class RegistroJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        if (!this.controlador.registrar(
+        if (this.controlador.registrar(
                 this.jTextFieldUsuario.getText(),
                 this.jTextFieldPasword.getText(),
                 this.jTextFieldNombre.getText(),
