@@ -50,7 +50,7 @@ public class TotSeries {
     }
 
     public void valorarEpisodio(Episodio episodio, float puntuacion) {
-        catalogo.valorarEpisodio(episodio, puntuacion, registro.getLoggedUser().getId());
+        episodio.addValoracion(puntuacion, registro.getLoggedUser().getId());
     }
    
     public boolean login(String username, String password) {

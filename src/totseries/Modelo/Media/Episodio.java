@@ -16,7 +16,8 @@ import java.util.Observer;
  *
  * @author Abel
  */
-public class Episodio extends Observable{
+public class Episodio extends Observable {
+
     private int id;
     private String titulo;
     private String duracion;
@@ -26,19 +27,19 @@ public class Episodio extends Observable{
     private Date fecha;
     private List<Valoracion> valoraciones;
     private List<Reproduccion> reproducciones;
-    
-    public Episodio(){
+
+    public Episodio() {
         this.valoraciones = new ArrayList<>();
         this.reproducciones = new ArrayList<>();
     }
-    
-    public Episodio(String title, String duration, String idioma, String description, Date data){
+
+    public Episodio(String title, String duration, String idioma, String description, Date data) {
         this();
-        this.titulo=title;
-        this.duracion=duration;
-        this.idioma=idioma;
-        this.descripcion=description;
-        this.fecha=data;
+        this.titulo = title;
+        this.duracion = duration;
+        this.idioma = idioma;
+        this.descripcion = description;
+        this.fecha = data;
         this.promedio = 0;
     }
 
@@ -49,7 +50,7 @@ public class Episodio extends Observable{
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -61,31 +62,31 @@ public class Episodio extends Observable{
     public float getPromedio() {
         return promedio;
     }
-    
-    public Episodio verEpisodio(){
+
+    public Episodio verEpisodio() {
         return this;
     }
-    
-    private void setPromedio(){
-        Iterator<Valoracion> iterador= valoraciones.iterator();
+
+    private void setPromedio() {
+        Iterator<Valoracion> iterador = valoraciones.iterator();
         Valoracion valoracion;
-        float valor=0;
-        while(iterador.hasNext()){
+        float valor = 0;
+        while (iterador.hasNext()) {
             valoracion = iterador.next();
-            valor+=valoracion.getPuntuacion();
+            valor += valoracion.getPuntuacion();
         }
-        this.promedio = valor/this.valoraciones.size();
+        this.promedio = valor / this.valoraciones.size();
     }
-    
-    public void addValoracion(Valoracion valoracion){
+
+    public void addValoracion(Valoracion valoracion) {
         valoraciones.add(valoracion);
         this.setPromedio();
         setChanged();
         notifyObservers(0);
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         /*
         String string="\n Titulo: " + titulo +
         "\nDuracion: " + duracion+
@@ -94,25 +95,28 @@ public class Episodio extends Observable{
         "\nvaloracion : " + promedio +
         "\nDescripcion: " + descripcion + "\n";
         return string;
-    */
+         */
         return id + " - " + titulo;
     }
-    
-    public int countReproducciones(){
+
+    public int countReproducciones() {
         return reproducciones.size();
     }
-    
-    public void addReproduccion(Reproduccion r){
+
+    public void addReproduccion(Reproduccion r) {
         reproducciones.add(r);
         setChanged();
         notifyObservers(1);
     }
-    
-    public String getDescripcion(){
+
+    public String getDescripcion() {
         return descripcion;
     }
 
-    void addValoracion(String user_id, float puntuacion) {
+    public void addValoracion(float puntuacion, String user_id) {
         valoraciones.add(new Valoracion(user_id, puntuacion));
+        this.setPromedio();
+        setChanged();
+        notifyObservers(0);
     }
 }

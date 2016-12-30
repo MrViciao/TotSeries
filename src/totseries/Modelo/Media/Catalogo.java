@@ -115,9 +115,6 @@ public class Catalogo {
         return series;
     }
 
-    public void valorarEpisodio(Episodio episodio, float puntuacion, String user_id) {
-        episodio.addValoracion(user_id, puntuacion);
-    }
     // SIN USO
     public List<String> showTemporada(String idSerie) {
         for (Serie serie : this.series) {
