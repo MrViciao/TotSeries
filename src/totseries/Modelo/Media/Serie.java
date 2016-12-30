@@ -137,7 +137,7 @@ public class Serie{
         }
         return null;
     }
-    
+    ///// SIN USO
     public String getDescripcion(){
         return this.descripcion;
     }

@@ -9,7 +9,7 @@ namespace Controlador {
     -TotSeries instance
     ==
     +TotSeries getInstance()
-    +void empezarReproduccion(Episodio episodio)
+    +void empezarReproduccion()
     +void finalizarREproduccion(Episodio episodio, boolean finalizado)
     +void valorarEpisodio(Episodio episodio, float puntuacion)
     +boolean login(String username,String password)
@@ -146,7 +146,6 @@ namespace Model {
         + List<Temporada> getTEmporadasMasVistas()
         + List<Serie> getSeriesMasVistas()
         + String getDescripcion(String idSerie)
-        + void valorarEpisodio(Episodio episodio, float puntuacion, String User_id)
         + Serie getLastSerie()
     }
     class Temporada{

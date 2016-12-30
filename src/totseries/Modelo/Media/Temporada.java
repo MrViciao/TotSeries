@@ -16,7 +16,6 @@ public class Temporada {
 
     private List<Episodio> episodios;
     private int id;
-    ////////no se usa este atributo
     private int numEpisodis;
 
     public Temporada() {

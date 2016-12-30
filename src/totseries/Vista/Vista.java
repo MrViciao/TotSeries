@@ -14,7 +14,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import static totseries.Main.cargarDatos;
 import totseries.Modelo.Media.Catalogo;
 import totseries.Modelo.Media.Episodio;
 import totseries.Modelo.Media.Serie;
