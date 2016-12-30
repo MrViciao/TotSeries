@@ -1,0 +1,46 @@
+@startuml
+title		Desloguear
+hide	footbox
+
+actor	Usuario as usuario
+participant "vista:LoginJDialong" as vista
+participant "controlador:TotSeries" as totseries
+participant "registro:Registro" as registro
+
+usuario -> vista : Loguear
+activate vista
+vista->totseries : login (String login, String password):boolean
+activate totseries
+note right totseries
+    Usuario := usuario
+end note
+totseries -> registro :login(String login, String password):boolean
+activate registro
+note right registro
+    Usuario := user
+    user := null
+end note
+loop usuario in usuarios
+    opt username.equals(usuario.getUsername()) AND password.equals(usuario.getPassword()) 
+        note right registro
+            user := usuario
+        end note
+    end opt
+end loop
+registro -> totseries :usuario := user
+deactivate registro
+opt user != null
+    note right totseries
+        retorna true si user no es null
+        false en el caso contrario
+    end note
+end opt
+totseries -> vista : boolean
+deactivate totseries
+note right vista
+    Se le notifica al usuario si introdujo mal un dato
+    o se genera un loggin al sistema
+end note
+vista -> usuario
+deactivate vista
+@enduml

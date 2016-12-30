@@ -1,0 +1,72 @@
+@startuml
+title		Registro
+hide	footbox
+
+actor	Usuario as usuario
+participant "vista:RegistroJDialog" as vista
+participant "controlador:TotSeries" as totseries
+participant "registro:Registro" as registro
+
+usuario -> vista : Registrar
+activate vista
+note right vista
+    boolean := registro
+    getState()
+    Indica si es administrador
+end note
+alt getState()
+    vista -> totseries : Registro (String usuario,String password, String nombre):boolean
+    activate totseries
+    totseries -> registro : hasUsuario(usuario):boolean
+    activate registro
+    registro -> totseries :boolean
+    deactivate registro
+    opt boolean
+        totseries -> registro :RegistrarAdmin(String usuari, String password, String nom)
+        activate registro
+        registro -> totseries
+        deactivate registro
+    end opt
+    note right totseries
+        si se creo el registro
+        boolean = true, false en
+        el caso contrario
+    end note
+    totseries -> vista : registro := boolean
+    deactivate totseries
+else
+    vista -> totseries : Registro (String usuari,String password, String nom, String dni, String adreca): boolean
+    activate totseries
+    totseries -> registro : hasUsuario(usuario):boolean
+    activate registro
+    registro -> totseries :boolean
+    deactivate registro
+    opt boolean
+        totseries -> registro :RegistrarCliente(String nom,String dni, String password, String usuari, String password)
+        activate registro
+        registro -> totseries
+        deactivate registro
+    end opt
+    note right totseries
+        si se creo el registro
+        boolean = true, false en
+        el caso contrario
+    end note
+    totseries -> vista : registro := boolean
+    deactivate totseries
+end alt
+alt registro
+    note right vista
+    Se le notifica al usuario que se ha
+    registrado satisfactoriamente
+    end note
+else
+    note right vista
+    se le notifica al usuario que no se
+    ha podida realizar el registro
+    end note
+end alt
+vista -> usuario
+deactivate vista
+
+@enduml

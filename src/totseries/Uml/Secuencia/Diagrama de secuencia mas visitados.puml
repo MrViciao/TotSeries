@@ -1,0 +1,43 @@
+@startuml
+title		Episodios mas valorados
+hide	footbox
+
+actor	Usuario as usuario
+participant "vista:Vista" as vista
+participant "controlador:TotSeries" as totseries
+participant "catalogo:Catalogo" as catalogo
+participant "serie:Serie" as serie
+participant "temporada:Temporada" as temporada
+
+activate vista
+vista->totseries : getEpisodiosMasVistos():List
+activate totseries
+totseries->catalogo : getEpisodiosMasVistos():List
+activate catalogo
+note right catalogo
+    List := Lista
+end note
+loop serie in Series
+    catalogo -> serie : getEpisodio():List
+    activate serie
+    loop temporada in Temporadas
+        serie -> temporada : getEpisodio():List
+        activate temporada
+        temporada -> serie : List
+        deactivate temporada
+    end loop
+    serie -> catalogo : Lista := Lista + List
+    deactivate serie
+end loop
+note right catalogo
+    collections.sort
+    se encarga de ordenar la lista de
+    episodios segun sus visitas
+    retorna los 10 mejores
+end note
+catalogo -> totseries : Lista.sublist(0,10)
+deactivate catalogo
+totseries -> vista : Lista
+deactivate totseries
+deactivate vista
+@enduml

@@ -43,9 +43,6 @@ public class TotSeries {
     public void finalizarReproduccion(Episodio episodio, boolean finalizado) {
         Cliente cliente = registro.getLoggedAsCliente();
         cliente.nextActivityState();
-        if (!finalizado) {
-            return;
-        }
         episodio.addReproduccion(
                 new Reproduccion(cliente.getUsername()));
     }
@@ -55,9 +52,10 @@ public class TotSeries {
     }
    
     public boolean login(String username, String password) {
+        /*se hace a nivel grafico GUI
         if (registro.isLogged()) {
             return false;
-        }
+        }*/
         Usuario user = registro.login(username, password);
         return user != null;
     }

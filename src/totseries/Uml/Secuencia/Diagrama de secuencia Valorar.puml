@@ -1,0 +1,45 @@
+@startuml
+title		Valorar
+hide	footbox
+
+actor	Usuario as usuario
+participant "vista:EpisodioJDialog" as vista
+participant "controlador:TotSeries" as totseries
+participant "episodio:Episodio" as episodio
+
+usuario -> vista : Valorar
+activate vista
+note right vista
+    valorado := boolean
+    valoracion := int
+end note
+alt !valorado  
+    alt valoracion >= 0 && valoracion <= 5
+        vista -> totseries : valorarEpisodio(Episodio episodio,int valoracion)
+        activate totseries
+        note right totseries
+            se genera una nueva Valoracion
+            Valoracion := valoracion()
+        end note
+        totseries -> episodio : addValoracion(Valoracion valoracion)
+        activate episodio
+        episodio -> totseries
+        deactivate episodio
+        totseries ->vista
+        deactivate totseries
+    else 
+        note right vista
+            se notifica al usuario por un mensage
+            que la valoracion no se encuentra dentro
+            del rango de 0 y 5
+        end note
+    end alt
+else
+    note right vista
+        se notifica al usuario por un mensage
+        que ya se ha valorado el episodio
+    end note
+end alt
+vista -> usuario
+deactivate vista
+@enduml

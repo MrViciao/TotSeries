@@ -1,0 +1,15 @@
+@startuml
+title		Catalogo
+hide	footbox
+
+actor	Usuario as usuario
+participant "vista:Vista" as vista
+participant "controlador:TotSeries" as totseries
+
+activate vista
+vista->totseries : getSeries():List
+activate totseries
+totseries -> vista : catalogo
+deactivate totseries
+deactivate vista
+@enduml
