@@ -53,10 +53,6 @@ public class TotSeries {
     }
    
     public boolean login(String username, String password) {
-        /*se hace a nivel grafico GUI
-        if (registro.isLogged()) {
-            return false;
-        }*/
         Usuario user = registro.login(username, password);
         return user != null;
     }

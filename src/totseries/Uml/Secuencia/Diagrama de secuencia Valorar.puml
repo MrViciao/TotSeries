@@ -23,7 +23,7 @@ alt !valorado
         vista -> totseries : valorarEpisodio(\nEpisodio episodio,\nint valoracion)
         activate totseries
         
-        totseries -> registro : getLogged():Usuario
+        totseries -> registro : getLoggedUser():Usuario
         activate registro
         registro -->totseries : logged
         deactivate registro
@@ -32,16 +32,15 @@ alt !valorado
         logged --> totseries : id
         deactivate logged
         
-        
-        totseries -> episodio : addValoracion(\nString id,\n float puntuacion)
+        totseries -> episodio : addValoracion(\nfloat puntuacion,\n String id)
         activate episodio
         episodio -> valoracion : new Valoracion(String id, float puntuacion)
         activate valoracion
         valoracion -->episodio: valoracion
         deactivate valoracion
         episodio ->episodio: valoraciones.add(val)
-        episodio ->episodio: notifyObservers(1)
         episodio ->episodio: setChanged();
+        episodio ->episodio: notifyObservers(0)
         episodio --> totseries
         deactivate episodio
         totseries -->vista

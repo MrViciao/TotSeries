@@ -80,14 +80,14 @@ activate reproduccion
 reproduccion --> episodio: reproduccion
 deactivate reproduccion
 episodio ->episodio: reproducciones.add(reproduccion)
-episodio ->episodio: notifyObservers(1)
 episodio ->episodio: setChanged();
+episodio ->episodio: notifyObservers(1)
 episodio --> totseries
 deactivate episodio
 
-
 totseries -> cliente: addVisualizacion()
 activate cliente
+cliente -> cliente: getLastFactura():Factura
 cliente -> factura: addVisualizacion(boolean isVip)
 activate factura
 note left factura

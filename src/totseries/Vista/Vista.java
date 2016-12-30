@@ -90,7 +90,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
         jMenuItemDesloguear = new javax.swing.JMenuItem();
         jMenuAdministrador = new javax.swing.JMenu();
         jMenuItemCargarFichero = new javax.swing.JMenuItem();
-        jMenuItemAsignarVIP = new javax.swing.JMenuItem();
         jMenuItemDeslogearAdmin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -224,14 +223,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
             }
         });
         jMenuAdministrador.add(jMenuItemCargarFichero);
-
-        jMenuItemAsignarVIP.setText("AsignarVIP");
-        jMenuItemAsignarVIP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAsignarVIPActionPerformed(evt);
-            }
-        });
-        jMenuAdministrador.add(jMenuItemAsignarVIP);
 
         jMenuItemDeslogearAdmin.setText("Desloguear");
         jMenuItemDeslogearAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -389,7 +380,7 @@ public class Vista extends javax.swing.JFrame implements Observer {
         }
 
         if (controlador.isloggedAdmin()) {
-            JOptionPane.showMessageDialog(this, "Deja de ver videos y ponte a trabajar");
+            JOptionPane.showMessageDialog(this, "Admin No puede visuarlizar videos,pero si Asignar una valoracion");
             return;
         }
 
@@ -399,10 +390,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
         //actualizarMasValorados();
         //actualizarMasVistos();
     }//GEN-LAST:event_reproducirEvent
-
-    private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
-
-    }//GEN-LAST:event_jMenuItemAsignarVIPActionPerformed
 
     private void jlistMesVistesTotalreproducirEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistMesVistesTotalreproducirEvent
         // TODO add your handling code here:
@@ -598,7 +585,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
     private javax.swing.JMenu jMenuAdministrador;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
-    private javax.swing.JMenuItem jMenuItemAsignarVIP;
     private javax.swing.JMenuItem jMenuItemCargarFichero;
     private javax.swing.JMenuItem jMenuItemDeslogearAdmin;
     private javax.swing.JMenuItem jMenuItemDesloguear;

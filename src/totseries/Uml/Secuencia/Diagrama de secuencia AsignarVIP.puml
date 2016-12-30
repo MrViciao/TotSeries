@@ -28,6 +28,7 @@ opt YES_OPTION
     deactivate registro
     totseries -> vista
     deactivate totseries
+    vista -> vista : actualizarClientesNonVIP():
 end opt
 vista -> usuario
 deactivate vista
