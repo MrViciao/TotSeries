@@ -1,33 +1,39 @@
 @startuml
 title	DSS:4	Ver Episodio
-'	ocultar	el	foot	si	son	curts,	sino	deixar-ho
-'	la	comanda	es	la	seguent
 hide	footbox
-'definicio	d'actors
 actor	Usuario	as	user
 participant ":TotSeries" as TotSeries
 
 
-user	->	TotSeries:verEpisodio()
-'TotSeries -> user :escriu("Seleccione Serie")
-user -> TotSeries:llegeixString(serieID)
-'TotSeries -> user :escriu("Seleccione Temporada")
-user -> TotSeries :llegeixInt(numTemporada)
-'TotSeries -> user :escriu("Seleccione Episodio")
-user -> TotSeries :llegeixInt(numEpisodi)
+user	->	TotSeries:seleccionaEpisodio()
+TotSeries --> user: Mostrar Vista reproductor
+
 note right TotSeries
-    Comprueba que exista la serie
+    boolean reproducido=False
+    boolean valorado=False
 end note
-TotSeries --> user :exist
-alt exist == true
-    TotSeries --> user :reproduccion
-    'TotSeries -> user :escriu("desea valorar?")
-    user -> TotSeries :llegeixString(vullValorar)
-    opt vullValorar == true
-        user -> TotSeries: llegeixInt(valoracion):String
-        TotSeries --> user: "Se realizo la valoracion"
-    end
-else
-    TotSeries --> user :escriu("No existe episodio")
-end alt
+loop ! pulsaBotonCancelar()
+    opt pulsaBotonreproducir() and !reproducido
+        user -> TotSeries: pulsaBotonreproducir()
+        TotSeries --> user :reproduccion
+            ... Viendo episodio ...
+        note right TotSeries
+            boolean reproducido=True
+        end note
+    end opt
+    
+    opt pulsaBotonValorar() and reproducido and !valorado
+        user -> TotSeries: pulsaBotonValorar()
+        user -> TotSeries: rellenaValorNota()
+            alt Si nota tiene formato correcto
+            TotSeries --> user: Alert("Se realizo la valoracion")
+            note right TotSeries
+                boolean valorado=True
+            end note
+            else
+                TotSeries --> user: Alert("La nota no tiene formato correcto")
+            end opt
+    end opt             
+end loop
+TotSeries --> user: Retorna a la vista principal
 @enduml

@@ -4,25 +4,42 @@ hide	footbox
 actor	Usuario	as	user
 participant ":Totseries" as TotSeries
 
-user	->	TotSeries:iniciarRegistro()
-note right TotSeries
-    Pedimos al usuario sus datos personales
-end note
-user -> TotSeries:llegeixString(username):Bool
-note right TotSeries
-    Comprueba que no exista el usuario
-end note
-TotSeries --> user : exist
+user	->	TotSeries:pulsaBotonRegistrarse()
+TotSeries --> user: Mostrar Vista registro
 
-loop exist == true
-    user -> TotSeries:llegeixString(username):Bool
-    TotSeries --> user : exist
-end
-user -> TotSeries:llegeixString(password):Void
-user -> TotSeries:llegeixString(nombre):Void
-user -> TotSeries:llegeixString(dni):Void
-user -> TotSeries:llegeixString(direccion):Void
-TotSeries --> user :"Registro completado"
-
+note right TotSeries
+    boolean registrado=False
+    boolean admin = False
+end note
+loop ! pulsaBotonCancelar() and !registrado
+    user -> TotSeries:rellenarFormulario(username, password, \nnombre, dni, pais)
+    opt marcaCasillaAdmin()
+    user -> TotSeries: marcaCasillaAdmin()
+        note right TotSeries
+            admin = !admin
+        end note
+    end opt
+    opt pulsaBotonRegistrar()
+    user -> TotSeries:pulsaBotonRegistrar():Boolean
+        note right TotSeries
+            Comprueba que no exista el usuario
+        end note
+        TotSeries --> user : exist
+        alt !exist
+            alt admin
+                TotSeries --> user :Alert("Administrador Registrado")
+            else 
+                TotSeries --> user :Alert("Cliente Registrado")
+            end alt
+            note right TotSeries
+                registrado=True
+            end note
+            
+        else
+            TotSeries --> user :"Usuario ya existe"
+        end alt
+    end opt
+end loop
+TotSeries --> user: Retorna a la vista principal
 @enduml
 

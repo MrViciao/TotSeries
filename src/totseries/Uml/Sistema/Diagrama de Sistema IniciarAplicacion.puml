@@ -1,0 +1,14 @@
+@startuml
+title	DSS:3	Iniciar aplicacion
+
+hide	footbox
+
+actor	Usuario	as	user
+participant ":Totseries" as TotSeries
+
+user	->	TotSeries:iniciaPrograma()
+TotSeries --> user :Muestra Vista principal
+TotSeries --> user :catalogo
+TotSeries --> user :MejoresEpisodios
+TotSeries --> user :MejoresEpisodios
+@enduml

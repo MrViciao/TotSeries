@@ -1,0 +1,30 @@
+@startuml
+title	DSS1.	Registro	
+hide	footbox
+actor	Usuario	as	user
+participant ":Totseries" as TotSeries
+
+user	->	TotSeries:pulsaMenuItemLogin()
+TotSeries --> user: Mostrar Vista login
+
+note right TotSeries
+    boolean login=False
+end note
+loop ! pulsaBotonCancelar() and !login
+    user -> TotSeries:rellenarFormulario(username, password)
+    opt pulsaBotonLogin()
+        user -> TotSeries:pulsaBotonLogin():Boolean
+        TotSeries --> user: succesful_login
+        alt succesful_login
+            note right TotSeries
+                boolean login=True
+            end note
+            TotSeries --> user: Alert("Se ha logeado")
+        else
+        TotSeries --> user: Alert("Datos erroneos")
+        end alt
+    end opt
+end loop
+TotSeries --> user: Retorna a la vista principal
+@enduml
+

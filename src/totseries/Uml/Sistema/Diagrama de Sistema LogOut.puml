@@ -1,0 +1,10 @@
+@startuml
+title	DSS1.	Registro	
+hide	footbox
+actor	Usuario	as	user
+participant ":Totseries" as TotSeries
+
+user	->	TotSeries:pulsaMenuItemLogout()
+TotSeries --> user: Alert("Se ha deslogeado")
+@enduml
+
