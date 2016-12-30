@@ -35,17 +35,7 @@ public class Catalogo {
         }
         return lista_series;
     }
-
-    public Serie getSerie(String idSerie) {
-        for (Serie serie : series) {
-            if (serie.getId().equals(idSerie)) {
-                return serie;
-            }
-        }
-        //throws new SerieNotFoundException("Serie con idSerie no encontrada");
-        return null;
-    }
-
+    
     public List<Temporada> getTemporadas(String idSerie) {
         Serie serie = getSerie(idSerie);
         return serie.getTemporadas();
@@ -53,18 +43,6 @@ public class Catalogo {
 
     public Serie getLastSerie() {
         return series.get(series.size() - 1);
-    }
-
-    public boolean existSerie(String idSerie) {
-        return this.getSerie(idSerie) != null;
-    }
-
-    public List<String> showCatalogo() {
-        List<String> lista = new ArrayList();
-        for (Serie serie : series) {
-            lista.add(serie.getNombre());
-        }
-        return lista;
     }
 
     public List<Episodio> getEpisodiosMasValorados() {
@@ -124,34 +102,6 @@ public class Catalogo {
         return lista.subList(0, 10);
     }
 
-    public List<String> showTemporada(String idSerie) {
-        for (Serie serie : this.series) {
-            if (serie.equals(idSerie)) {
-                return serie.showTemporada();
-            }
-        }
-        return null;
-    }
-
-    public List<String> showEpisodio(String idSerie, int idTemporada) {
-        for (Serie serie : this.series) {
-            if (serie.equals(idSerie)) {
-                return serie.showEpisodio(idTemporada);
-            }
-        }
-        return null;
-    }
-
-    public List<Episodio> getEpisodio(String idSerie, int idTemporada) {
-        for (Serie serie : series) {
-            if (serie.getId().equals(idSerie)) {
-                return serie.getEpisodio(idTemporada);
-            }
-        }
-        //throws new SerieNotFoundException("Serie con idSerie no encontrada");
-        return null;
-    }
-
     public String getDescripcion(String idSerie) {
         for (Serie serie : this.series) {
             if (serie.equals(idSerie)) {
@@ -169,7 +119,42 @@ public class Catalogo {
         Valoracion valoracion = new Valoracion(User_id, puntuacion);
         episodio.addValoracion(valoracion);
     }
-
+    // SIN USO
+    public List<String> showTemporada(String idSerie) {
+        for (Serie serie : this.series) {
+            if (serie.equals(idSerie)) {
+                return serie.showTemporada();
+            }
+        }
+        return null;
+    }
+    // SIN USO
+    public List<String> showEpisodio(String idSerie, int idTemporada) {
+        for (Serie serie : this.series) {
+            if (serie.equals(idSerie)) {
+                return serie.showEpisodio(idTemporada);
+            }
+        }
+        return null;
+    }
+    // SIN USO
+    public List<Episodio> getEpisodio(String idSerie, int idTemporada) {
+        for (Serie serie : series) {
+            if (serie.getId().equals(idSerie)) {
+                return serie.getEpisodio(idTemporada);
+            }
+        }
+        //throws new SerieNotFoundException("Serie con idSerie no encontrada");
+        return null;
+    }
+    //// SIN USO
+    public List<String> showCatalogo() {
+        List<String> lista = new ArrayList();
+        for (Serie serie : series) {
+            lista.add(serie.getNombre());
+        }
+        return lista;
+    }
     /////Sin uso
     public boolean existeEpisodio(String idSerie, int idTemporada, int idEpisodio) {
         for (Serie serie : series) {
@@ -179,7 +164,6 @@ public class Catalogo {
         }
         return false;
     }
-
     ////Sin Uso
     public Episodio getEpisodio(String idSerie, int idTemporada, int idEpisodio) {
         if (this.existeEpisodio(idSerie, idTemporada, idEpisodio)) {
@@ -188,7 +172,6 @@ public class Catalogo {
             return null;
         }
     }
-
     ////Sin Uso
     public String verEpisodios(String idSerie, int idTemporada) {
         Serie serie = getSerie(idSerie);
@@ -197,5 +180,19 @@ public class Catalogo {
         }
         return serie.verEpisodios(idTemporada);
 
+    }
+    ///SIN USO
+    public boolean existSerie(String idSerie) {
+        return this.getSerie(idSerie) != null;
+    } 
+    //// SIN USO
+    public Serie getSerie(String idSerie) {
+        for (Serie serie : series) {
+            if (serie.getId().equals(idSerie)) {
+                return serie;
+            }
+        }
+        //throws new SerieNotFoundException("Serie con idSerie no encontrada");
+        return null;
     }
 }

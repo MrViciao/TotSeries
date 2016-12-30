@@ -1,58 +1,20 @@
 @startuml
-title	DS5 Valoracion	
-hide	footbox
+user	->	TotSeries:seleccionaEpisodio()
+TotSeries --> user: Mostrar Vista reproductor
 
-participant ":Menu" as Menu
-participant "nueva:Valoracion" as Valoracion
-participant ":Consola" as Consola
-participant ":TotSeries" as TotSeries
-participant ":Catalogo" as Catalogo
-participant ":Serie" as Serie
-participant ":Episodio" as Episodio
-participant ":Temporada" as Temporada
-
-
-
-
-activate Menu
-Menu -> TotSeries :valorarEpisodio(serieId:String, temporadaId:int, \nepisodioId:int, puntuacion:int);
-activate TotSeries
-
-TotSeries -> Catalogo:getEpisodio(serie:string,\ntemporada:int,episodio:int):Episodio
-    activate Catalogo
-    Catalogo -> Serie:getEpisodio(temporada:int,\nepisodio:int):Episodio
-    activate Serie
-    Serie -> Temporada:getEpisodio(episodio:int):Episodio
-    activate Temporada
-    Temporada->Episodio:getEpisodio():Episodio
-    activate Episodio
-    Episodio-->Temporada:episodio
-    deactivate Episodio
-    Temporada-->Serie:episodio
-    deactivate Temporada
-    Serie --> Catalogo:episodio
-    deactivate Serie
-    Catalogo --> TotSeries:episodio
-    deactivate Catalogo
-
-create Valoracion
 note right TotSeries
-    usuario:string
-    usuario:=usuarioActual.getUsername()
+    boolean reproducido=False
+    boolean valorado=False
 end note
-TotSeries -> Valoracion:Valoracion(usuario:String,\npuntuacion:int):Valoracion
-activate Valoracion
-Valoracion --> TotSeries: valoracion
-deactivate Valoracion
-TotSeries -> Episodio: addValoracion(valoracion:Valoracion):void
-activate Episodio
-Episodio -> Episodio:addValoracion(valoracion):Void
-Episodio-->TotSeries
-deactivate Episodio
-TotSeries-->Menu
-deactivate TotSeries
-Menu->Consola : escriu("Añadida valoracion"):Void
-activate Consola
-deactivate Consola
-
+loop pulsaBotonCancelar()
+    opt pulsaBotonreproducir() and !reproducido
+        TotSeries --> user :reproduccion
+            ... Viendo episodio ...
+    end opt
+    
+    opt valorarEpisodio() and reproducido and !valorado
+            user	->	TotSeries:introducirNota()
+            TotSeries --> user: "Se realizo la valoracion"
+    end opt             
+end loop
 @enduml

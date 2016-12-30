@@ -38,7 +38,7 @@ public class Temporada {
         episodio.setId(episodios.size());
         numEpisodis += 1;
     }
-
+    /// sin uso
     public Episodio getEpisodio(int idEpisodio) {
         for (Episodio episodio : episodios) {
             if (episodio.getId() == idEpisodio) {
@@ -47,7 +47,7 @@ public class Temporada {
         }
         return null;
     }
-    
+    /// sin uso
     public String verEpisodios() {
         String lista = "";
         for (Episodio episodio : episodios) {
@@ -96,14 +96,14 @@ public class Temporada {
     public List<Episodio> getEpisodio(){
         return this.episodios;
     }
-    
+    /// sin uso
     public String showTemporada(){
         String nombre;
         nombre = "Season: ";
         nombre += this.getId();
         return nombre;
     }
-
+    /// sin uso
     public List<String> showEpisodio() {
         List<String> lista = null;
         for (Episodio epi : this.episodios){

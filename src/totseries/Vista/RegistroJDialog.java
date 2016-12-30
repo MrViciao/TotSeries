@@ -83,7 +83,7 @@ public class RegistroJDialog extends javax.swing.JDialog {
             }
         });
 
-        jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.setText("Registrarse");
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAceptarActionPerformed(evt);

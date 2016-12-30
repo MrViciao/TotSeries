@@ -104,7 +104,6 @@ public class Registro {
            cliente.setVip(true);
     }
     
-    /// SIN USO
     public boolean hasUsuario(String username) {
         for (Usuario usuario : usuarios) {
             if (usuario.getUsername().equals(username)) {

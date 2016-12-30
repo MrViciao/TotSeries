@@ -6,42 +6,65 @@ left to right direction
 
 namespace Controlador {
     class Totseries{
-    -Cliente actualCliente
+    -TotSeries instance
     ==
-    +void reproducirEpisodio(String idSerie, int idtemporada, int idEpisodio)
-    +void valorarEpisodio(String serie_id,int temporada_id,int episodio_id,int puntuacion)
-    +String verCatalogo()
-    +String verTemporadas(String idSerie)
-    +String verEpisodios(String idSerie, int idTemporada)
+    +TotSeries getInstance()
+    +void empezarReproduccion(Episodio episodio)
+    +void finalizarREproduccion(Episodio episodio, boolean finalizado)
+    +void valorarEpisodio(Episodio episodio, float puntuacion)
+    +boolean login(String username,String password)
+    +void logout()
+    +boolean islogged()
+    +boolean registrar(String usuari, String password, String nom,String dni, String adreca)
+    +boolean registrar(String usuari, String passwrod, String nom)
+    +boolean isloggedAdmin()
+    +List<Usuario> getClientesNonVIP()
+    +void hacerVip(Cliente cliente)
+    +List getSeries()
+    +List getEpisodiosMasVistos()
+    +List getEpisodiosMasValorados()
     +boolean hasUsuario(String username)
-    +void registrar(String username,String password,String nombre,String pais,Date fNacimiento)
-    +void verMejoresEpisodios()
     }
     
 }
 
-namespace java.util {
-    class Scanner
-}
-
 namespace Vista {
 
-    class Menu{
-        -TotSeries totSeries
-        ==
-        +void run()
-        +void printMenu()
-    }
-    class Consola{
+    class EpisodioJDialog{
+    -TotSeries controlador
     ==
-    +void escriu(String s)
-    +void escriu(Int i)
-    +void escriu(float f)
-    +int llegeixInt()
-    +string llegeixString()
+    -void actionPerformedReproducir()
+    -void actionPerformedValorar()
+    }
+    class LoginJDialong{
+    -TotSeries controlador
+    ==
+    - void actionPerformedLoguearse()
+    }
+    class RegistroJDialong{
+    -TotSeries controlador
+    ==
+    - void actionPerformedRegistrarse() 
+    }
+    class Vista{
+    -TotSeries controlador
+    ==
+    + void update(Observable o, Object o1)
+    - void actualizarCatalogo()
+    - void actualizarTemporadas()
+    - void actualizarMasValorados()
+    - void actualizarMasVistos()
+    - void actualizarClientesNonVIP()
+    - void actualizarEpisodios()
+    - void actualizarAll()
+    - void vaciarListaEpisodios()
+    - void vaciarListaClientes()
+    - void actionPerformedAsignarVIP()
+    - void actionPerformedLogin()
+    - void actionPerformedRegistrar()
+    - void actionPerformedDesloguear()
     }
 
-    Menu "1" - "1" Consola : usa >
 }
 
 namespace Model {
@@ -49,8 +72,18 @@ namespace Model {
     
     class Registro{
     ==
+    +void registrarAdmin(String usuari, String password, String nom)
+    +void registrarCliente(String nom, String dni, String adreca, String usuari,String password)
+    +void setLoggedUser(Usuario user)
+    +Usuario getLoggedUser()
+    +boolean isLogged()
+    +Cliente getLoggedAsCliente()
+    +Administrador getLoggedAsAdmin()
+    +Usuario login(String username, String password)
+    +boolean isLoggedAdmin()
+    +List<Usuario> getClientesNonVIP()
+    +void setVIP(Cliente cliente)
     +boolean hasUsuario(String username)
-    +registrar(String nom, String dni, String adreca, String usuari, String password)
     }
 
     class Usuario {
@@ -65,15 +98,14 @@ namespace Model {
         - Boolean vip
         - String dni
         - String direccion
-        - Boolean can_view_ep()
-        - Void nextState()
-        - Void setState()
         ==
+        + boolean isVip()
+        + void nextActivityState()
+        + boolean canViewEpisode()
         + Factura getLastFactura()
-        + addVisualizacion()
+        + void addVisualizacion()
     }
     
-
     '###############################################
     interface ActivityState{
         can_view_episode()
@@ -115,27 +147,29 @@ namespace Model {
     
     class Catalogo{
         ==
-        + String getMejoresEpisodios()
         + void addSerie(Serie serie)
-        + boolean existeEpisodio(String idSerie, int idTemporada,int idEpisodio)
-        + Episodio getEpisodio(String idSerie,int idTemporada,int idEpisodio)
-        + String verTemporadas(String idSerie)
-        + String verEpisodios(String idSerie, int idTemporada)
         + String toString()
+        + List<Temporada> getTemporadas (String idSerie)
+        + Serie getLastSerie()
+        + List<Episodio> getEpisodiosMasValorados()
+        + List<Serie> getSeriesMasValoradas()
+        + List<Episodio> getEpisodiosMasVistos()
+        + List<Temporada> getTEmporadasMasVistas()
+        + List<Serie> getSeriesMasVistas()
+        + String getDescripcion(String idSerie)
+        + void valorarEpisodio(Episodio episodio, float puntuacion, String User_id)
         + Serie getLastSerie()
     }
     class Temporada{
         - int id
         - int numEpisodis
         ==
-        + String toString()
         + String getMejoresEpisodios()
-        + boolean existeEpisodio(int idEpisodio)
-        + Episodio getEpisodio(int episodio)
-        + void addEpisodio(Episodio espisodio)
-        + int size()
-        + String verEpisodios()
+        +Episodio getEpisodio(int Episodio)
         + void addEpisodio(Episodio)
+        +int coutReproducciones()
+        +float getPromedio()
+        +String toString()
     }
 
     class Serie{
@@ -145,15 +179,11 @@ namespace Model {
         ==
         + String toString()
         + String getMejoresEpisodios()
-        + boolean existeEpisodio(int temporada, int idEpisodio)
         + boolean equals(String idSerie)
         + Temporada getLastTemporada()
-        + void addTemporada(Temporada temporada)
-        + Episodio getEpisodio(int idTemporada,int idEpisodio)
-        + String verEpisodios(int idTemporada)
-        + String verTemporadas()
-        + Temporada getLastTemporada()
-        + boolean hasTemporada(int idTemporada)
+        + List<Temporada> getTemporadas()
+        + int countReproducciones()
+        + float getPromedio()
     }
     class Valoracion{
         -String usuario
@@ -174,6 +204,8 @@ namespace Model {
         + String toString()
         + void setPromedio()
         + void addValoracion(Valoracion valoracion)
+        + int countReproducciones()
+        + void addReproduccion(Reproduccion r)
     }
 
     
@@ -197,7 +229,7 @@ namespace Model {
     Registro "1" -- "0..* | usuarios" Cliente : contine >
     Registro "1" -- "0..* | administradores" Administrador : contine >
 
-    Usuario <|-- Cliente
+    Usuario <|- Cliente
     Usuario <|-- Administrador
     Cliente "1" -- "0..* | facturas" Factura : tiene >  
     Artista  <|-- Actor
@@ -218,10 +250,11 @@ namespace Model {
     StatusState <|-- VipState : tiene >
     StatusState <|-- NormalState : tiene >
 }
+Controlador.Totseries "1" -- "1" Vista.Vista : usa >
+Controlador.Totseries "1" -- "1" Vista.LoginJDialong : usa >
+Controlador.Totseries "1" -- "1" Vista.RegistroJDialong : usa >
+Controlador.Totseries "1" -- "1" Vista.EpisodioJDialog : usa >
 
 Controlador.Totseries "1" -- "1 | catalogo" Model.Catalogo : tiene >
-Controlador.Totseries "1" -- "1" Vista.Consola : usa >
 Controlador.Totseries "1" -- "1 | registro" Model.Registro : tiene >
-Controlador.Totseries "1" -- "1" Vista.Menu : Usa
-java.util.Scanner "-sc | 1" <-- "1" Vista.Consola : Usa 
 @enduml
