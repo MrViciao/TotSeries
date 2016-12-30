@@ -10,6 +10,7 @@ participant "cliente:Cliente" as cliente
 participant ":ActivityState" as state
 participant "episodio:Episodio" as episodio
 participant ":Factura" as factura
+participant ":Reproduccion" as reproduccion
 
 usuario -> vista : ClickBotonReproducir
 activate vista
@@ -49,8 +50,14 @@ opt !can view
     vista --> usuario
 end opt
 
-vista -> totseries : finalizarReproduccion(Episodio episodio, boolean true)
+vista -> totseries : finalizarReproduccion(\nEpisodio episodio,\n boolean true)
 activate totseries
+
+totseries -> registro : getLoggedAsCliente()
+activate registro
+registro --> totseries : cliente
+deactivate registro
+
 totseries -> cliente : nextActivityState()
 activate cliente
 cliente -> state : nextState(this)
@@ -60,16 +67,19 @@ deactivate state
 cliente --> totseries
 deactivate cliente
 
+totseries -> cliente : getUsername():String
+activate cliente
+cliente -->totseries: username
+deactivate cliente
 
-note right totseries
-    se crea una nueva Reproduccion
-    con el cliente actualmente logueado
-end note
 
-
-totseries -> episodio :addReproduccion(Reproduccion repro)
+totseries -> episodio :addReproduccion(username)
 activate episodio
-episodio ->episodio: reproducciones.add(repro)
+episodio -> reproduccion: new Reproduccion(String username)
+activate reproduccion
+reproduccion --> episodio: reproduccion
+deactivate reproduccion
+episodio ->episodio: reproducciones.add(reproduccion)
 episodio ->episodio: notifyObservers(1)
 episodio ->episodio: setChanged();
 episodio --> totseries

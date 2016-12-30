@@ -44,8 +44,7 @@ public class TotSeries {
     public void finalizarReproduccion(Episodio episodio, boolean finalizado) {
         Cliente cliente = registro.getLoggedAsCliente();
         cliente.nextActivityState();
-        episodio.addReproduccion(
-                new Reproduccion(cliente.getUsername()));
+        episodio.addReproduccion(cliente.getUsername());
         cliente.addVisualizacion();
     }
 

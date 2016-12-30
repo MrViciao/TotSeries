@@ -109,6 +109,12 @@ public class Episodio extends Observable {
         notifyObservers(1);
     }
 
+    public void addReproduccion(String username) {
+        reproducciones.add(new Reproduccion(username));
+        setChanged();
+        notifyObservers(1);
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
