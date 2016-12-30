@@ -86,30 +86,18 @@ public class Cliente extends Usuario {
         return activity.canViewEpisode();
     }
 
-    /**
-     * @return the dni
-     */
     public String getDni() {
         return dni;
     }
 
-    /**
-     * @param dni the dni to set
-     */
     public void setDni(String dni) {
         this.dni = dni;
     }
 
-    /**
-     * @return the direccion
-     */
     public String getDireccion() {
         return direccion;
     }
 
-    /**
-     * @param direccion the direccion to set
-     */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }

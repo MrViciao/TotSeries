@@ -27,44 +27,20 @@ public class Serie{
         this.temporadas = new ArrayList<>();
     }
 
-    //metodos de sin responsabilidad
-    /////////////////
-
-    public boolean existeEpisodio(int idTemporada, int idEpisodio) {
-        for (Temporada temporada : temporadas) {
-            if (temporada.getId() == idTemporada) {
-                return temporada.existeEpisodio(idEpisodio);
-            }
-        }
-        return false;
-    }
-
-    public Episodio getEpisodio(int idTemporada, int idEpisodio) {
-        return find(idTemporada).getEpisodio(idEpisodio);
-    }
-    
-    public String verEpisodios(int idTemporada) {
-        Temporada temporada = find(idTemporada);
-        if(temporada==null) return "No existe temporada\n";
-        return temporada.verEpisodios();
-    }
-
-    //Metodos de clase
-    /////////////////
     public void addTemporada(Temporada temporada) {
         if (hasTemporada(temporada.getId())) {
             return;
         }
         temporadas.add(temporada);
     }
-
+    
     public Temporada getLastTemporada() {
         if (temporadas.isEmpty()) {
             return null;
         }
         return temporadas.get(temporadas.size() - 1);
     }
-
+    //// si no hay una temporada no deberia existir la serie
     public String verTemporadas() {
         String lista = "";
         for (Temporada temporada : temporadas) {
@@ -98,21 +74,12 @@ public class Serie{
         return titulo;
     }
 
-    //Metodos getter/setter
-    /////////////////
     public String getId() {
         return id;
     }
 
     public void setId(String Id) {
         this.id = Id;
-    }
-    
-    public Temporada find(int idTemporada){
-        for (Temporada temporada : temporadas){
-            if (temporada.getId()==idTemporada) return temporada;
-        }
-        return null;
     }
     
     public List<Temporada> getTemporadas(){
@@ -126,7 +93,6 @@ public class Serie{
         }
         return total;
     }
-    
     
     public List getEpisodios(){
         List<Episodio> episodios=new ArrayList<>();
@@ -143,6 +109,7 @@ public class Serie{
         }
         return total / temporadas.size();
     }
+    
     public List<Episodio> getEpisodio(int idTemporada){
         for (Temporada temporada : temporadas){
             if (temporada.getId()==idTemporada)
@@ -150,6 +117,7 @@ public class Serie{
         }
         return null;
     }
+    
     public String getNombre(){
         return this.titulo;
     }
@@ -161,6 +129,7 @@ public class Serie{
         }
         return lista;
     }
+    
     public List<String> showEpisodio(int idTemporada){
         for (Temporada temporada : temporadas){
             if (temporada.getId()==idTemporada)
@@ -168,7 +137,34 @@ public class Serie{
         }
         return null;
     }
+    
     public String getDescripcion(){
         return this.descripcion;
+    }
+    //// SIN USO    
+    public boolean existeEpisodio(int idTemporada, int idEpisodio) {
+        for (Temporada temporada : temporadas) {
+            if (temporada.getId() == idTemporada) {
+                return temporada.existeEpisodio(idEpisodio);
+            }
+        }
+        return false;
+    }
+    ///sin uso
+    public Episodio getEpisodio(int idTemporada, int idEpisodio) {
+        return find(idTemporada).getEpisodio(idEpisodio);
+    }
+    //// sin uso
+    public String verEpisodios(int idTemporada) {
+        Temporada temporada = find(idTemporada);
+        if(temporada==null) return "No existe temporada\n";
+        return temporada.verEpisodios();
+    }
+    //// sin uso
+    public Temporada find(int idTemporada){
+        for (Temporada temporada : temporadas){
+            if (temporada.getId()==idTemporada) return temporada;
+        }
+        return null;
     }
 }
