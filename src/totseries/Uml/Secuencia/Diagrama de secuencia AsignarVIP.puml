@@ -6,17 +6,28 @@ actor	Usuario as usuario
 participant "vista:Vista" as vista
 participant "controlador:TotSeries" as totseries
 participant "registro:Registro" as registro
+participant "cliente:Cliente" as cliente
 
-usuario -> vista : Desloguear
+usuario -> vista : hacer VIP
 activate vista
-vista->totseries : logout()
-activate totseries
-totseries -> registro :setLoggedUser(null)
-activate registro
-registro -> totseries
-deactivate registro
-totseries -> vista 
-deactivate totseries
+
+note right vista
+    se le pregunta al usuario si desea
+    asignar vip
+end note
+opt YES_OPTION
+    vista -> totseries : hacerVIP(Cliente cliente):
+    activate totseries
+    totseries -> registro : setVIP(Cliente cliente)
+    activate registro
+    registro -> cliente :setVip(boolean true)
+    activate cliente
+    cliente -> registro
+    deactivate cliente
+    registro ->totseries
+    deactivate registro
+    totseries -> vista
+end opt
 vista -> usuario
 deactivate vista
 @enduml

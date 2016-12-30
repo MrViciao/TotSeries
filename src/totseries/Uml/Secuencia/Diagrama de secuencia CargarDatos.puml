@@ -4,6 +4,7 @@ hide	footbox
 
 actor	Usuario as usuario
 participant "vista:Vista" as vista
+participant "dataManager:TotSeriesDataManager" as data
 participant "controlador:TotSeries" as totseries
 
 usuario -> vista : CargarDatos
@@ -13,14 +14,21 @@ note right vista
     por una ventana de navegacion
     de sistema.
 end note
-vista->totseries : logout()
+vista->data : obtenirDades(file)
+activate data
+data -> vista
+deactivate data
+vista -> data : cargarDatos(controlador):TotSeries
+activate data
+data -> totseries : setCatalogo(catalogo)
 activate totseries
-totseries -> registro :setLoggedUser(null)
-activate registro
-registro -> totseries
-deactivate registro
-totseries -> vista 
+totseries -> data
 deactivate totseries
+
+data -> vista : controlador := control
+deactivate data
+vista -> vista: actualizarAll()
 vista -> usuario
 deactivate vista
+
 @enduml
