@@ -1,0 +1,22 @@
+@startuml
+title		Asignar VIP
+hide	footbox
+
+actor	Usuario as usuario
+participant "vista:Vista" as vista
+participant "controlador:TotSeries" as totseries
+participant "registro:Registro" as registro
+
+usuario -> vista : Desloguear
+activate vista
+vista->totseries : logout()
+activate totseries
+totseries -> registro :setLoggedUser(null)
+activate registro
+registro -> totseries
+deactivate registro
+totseries -> vista 
+deactivate totseries
+vista -> usuario
+deactivate vista
+@enduml

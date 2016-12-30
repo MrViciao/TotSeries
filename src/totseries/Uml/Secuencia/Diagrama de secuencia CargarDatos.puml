@@ -1,0 +1,26 @@
+@startuml
+title		Cargar Datos
+hide	footbox
+
+actor	Usuario as usuario
+participant "vista:Vista" as vista
+participant "controlador:TotSeries" as totseries
+
+usuario -> vista : CargarDatos
+activate vista
+note right vista
+    el usuario busca el fichero
+    por una ventana de navegacion
+    de sistema.
+end note
+vista->totseries : logout()
+activate totseries
+totseries -> registro :setLoggedUser(null)
+activate registro
+registro -> totseries
+deactivate registro
+totseries -> vista 
+deactivate totseries
+vista -> usuario
+deactivate vista
+@enduml
