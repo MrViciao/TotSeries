@@ -120,7 +120,7 @@ public class TotSeries {
     public List getEpisodiosMasValorados() {
         return catalogo.getEpisodiosMasValorados();
     }
-    //////SIN USO
+    
     public boolean hasUsuario(String username) {
         return registro.hasUsuario(username);
     }

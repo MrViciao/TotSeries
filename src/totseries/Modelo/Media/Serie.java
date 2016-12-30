@@ -51,7 +51,7 @@ public class Serie{
         }
         return lista;
     }
-
+    /// sin uso
     public boolean hasTemporada(int idTemporada) {
         for (Temporada temporada : temporadas) {
             if (temporada.getId() == idTemporada) {
@@ -109,7 +109,7 @@ public class Serie{
         }
         return total / temporadas.size();
     }
-    
+    //// SIN USO
     public List<Episodio> getEpisodio(int idTemporada){
         for (Temporada temporada : temporadas){
             if (temporada.getId()==idTemporada)
@@ -121,7 +121,7 @@ public class Serie{
     public String getNombre(){
         return this.titulo;
     }
-
+    ///// SIN USO
     public List<String> showTemporada() {
         List<String> lista = new ArrayList<>();
         for (Temporada tempo: this.temporadas){
@@ -129,7 +129,7 @@ public class Serie{
         }
         return lista;
     }
-    
+    //// SIN USO
     public List<String> showEpisodio(int idTemporada){
         for (Temporada temporada : temporadas){
             if (temporada.getId()==idTemporada)
