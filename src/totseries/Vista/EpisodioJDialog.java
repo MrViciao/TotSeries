@@ -5,14 +5,12 @@
  */
 package totseries.Vista;
 
-import static java.lang.Thread.sleep;
 import java.util.Observer;
 import totseries.Controlador.TotSeries;
 import totseries.Modelo.Media.Episodio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 
 /**
  *
@@ -23,7 +21,7 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     Episodio episodio;
     TotSeries controlador;
     boolean valorado;
-    boolean en_reproduccion=false;
+    boolean en_reproduccion = false;
 
     /**
      * Creates new form EpisodioJDialog
@@ -37,7 +35,6 @@ public class EpisodioJDialog extends javax.swing.JDialog {
         this.jTextFieldDescripcion.setText(episodio.getDescripcion());
         this.jProgressBarDuracion.setVisible(true);
         this.jButtonValorar.setVisible(false);
-        this.jTextFieldValoracion.setVisible(false);
         this.jButtonValorar.setVisible(false);
         this.jProgressBarDuracion.setMaximum(5);
         this.controlador = controlador;
@@ -57,7 +54,6 @@ public class EpisodioJDialog extends javax.swing.JDialog {
         jButtonReproducir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jProgressBarDuracion = new javax.swing.JProgressBar();
-        jTextFieldValoracion = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JLabel();
         jTextFieldDescripcion = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JLabel();
@@ -97,13 +93,6 @@ public class EpisodioJDialog extends javax.swing.JDialog {
         jProgressBarDuracion.setString("0");
         jProgressBarDuracion.setVerifyInputWhenFocusTarget(false);
 
-        jTextFieldValoracion.setText("0");
-        jTextFieldValoracion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldValoracionActionPerformed(evt);
-            }
-        });
-
         jTextFieldNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTextFieldNombre.setText("Episodio");
 
@@ -136,8 +125,7 @@ public class EpisodioJDialog extends javax.swing.JDialog {
                                 .addComponent(jButtonReproducir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonValorar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldValoracion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jTextField3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -162,7 +150,6 @@ public class EpisodioJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonReproducir)
                     .addComponent(jButtonValorar)
-                    .addComponent(jTextFieldValoracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCancelar))
                 .addContainerGap())
         );
@@ -188,37 +175,46 @@ public class EpisodioJDialog extends javax.swing.JDialog {
 
         }
         controlador.finalizarReproduccion(episodio, true);
-        this.jTextFieldValoracion.setVisible(true);
         this.jButtonValorar.setVisible(true);
         this.jButtonReproducir.setEnabled(false);
     }//GEN-LAST:event_jButtonReproducirActionPerformed
 
     private void jButtonValorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValorarActionPerformed
-        int valoracion = Integer.parseInt(this.jTextFieldValoracion.getText());
-        if (!this.valorado) {
-            if (valoracion >= 0 && valoracion <= 5) {
-                this.controlador.valorarEpisodio(this.episodio, valoracion);
-                JOptionPane.showMessageDialog(this, "A valorado el episodio!");
-                this.valorado = true;
-            } else {
-                JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
+        if (this.valorado) {
             JOptionPane.showMessageDialog(this, "Ya se ha valorado el episodio", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        String nota = JOptionPane.showInputDialog("Introduce una valoracion de 0 a 5");
+        int int_nota = 0;
+        boolean exit = false;
+        try {
+            int_nota = Integer.parseInt(nota);
+        } catch (NumberFormatException e) {
+            exit = true;
+        } catch (NullPointerException e) {
+            exit = true;
+        }
+        if (exit) {
+            JOptionPane.showMessageDialog(this, "Error de formato");
+            return;
+        }
+
+        if (int_nota > 5 || int_nota < 0) {
+            JOptionPane.showMessageDialog(this, "Introduzca una valoracion entre el 1 y el 5", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        this.controlador.valorarEpisodio(this.episodio, int_nota);
+        JOptionPane.showMessageDialog(this, "A valorado el episodio!");
+        this.valorado = true;
     }//GEN-LAST:event_jButtonValorarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (en_reproduccion){
-            en_reproduccion=false;
+        if (en_reproduccion) {
+            en_reproduccion = false;
             controlador.finalizarReproduccion(episodio, false);
         }
         episodio.deleteObservers();
     }//GEN-LAST:event_formWindowClosing
-
-    private void jTextFieldValoracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValoracionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldValoracionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -229,6 +225,5 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jTextField3;
     private javax.swing.JLabel jTextFieldDescripcion;
     private javax.swing.JLabel jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldValoracion;
     // End of variables declaration//GEN-END:variables
 }

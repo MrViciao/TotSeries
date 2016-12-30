@@ -1,5 +1,5 @@
 @startuml
-title	DSS1.	Registro	
+title	DSS LogOut	
 hide	footbox
 actor	Usuario	as	user
 participant ":Totseries" as TotSeries

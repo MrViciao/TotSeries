@@ -1,0 +1,45 @@
+@startuml
+title	DSS:4 y 5	Ver Episodio Y Valorar
+
+hide	footbox
+actor	Usuario	as	user
+participant ":TotSeries" as TotSeries
+
+
+user	->	TotSeries:seleccionaEpisodio()
+TotSeries --> user: Mostrar Vista reproductor
+
+note right TotSeries
+    boolean reproducido=False
+    boolean valorado=False
+end note
+loop ! pulsaBotonCancelar()
+    opt pulsaBotonreproducir() and !reproducido
+        user -> TotSeries: pulsaBotonreproducir()
+        TotSeries --> user :reproduccion
+            ... Viendo episodio ...
+        note right TotSeries
+            boolean reproducido=True
+        end note
+    end opt
+    
+    opt pulsaBotonValorar() \n and reproducido and !valorado
+        note right user
+            Diagrama de Sistema Valorar Episodio
+            Si Valorar con exito:
+                valorado=True
+        end note
+'        user -> TotSeries: pulsaBotonValorar()
+'        user -> TotSeries: rellenaValorNota()
+'            alt Si nota tiene formato correcto
+'            TotSeries --> user: Alert("Se realizo la valoracion")
+'            note right TotSeries
+'                boolean valorado=True
+'            end note
+'            else
+'                TotSeries --> user: Alert("La nota no tiene formato correcto")
+'            end opt
+    end opt             
+end loop
+TotSeries --> user: Retorna a la vista principal
+@enduml
