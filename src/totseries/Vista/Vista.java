@@ -324,11 +324,13 @@ public class Vista extends javax.swing.JFrame implements Observer {
             this.jListClientes.setEnabled(true);
             this.jTextFieldClientes.setVisible(true);
             this.actualizarClientesNonVIP();
+            JOptionPane.showMessageDialog(this, "Se ha logeado como Administrador");
         } else if (this.controlador.islogged()) {
             this.jTextFieldMasValorados.setText("");
             this.jMenuCliente.setVisible(true);
             this.jMenuUsuario.setVisible(false);
             this.jTextFieldMasValorados.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Se ha logeado correctamente");
         }
     }//GEN-LAST:event_jMenuItemLoginActionPerformed
 
@@ -431,27 +433,32 @@ public class Vista extends javax.swing.JFrame implements Observer {
             JOptionPane.showMessageDialog(this, "Error de formato");
             return;
         }
-        JOptionPane.showMessageDialog(this, "Añadiendo valoracion de: " + int_nota);
-
         Episodio ep = jlistMesValorados.getModel().getElementAt(
                 ((JList) evt.getSource()).getSelectedIndex());
 
         controlador.valorarEpisodio(ep, int_nota);
-        //actualizarMasValorados();
+        this.actualizarMasValorados();
+        JOptionPane.showMessageDialog(this, "Añadiendo valoracion de: " + int_nota);
+        
 
 
     }//GEN-LAST:event_episodioNotaClicked
 
     private void jListClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListClientesMouseClicked
         JList lista = ((JList) evt.getSource());
-        if (lista.getSelectedValue()==null) return;
-        
-        this.controlador.hacerVip((Cliente) lista.getSelectedValue());
-        this.actualizarClientesNonVIP();
-        JOptionPane.showMessageDialog(this, "Se asigno un VIP");
+        if (lista.getSelectedValue() == null) {
+            return;
+        }
+
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Quiere hacer este Usuario VIP?", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            this.controlador.hacerVip((Cliente) lista.getSelectedValue());
+            this.actualizarClientesNonVIP();
+            JOptionPane.showMessageDialog(this, "Se asigno un VIP");
+        }
     }//GEN-LAST:event_jListClientesMouseClicked
-    
-    private void actualizarCatalogo(){
+
+    private void actualizarCatalogo() {
         DefaultListModel model = new DefaultListModel();
         model.clear();
         Iterator iteratorSerie = this.controlador.getSeries().iterator();

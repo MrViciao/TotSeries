@@ -230,7 +230,7 @@ public class RegistroJDialog extends javax.swing.JDialog {
                     this.jTextFieldNombre.getText(),
                     this.jTextFieldDNI.getText(),
                     this.jTextFieldDireccion.getText());
-            this.setVisible(false);
+            
         }
         if (registrar) {
             this.setVisible(false);
