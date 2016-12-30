@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Observable;
 import totseries.Parser.Consola;
 
 /**
  *
  * @author Abel
  */
-public class Catalogo {
+public class Catalogo{
 
     private List<Serie> series;
 
@@ -86,7 +87,7 @@ public class Catalogo {
         return this.getSerie(idSerie) != null;
     }
 
-    public List<String> showCatalogo(){
+    public List<String> showCatalogo() {
         List<String> lista = new ArrayList();
         for (Serie serie : series) {
             lista.add(serie.getNombre());
@@ -101,7 +102,9 @@ public class Catalogo {
             lista.addAll(serie.getEpisodios());
         });
         Collections.sort(lista, (Episodio p1, Episodio p2) -> Float.compare(p2.getPromedio(), p1.getPromedio()));
-        if (lista.isEmpty())return lista;
+        if (lista.isEmpty()) {
+            return lista;
+        }
         return lista.subList(0, 10);
     }
 
@@ -117,7 +120,9 @@ public class Catalogo {
     public List<Serie> getSeriesMasValoradas() {
         List<Serie> lista = new ArrayList<>();
         Collections.sort(lista, (Serie p1, Serie p2) -> Float.compare(p2.getPromedio(), p1.getPromedio()));
-        if (lista.isEmpty())return lista;
+        if (lista.isEmpty()) {
+            return lista;
+        }
         return lista.subList(0, 10);
     }
 
@@ -127,7 +132,9 @@ public class Catalogo {
             lista.addAll(serie.getEpisodios());
         });
         Collections.sort(lista, (Episodio p1, Episodio p2) -> Float.compare(p2.countReproducciones(), p1.countReproducciones()));
-        if (lista.isEmpty())return lista;
+        if (lista.isEmpty()) {
+            return lista;
+        }
         return lista.subList(0, 10);
     }
 
@@ -145,7 +152,7 @@ public class Catalogo {
         Collections.sort(series, (Serie p1, Serie p2) -> Float.compare(p2.countReproducciones(), p1.countReproducciones()));
         return lista.subList(0, 10);
     }
-    
+
     /*
     public List<String> showCatalogo() {
         List<String> lista = null;
@@ -154,8 +161,7 @@ public class Catalogo {
         }
         return lista;
     }
-*/
-
+     */
     public List<String> showTemporada(String idSerie) {
         for (Serie serie : this.series) {
             if (serie.equals(idSerie)) {
@@ -192,8 +198,13 @@ public class Catalogo {
         }
         return null;
     }
-    
-    public List getSeries(){
+
+    public List getSeries() {
         return series;
+    }
+
+    public void valorarEpisodio(Episodio episodio, float puntuacion, String User_id) {
+        Valoracion valoracion = new Valoracion(User_id, puntuacion);
+        episodio.addValoracion(valoracion);
     }
 }

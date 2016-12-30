@@ -6,6 +6,7 @@
 package totseries.Vista;
 
 import static java.lang.Thread.sleep;
+import java.util.Observer;
 import totseries.Controlador.TotSeries;
 import totseries.Modelo.Media.Episodio;
 import java.util.logging.Level;
@@ -31,6 +32,7 @@ public class EpisodioJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.episodio = episodio;
+        episodio.addObserver((Observer) parent);
         this.jTextFieldNombre.setText(this.episodio.getTitulo());
         this.jTextFieldDescripcion.setText(episodio.getDescripcion());
         this.jProgressBarDuracion.setVisible(true);
@@ -185,7 +187,6 @@ public class EpisodioJDialog extends javax.swing.JDialog {
             }
 
         }
-        System.out.println("totseries.Vista.EpisodioJDialog.jButtonReproducirActionPerformed()");
         controlador.finalizarReproduccion(episodio, true);
         this.jTextFieldValoracion.setVisible(true);
         this.jButtonValorar.setVisible(true);
@@ -212,6 +213,7 @@ public class EpisodioJDialog extends javax.swing.JDialog {
             en_reproduccion=false;
             controlador.finalizarReproduccion(episodio, false);
         }
+        episodio.deleteObservers();
     }//GEN-LAST:event_formWindowClosing
 
     private void jTextFieldValoracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValoracionActionPerformed

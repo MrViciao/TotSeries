@@ -7,12 +7,15 @@ package totseries.Vista;
 
 import java.io.File;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import totseries.Controlador.TotSeries;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import static totseries.Main.cargarDatos;
+import totseries.Modelo.Media.Catalogo;
 import totseries.Modelo.Media.Episodio;
 import totseries.Modelo.Media.Serie;
 import totseries.Modelo.Media.Temporada;
@@ -24,9 +27,12 @@ import totseries.Parser.TotSeriesDataManager;
  *
  * @author Abel
  */
-public class Vista extends javax.swing.JFrame {
+public class Vista extends javax.swing.JFrame implements Observer {
 
     TotSeries controlador;
+
+    public static final int ACTUALIZAR_VALORACIONES = 0;
+    public static final int ACTUALIZAR_VISUALIZACIONES = 1;
 
     /**
      * Creates new form Vista
@@ -152,6 +158,11 @@ public class Vista extends javax.swing.JFrame {
         jTextFieldTOP1.setText("Mes vsites");
 
         jListClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListClientesMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(jListClientes);
 
         jTextFieldClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -346,7 +357,6 @@ public class Vista extends javax.swing.JFrame {
             this.jListClientes.setVisible(true);
             this.jListClientes.setEnabled(true);
             this.jTextFieldClientes.setVisible(true);
-            this.jListMesVistes = null;
             this.actualizarClientesNonVIP();
         } else if (this.controlador.islogged()) {
             this.jTextFieldMasValorados.setText("");
@@ -426,8 +436,8 @@ public class Vista extends javax.swing.JFrame {
         EpisodioJDialog repro = new EpisodioJDialog(
                 this, true, (Episodio) list.getSelectedValue(), this.controlador);
         repro.setVisible(true);
-        actualizarMasValorados();
-        actualizarMasVistos();
+        //actualizarMasValorados();
+        //actualizarMasVistos();
     }//GEN-LAST:event_reproducirEvent
 
     private void jMenuItemAsignarVIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAsignarVIPActionPerformed
@@ -467,12 +477,21 @@ public class Vista extends javax.swing.JFrame {
 
         Episodio ep = jlistMesValorados.getModel().getElementAt(
                 ((JList) evt.getSource()).getSelectedIndex());
-        
+
         controlador.valorarEpisodio(ep, int_nota);
-        actualizarMasValorados();
+        //actualizarMasValorados();
 
 
     }//GEN-LAST:event_episodioNotaClicked
+
+    private void jListClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListClientesMouseClicked
+        JList lista = ((JList) evt.getSource());
+        if (lista.getSelectedValue()==null) return;
+        
+        this.controlador.hacerVip((Cliente) lista.getSelectedValue());
+        this.actualizarClientesNonVIP();
+        JOptionPane.showMessageDialog(this, "Se asigno un VIP");
+    }//GEN-LAST:event_jListClientesMouseClicked
 
     private void actualizarCatalogo() {
         DefaultListModel model = new DefaultListModel();
@@ -505,7 +524,6 @@ public class Vista extends javax.swing.JFrame {
             Episodio aux = (Episodio) episodeIterator.next();
             modelEpisode.addElement(aux);
             modelNota.addElement(aux.getPromedio());
-            System.out.println(aux.getPromedio());
         }
         this.jlistMesValorados.setModel(modelEpisode);
         this.jlistMesValoradosNota.setModel(modelNota);
@@ -649,4 +667,16 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JList<String> jlistMesValoradosNota;
     private javax.swing.JList<String> jlistMesVistesTotal;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object o1) {
+        switch ((int) o1) {
+            case ACTUALIZAR_VALORACIONES:
+                actualizarMasValorados();
+
+            case ACTUALIZAR_VISUALIZACIONES:
+                actualizarMasVistos();
+        }
+
+    }
 }

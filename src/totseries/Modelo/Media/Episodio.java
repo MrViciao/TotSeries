@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Abel
  */
-public class Episodio{
+public class Episodio extends Observable{
     private int id;
     private String titulo;
     private String duracion;
@@ -77,6 +79,8 @@ public class Episodio{
     public void addValoracion(Valoracion valoracion){
         valoraciones.add(valoracion);
         this.setPromedio();
+        setChanged();
+        notifyObservers(0);
     }
     
     @Override
@@ -99,6 +103,8 @@ public class Episodio{
     
     public void addReproduccion(Reproduccion r){
         reproducciones.add(r);
+        setChanged();
+        notifyObservers(1);
     }
     
     public String getDescripcion(){
