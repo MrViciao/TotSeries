@@ -5,11 +5,17 @@ hide	footbox
 actor	Usuario as usuario
 participant "vista:Vista" as vista
 participant "controlador:TotSeries" as totseries
+participant "catalago:Catalogo" as catalogo
 
 activate vista
 vista->totseries : getSeries():List
 activate totseries
-totseries -> vista : catalogo
+
+totseries -> catalogo : getSeries():List
+activate catalogo
+catalogo -> totseries : series
+deactivate catalogo
+totseries -> vista : series
 deactivate totseries
 deactivate vista
 @enduml

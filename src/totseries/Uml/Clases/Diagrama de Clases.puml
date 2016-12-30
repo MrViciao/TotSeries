@@ -66,10 +66,14 @@ namespace Vista {
     }
 
 }
-
+namespace java.utils {
+    class Observer{
+    }
+    class Observable{
+    }
+}
 namespace Model {
 
-    
     class Registro{
     ==
     +void registrarAdmin(String usuari, String password, String nom)
@@ -245,4 +249,6 @@ Controlador.Totseries "1" -- "1" Vista.EpisodioJDialog : usa >
 
 Controlador.Totseries "1" -- "1 | catalogo" Model.Catalogo : tiene >
 Controlador.Totseries "1" -- "1 | registro" Model.Registro : tiene >
+Vista.Vista "1" -- "1" java.utils.Observer :tiene >
+java.utils.Observable <|-- Model.Episodio
 @enduml
