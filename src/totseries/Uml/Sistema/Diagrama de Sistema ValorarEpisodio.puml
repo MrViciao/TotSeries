@@ -1,0 +1,31 @@
+@startuml
+title	DSS: 5 Valorar Episodio
+
+hide	footbox
+actor	Usuario	as	user
+participant ":TotSeries" as TotSeries
+
+
+user	->	TotSeries: valorarEpisodio(Episodio ep)
+TotSeries --> user: Mostrar JdialogOptionYESNO
+
+
+loop ! pulsaBotonCancelar() and ! pulsaBotonAcceptar()
+    opt pulsaBotonAcceptar()
+        user -> TotSeries: pulsaBotonAcceptar()
+        user -> TotSeries: rellenaValorNota(String Nota)
+                note right TotSeries
+                    Se intenta pasar la String a int
+                end note
+            alt Si Nota no tiene formato correcto
+                TotSeries --> user: Alert("Error de formato")
+            else Si Nota Entre 0-5
+                TotSeries --> user: Alert("Nota tiene que estar entre 0-5")
+            else
+                user	->	TotSeries: valorarEpisodio(Episodio ep, int Nota)
+                TotSeries --> user: Alert("Se realizo la valoracion")
+            end alt
+    end opt             
+end loop
+TotSeries --> user: Retorna a la vista anterior
+@enduml
