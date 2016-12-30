@@ -29,8 +29,8 @@ public class Registro {
 
     public void registrarAdmin(String usuari, String password, String nom) {
         String id = "u" + usuarios.size() + 1;
-        AdministradorCreator cc = new AdministradorCreator();
-        Usuario user = cc.createUsuario(id, usuari, password, nom);
+        AdministradorCreator ac = new AdministradorCreator();
+        Usuario user = ac.createUsuario(id, usuari, password, nom);
         usuarios.add(user);
     }
 
