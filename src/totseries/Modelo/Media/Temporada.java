@@ -16,10 +16,9 @@ public class Temporada {
 
     private List<Episodio> episodios;
     private int id;
+    ////////no se usa este atributo
     private int numEpisodis;
 
-    ///////////////////////////////
-    //Constructores
     public Temporada() {
         episodios = new ArrayList<>();
     }
@@ -30,8 +29,6 @@ public class Temporada {
         numEpisodis = episodios.size();
     }
 
-    ///////////////////////////////
-    // Metodos
     public int size() {
         return this.episodios.size();
     }
@@ -42,15 +39,6 @@ public class Temporada {
         numEpisodis += 1;
     }
 
-    public boolean existeEpisodio(int idEpisodio) {
-        for (Episodio episodio : episodios) {
-            if (episodio.getId() == idEpisodio) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Episodio getEpisodio(int idEpisodio) {
         for (Episodio episodio : episodios) {
             if (episodio.getId() == idEpisodio) {
@@ -59,7 +47,7 @@ public class Temporada {
         }
         return null;
     }
-
+    
     public String verEpisodios() {
         String lista = "";
         for (Episodio episodio : episodios) {
@@ -77,8 +65,6 @@ public class Temporada {
         //return "Temporada: " + id + " - Episodios: " + numEpisodis + "\n";
     }
 
-    ///////////////////////////////
-    //Getters and setters 
     public int getId() {
         return id;
     }
@@ -106,9 +92,11 @@ public class Temporada {
         }
         return total / episodios.size();
     }
-        public List<Episodio> getEpisodio(){
+    
+    public List<Episodio> getEpisodio(){
         return this.episodios;
     }
+    
     public String showTemporada(){
         String nombre;
         nombre = "Season: ";
@@ -122,5 +110,14 @@ public class Temporada {
             lista.add(epi.getTitulo());
         }
         return lista;
+    }
+    /// sin uso
+    public boolean existeEpisodio(int idEpisodio) {
+        for (Episodio episodio : episodios) {
+            if (episodio.getId() == idEpisodio) {
+                return true;
+            }
+        }
+        return false;
     }
 }

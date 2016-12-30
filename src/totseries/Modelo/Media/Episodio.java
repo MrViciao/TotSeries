@@ -65,6 +65,7 @@ public class Episodio extends Observable{
     public Episodio verEpisodio(){
         return this;
     }
+    
     private void setPromedio(){
         Iterator<Valoracion> iterador= valoraciones.iterator();
         Valoracion valoracion;

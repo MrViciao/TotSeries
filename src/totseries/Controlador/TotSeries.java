@@ -5,17 +5,14 @@
  */
 package totseries.Controlador;
 
-import totseries.Modelo.Media.Temporada;
 import totseries.Modelo.Media.Valoracion;
 import totseries.Modelo.Usuario.Cliente;
 import totseries.Modelo.Usuario.Registro;
 import totseries.Modelo.Media.Catalogo;
 import totseries.Modelo.Media.Episodio;
-import java.util.ArrayList;
 import java.util.List;
 import totseries.Modelo.Media.Reproduccion;
 import totseries.Modelo.Usuario.Usuario;
-import totseries.Parser.Consola;
 
 public class TotSeries {
 
@@ -27,16 +24,14 @@ public class TotSeries {
         catalogo = new Catalogo();
         registro = new Registro();
     }
-
+   
     public static TotSeries getInstance() {
         if (instance == null) {
             return new TotSeries();
         }
         return instance;
     }
-    
-    // rEPRODUCCION
-    ////////////////////////////////////////////
+
     public void empezarReproduccion(Episodio episodio) {
         Cliente cliente = registro.getLoggedAsCliente();
         if (!cliente.canViewEpisode()) {
@@ -58,10 +53,7 @@ public class TotSeries {
     public void valorarEpisodio(Episodio episodio, float puntuacion) {
         catalogo.valorarEpisodio(episodio, puntuacion, registro.getLoggedUser().getId());
     }
-    
-    // LOGIN Y REGISTRO
-    ////////////////////////////////////////////
-    
+   
     public boolean login(String username, String password) {
         if (registro.isLogged()) {
             return false;
@@ -77,11 +69,7 @@ public class TotSeries {
     public boolean islogged() {
         return this.registro.isLogged();
     }
-
-    public boolean hasUsuario(String username) {
-        return registro.hasUsuario(username);
-    }
-
+    
     public boolean registrar(String usuari, String password, String nom, String dni, String adreca) {
         if (registro.hasUsuario(usuari)) {
             return false;
@@ -89,7 +77,7 @@ public class TotSeries {
         registro.registrarCliente(nom, dni, adreca, usuari, password);
         return true;
     }
-
+    
     public boolean registrar(String usuari, String password, String nom) {
         if (registro.hasUsuario(usuari)) {
             return false;
@@ -102,41 +90,27 @@ public class TotSeries {
         return this.registro.isLoggedAdmin();
     }
     
-    // Registro
-    //////////////////////////////////////////////
     public List<Usuario> getClientesNonVIP() {
         return this.registro.getClientesNonVIP();
     }    
-        
+    
     public void hacerVip(Cliente cliente){ 
         this.registro.setVIP(cliente); 
     } 
     
-    ///////////////////////////////
-    //Getters and setters 
-    /**
-     * @return the catalogo
-     */
     public Catalogo getCatalogo() {
         return catalogo;
     }
-
-    /**
-     * @param catalogo the catalogo to set
-     */
+    
     public void setCatalogo(Catalogo catalogo) {
         this.catalogo = catalogo;
     }
-
-    /**
-     * @return the registro
-     */
+    
     public Registro getRegistro() {
         return registro;
     }
     
     // MEDIA
-    /////////////////////////////////////////
     public List getSeries() {
         return catalogo.getSeries();
     }
@@ -147,6 +121,10 @@ public class TotSeries {
     
     public List getEpisodiosMasValorados() {
         return catalogo.getEpisodiosMasValorados();
+    }
+    //////SIN USO
+    public boolean hasUsuario(String username) {
+        return registro.hasUsuario(username);
     }
 
 }

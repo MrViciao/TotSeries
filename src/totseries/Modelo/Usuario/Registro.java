@@ -27,15 +27,6 @@ public class Registro {
         this.usuarios = new ArrayList<>();
     }
 
-    public boolean hasUsuario(String username) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void registrarAdmin(String usuari, String password, String nom) {
         String id = "u" + usuarios.size() + 1;
         AdministradorCreator cc = new AdministradorCreator();
@@ -108,7 +99,18 @@ public class Registro {
         }
         return lista;
     }
+    
     public void setVIP(Cliente cliente){
            cliente.setVip(true);
+    }
+    
+    /// SIN USO
+    public boolean hasUsuario(String username) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

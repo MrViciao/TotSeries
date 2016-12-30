@@ -19,7 +19,6 @@ import totseries.Modelo.Media.Catalogo;
 import totseries.Modelo.Media.Episodio;
 import totseries.Modelo.Media.Serie;
 import totseries.Modelo.Media.Temporada;
-import totseries.Modelo.Usuario.Cliente;
 import totseries.Modelo.Usuario.Usuario;
 import totseries.Parser.TotSeriesDataManager;
 
@@ -87,12 +86,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
         jMenuItemLogin = new javax.swing.JMenuItem();
         jMenuItemRegistrar = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItemDesloguear = new javax.swing.JMenuItem();
         jMenuAdministrador = new javax.swing.JMenu();
         jMenuItemCargarFichero = new javax.swing.JMenuItem();
@@ -210,34 +203,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
         jMenuBar1.add(jMenuUsuario);
 
         jMenuCliente.setText("Cliente");
-
-        jMenuItem2.setText("Episodios mas valorados");
-        jMenuCliente.add(jMenuItem2);
-
-        jMenuItem1.setText("Temporadas mas valoradas");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenuCliente.add(jMenuItem1);
-
-        jMenuItem3.setText("Series mas valoradas");
-        jMenuCliente.add(jMenuItem3);
-
-        jMenuItem4.setText("Episodios más visualizados");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenuCliente.add(jMenuItem4);
-
-        jMenuItem5.setText("Temporadas más visualizadas");
-        jMenuCliente.add(jMenuItem5);
-
-        jMenuItem6.setText("Series más visualizadas");
-        jMenuCliente.add(jMenuItem6);
 
         jMenuItemDesloguear.setText("Desloguear");
         jMenuItemDesloguear.addActionListener(new java.awt.event.ActionListener() {
@@ -410,14 +375,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
         this.vaciarListaClientes();
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void reproducirEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reproducirEvent
         JList list = (JList) evt.getSource();
         if (list.getSelectedValue() == null) {
@@ -494,6 +451,11 @@ public class Vista extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jListClientesMouseClicked
 
     private void actualizarCatalogo() {
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+    }
+    
+    private void actualizarCatalogo(){
         DefaultListModel model = new DefaultListModel();
         model.clear();
         Iterator iteratorSerie = this.controlador.getSeries().iterator();
@@ -578,9 +540,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
         this.jListClientes.setModel(model);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -636,12 +595,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
     private javax.swing.JMenu jMenuAdministrador;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItemAsignarVIP;
     private javax.swing.JMenuItem jMenuItemCargarFichero;
     private javax.swing.JMenuItem jMenuItemDeslogearAdmin;
