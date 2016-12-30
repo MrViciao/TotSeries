@@ -11,7 +11,7 @@ import totseries.Parser.Consola;
  *
  * @author Abel
  */
-public class Catalogo{
+public class Catalogo {
 
     private List<Serie> series;
 
@@ -45,12 +45,12 @@ public class Catalogo{
         //throws new SerieNotFoundException("Serie con idSerie no encontrada");
         return null;
     }
-    
+
     public List<Temporada> getTemporadas(String idSerie) {
         Serie serie = getSerie(idSerie);
         return serie.getTemporadas();
     }
-    
+
     public Serie getLastSerie() {
         return series.get(series.size() - 1);
     }
@@ -123,7 +123,7 @@ public class Catalogo{
         Collections.sort(series, (Serie p1, Serie p2) -> Float.compare(p2.countReproducciones(), p1.countReproducciones()));
         return lista.subList(0, 10);
     }
-    
+
     public List<String> showTemporada(String idSerie) {
         for (Serie serie : this.series) {
             if (serie.equals(idSerie)) {
@@ -164,6 +164,12 @@ public class Catalogo{
     public List getSeries() {
         return series;
     }
+
+    public void valorarEpisodio(Episodio episodio, float puntuacion, String User_id) {
+        Valoracion valoracion = new Valoracion(User_id, puntuacion);
+        episodio.addValoracion(valoracion);
+    }
+
     /////Sin uso
     public boolean existeEpisodio(String idSerie, int idTemporada, int idEpisodio) {
         for (Serie serie : series) {
@@ -173,6 +179,7 @@ public class Catalogo{
         }
         return false;
     }
+
     ////Sin Uso
     public Episodio getEpisodio(String idSerie, int idTemporada, int idEpisodio) {
         if (this.existeEpisodio(idSerie, idTemporada, idEpisodio)) {
@@ -181,6 +188,7 @@ public class Catalogo{
             return null;
         }
     }
+
     ////Sin Uso
     public String verEpisodios(String idSerie, int idTemporada) {
         Serie serie = getSerie(idSerie);
@@ -188,11 +196,6 @@ public class Catalogo{
             return "No existe Serie\n";
         }
         return serie.verEpisodios(idTemporada);
-    }
 
-
-    public void valorarEpisodio(Episodio episodio, float puntuacion, String User_id) {
-        Valoracion valoracion = new Valoracion(User_id, puntuacion);
-        episodio.addValoracion(valoracion);
     }
 }

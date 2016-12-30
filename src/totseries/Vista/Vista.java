@@ -19,6 +19,7 @@ import totseries.Modelo.Media.Catalogo;
 import totseries.Modelo.Media.Episodio;
 import totseries.Modelo.Media.Serie;
 import totseries.Modelo.Media.Temporada;
+import totseries.Modelo.Usuario.Cliente;
 import totseries.Modelo.Usuario.Usuario;
 import totseries.Parser.TotSeriesDataManager;
 
@@ -449,11 +450,6 @@ public class Vista extends javax.swing.JFrame implements Observer {
         this.actualizarClientesNonVIP();
         JOptionPane.showMessageDialog(this, "Se asigno un VIP");
     }//GEN-LAST:event_jListClientesMouseClicked
-
-    private void actualizarCatalogo() {
-        DefaultListModel model = new DefaultListModel();
-        model.clear();
-    }
     
     private void actualizarCatalogo(){
         DefaultListModel model = new DefaultListModel();
