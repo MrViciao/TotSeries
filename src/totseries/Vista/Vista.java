@@ -569,8 +569,8 @@ public class Vista extends javax.swing.JFrame implements Observer {
         TotSeriesDataManager dataManager = new TotSeriesDataManager();
         dataManager.obtenirDades("data/TotSeries.xml");
         tot_Series = dataManager.cargarDatos(tot_Series);
-        tot_Series.registrar("a", "a", "a");
-        tot_Series.registrar("test", "b", "b", "b", "b");
+        tot_Series.registrar("admin", "admin", "admin");
+        tot_Series.registrar("cliente", "cliente", "cliente", "cliente", "cliente");
         tot_Series.registrar("test2", "test2", "test2", "test2", "b");
         return tot_Series;
     }
