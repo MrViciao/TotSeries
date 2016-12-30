@@ -27,6 +27,7 @@ opt YES_OPTION
     registro ->totseries
     deactivate registro
     totseries -> vista
+    deactivate totseries
 end opt
 vista -> usuario
 deactivate vista
