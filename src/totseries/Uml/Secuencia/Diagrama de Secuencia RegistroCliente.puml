@@ -1,0 +1,34 @@
+@startuml
+title		Registro Cliente
+hide	footbox
+
+participant "controlador:TotSeries" as totseries
+participant "registro:Registro" as registro
+
+participant "cc:ClienteCreator" as cc
+participant "user:Cliente" as user
+
+
+activate totseries
+totseries -> registro :RegistrarCliente(\nString nom,String dni,\n String password, String usuari,\n String password)
+activate registro
+registro ->cc: new ClienteCreator()
+activate cc
+cc --> registro: cc
+note right registro
+    String id = "u" + usuarios.size() + 1
+end note
+
+registro -> cc: createUsuario(String id,\n String nom,String dni,\n String password, String usuari,\n String password):Cliente
+
+cc -> user: new Cliente(String id,\n String nom,String dni,\n String password, String usuari,\n String password)
+activate user
+user -->cc: user
+deactivate user
+cc --> registro: user
+deactivate cc
+registro ->registro: usuarios.add(user)
+registro --> totseries
+deactivate registro
+    
+@enduml

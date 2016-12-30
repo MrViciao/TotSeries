@@ -1,0 +1,34 @@
+@startuml
+title		Registro Administrador
+hide	footbox
+
+participant "controlador:TotSeries" as totseries
+participant "registro:Registro" as registro
+
+participant "ac:AdministradorCreator" as ac
+participant "user:Administrador" as user
+
+
+activate totseries
+totseries -> registro :RegistrarAdmin(\nString usuari, String password,\n String nom)
+activate registro
+registro ->ac: new AdministrdorCreator()
+activate ac
+ac --> registro: ac
+note right registro
+    String id = "u" + usuarios.size() + 1
+end note
+
+registro -> ac: createUsuario(String id,\n String usuari, String password,\n String nom):Administrador
+
+ac -> user: new Administrador(String id,\n String usuari, String password,\n String nom)
+activate user
+user -->ac: user
+deactivate user
+ac --> registro: user
+deactivate ac
+registro ->registro: usuarios.add(user)
+registro --> totseries
+deactivate registro
+    
+@enduml
