@@ -32,12 +32,13 @@ public class TotSeries {
         return instance;
     }
 
-    public void empezarReproduccion(Episodio episodio) {
+    public Boolean empezarReproduccion() {
         Cliente cliente = registro.getLoggedAsCliente();
         if (!cliente.canViewEpisode()) {
-            return;
+            return false;
         }
         cliente.nextActivityState();
+        return true;
     }
 
     public void finalizarReproduccion(Episodio episodio, boolean finalizado) {
@@ -45,6 +46,7 @@ public class TotSeries {
         cliente.nextActivityState();
         episodio.addReproduccion(
                 new Reproduccion(cliente.getUsername()));
+        cliente.addVisualizacion();
     }
 
     public void valorarEpisodio(Episodio episodio, float puntuacion) {

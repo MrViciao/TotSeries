@@ -162,7 +162,10 @@ public class EpisodioJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonReproducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReproducirActionPerformed
-        controlador.empezarReproduccion(episodio);
+
+        if (!controlador.empezarReproduccion()) {
+            return;
+        }
         for (int i = 0; i <= 5; i++) {
 
             this.jProgressBarDuracion.setValue(i);

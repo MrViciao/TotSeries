@@ -9,59 +9,89 @@ participant "registro:Registro" as registro
 participant "cliente:Cliente" as cliente
 participant ":ActivityState" as state
 participant "episodio:Episodio" as episodio
+participant ":Factura" as factura
 
-usuario -> vista : Reproducir
+usuario -> vista : ClickBotonReproducir
 activate vista
-vista ->totseries : empezarReproduccion(Episodio episodio)
+vista ->totseries : empezarReproduccion():Boolean
 activate totseries
 totseries -> registro : getLoggedAsCliente()
 activate registro
-registro -> totseries : cliente
+registro --> totseries : cliente
 deactivate registro
-    opt ! retorno
-        totseries -> cliente : canViewEpisode():Boolean
-        activate cliente
-        cliente -> state : canViewEpisode():Boolean
-        activate state
-        state -> cliente : Boolean
-        deactivate state
-        cliente -> totseries : retorno:=Boolean
-        deactivate cliente
-        note right totseries
-            si se cumple la condicion
-            se retorna a la vista
-        end note
-    end opt
-totseries -> cliente: nextActivityState()
+'
+totseries -> cliente : canViewEpisode():Boolean
 activate cliente
-cliente -> state:nextState(this)
+cliente -> state : canViewEpisode():Boolean
 activate state
-state -> cliente
+state --> cliente : can_view
 deactivate state
-cliente -> totseries
+cliente --> totseries : can_view
 deactivate cliente
-totseries ->vista
-deactivate totseries
+'  
+opt can_view
+
+    totseries -> cliente: nextActivityState()
+    activate cliente
+    cliente -> state:nextState(this)
+    activate state
+    state --> cliente
+    deactivate state
+    cliente --> totseries
+    deactivate cliente
+    
+end opt
+
+totseries -->vista: can_view
+    deactivate totseries
+
+opt !can view
+    vista --> usuario
+end opt
+
 vista -> totseries : finalizarReproduccion(Episodio episodio, boolean true)
 activate totseries
 totseries -> cliente : nextActivityState()
 activate cliente
 cliente -> state : nextState(this)
 activate state
-state -> cliente
+state --> cliente
 deactivate state
-cliente -> totseries
+cliente --> totseries
 deactivate cliente
+
+
 note right totseries
     se crea una nueva Reproduccion
     con el cliente actualmente logueado
 end note
+
+
 totseries -> episodio :addReproduccion(Reproduccion repro)
 activate episodio
-episodio -> totseries
+episodio ->episodio: reproducciones.add(repro)
+episodio ->episodio: notifyObservers(1)
+episodio ->episodio: setChanged();
+episodio --> totseries
 deactivate episodio
-totseries -> vista
+
+
+totseries -> cliente: addVisualizacion()
+activate cliente
+cliente -> factura: addVisualizacion(boolean isVip)
+activate factura
+note left factura
+    visualizaciones++
+    if (isVip) precio+=PRICE*0.9
+    else precio+=PRICE
+end note
+factura --> cliente
+deactivate factura
+cliente --> totseries
+deactivate cliente
+
+totseries --> vista
 deactivate totseries
-vista -> usuario
+vista --> usuario
 deactivate vista
 @enduml
