@@ -1,5 +1,5 @@
 @startuml
-left to right direction
+'left to right direction
 
 title Diagrama de Dominio para TotSeries
 
@@ -63,9 +63,17 @@ puntuacion
 fecha
 }
 
+
+object Reproduccion{
+username
+date
+}
 object Catalogo
 object Tiempo
 object VIP
+object ActividadEstado
+object Active
+object Idle
 object Administrador
 object Actor
 object Director
@@ -74,7 +82,7 @@ object Registro
 
 Totseries "1" -- "1" Catalogo : tiene >
 Totseries "1" -- "1" Registro : tiene >
-Totseries "1" -- "1" Anonimo : tiene >
+Totseries "1" -- "*" Anonimo : tiene >
 
 Registro "1" -- "*" Usuario : tiene >
 Usuario <|-- Cliente
@@ -86,6 +94,9 @@ Anonimo "*" -- "1" Catalogo : visualiza >
 Cliente "1" -- "*" Factura : tiene >
 Cliente "1" -- "*" Valoracion : ha realizado >
 Cliente "*" -- "1" Estado : es >
+Cliente "*" -- "1" ActividadEstado : esta >
+ActividadEstado <|-- Active
+ActividadEstado <|-- Idle
 
 Estado <|-- VIP
 Estado <|-- Basico
@@ -97,6 +108,7 @@ Catalogo "1" *-- "1..*" Serie : consta >
 Serie "1" *-- "1..*" Temporada : consta >
 Serie "1..*" -- "1..*" Artista : tiene >
 Serie "1..*"-- "1..*" Productora : tiene >
+Serie "1"-- "*" Reproduccion : tiene >
 
 Artista  <|-- Actor
 Artista  <|-- Director

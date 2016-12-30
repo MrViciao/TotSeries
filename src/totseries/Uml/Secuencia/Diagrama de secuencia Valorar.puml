@@ -6,8 +6,11 @@ actor	Usuario as usuario
 participant "vista:EpisodioJDialog" as vista
 participant "controlador:TotSeries" as totseries
 participant "episodio:Episodio" as episodio
+participant "registro:Registro" as registro
+participant "logged:Usuario" as logged
+participant ":Valoracion" as valoracion
 
-usuario -> vista : Valorar
+usuario -> vista : clickBotonValorar
 activate vista
 note right vista
     valorado := boolean
@@ -15,17 +18,33 @@ note right vista
 end note
 alt !valorado  
     alt valoracion >= 0 && valoracion <= 5
-        vista -> totseries : valorarEpisodio(Episodio episodio,int valoracion)
+        
+        
+        vista -> totseries : valorarEpisodio(\nEpisodio episodio,\nint valoracion)
         activate totseries
-        note right totseries
-            se genera una nueva Valoracion
-            Valoracion := valoracion()
-        end note
-        totseries -> episodio : addValoracion(Valoracion valoracion)
+        
+        totseries -> registro : getLogged():Usuario
+        activate registro
+        registro -->totseries : logged
+        deactivate registro
+        totseries -> logged : getId():String
+        activate logged
+        logged --> totseries : id
+        deactivate logged
+        
+        
+        totseries -> episodio : addValoracion(\nString id,\n float puntuacion)
         activate episodio
-        episodio -> totseries
+        episodio -> valoracion : new Valoracion(String id, float puntuacion)
+        activate valoracion
+        valoracion -->episodio: valoracion
+        deactivate valoracion
+        episodio ->episodio: valoraciones.add(val)
+        episodio ->episodio: notifyObservers(1)
+        episodio ->episodio: setChanged();
+        episodio --> totseries
         deactivate episodio
-        totseries ->vista
+        totseries -->vista
         deactivate totseries
     else 
         note right vista
@@ -40,6 +59,6 @@ else
         que ya se ha valorado el episodio
     end note
 end alt
-vista -> usuario
+vista --> usuario
 deactivate vista
 @enduml

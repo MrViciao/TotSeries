@@ -17,6 +17,7 @@ public class Menu {
     /**
      * @param totseries
      */
+    /*
     private final TotSeries totSeries;
 
     public Menu(TotSeries totSeries) {
@@ -141,5 +142,6 @@ public class Menu {
         Consola.escriu("7.Login\n");
         Consola.escriu("0.Exit\n");
     }
+*/
 
 }

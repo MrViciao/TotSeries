@@ -29,8 +29,8 @@ public class Main {
         Usuario user = cc.createUsuario("c0", "test", "test", "test");
         //MainVista mv = new MainVista();
         //mv.main(null);
-        Menu menu = new Menu(tot_series);
-        menu.run();
+        //Menu menu = new Menu(tot_series);
+        //menu.run();
     }
 
     public static TotSeries cargarDatos(TotSeries tot_Series) {

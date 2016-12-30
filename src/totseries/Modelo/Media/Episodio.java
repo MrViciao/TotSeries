@@ -111,4 +111,8 @@ public class Episodio extends Observable{
     public String getDescripcion(){
         return descripcion;
     }
+
+    void addValoracion(String user_id, float puntuacion) {
+        valoraciones.add(new Valoracion(user_id, puntuacion));
+    }
 }
