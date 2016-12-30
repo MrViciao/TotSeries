@@ -122,17 +122,6 @@ namespace Model {
         Void nextState(Client cliente)
     }
 
-    interface StatusState{
-        add_visualizacion()
-    }
-    
-    class VipState{
-        add_visualizacion(Factura fac)
-    }
-
-    class NormalState{
-        add_visualizacion(Factura fac)
-    }
     '#####################################
     class Administrador{
     }
@@ -208,7 +197,10 @@ namespace Model {
         + void addReproduccion(Reproduccion r)
     }
 
-    
+    class Reproduccion{
+        - String usuario;
+        - Date fecha;
+    }
     abstract class Artista {
         - String id
         - String nombre
@@ -241,14 +233,11 @@ namespace Model {
     Serie "1..*" - "1..* | productoras" Productora : tiene >
     Temporada "1" *- "1..* | episodios" Episodio : consta >
     Episodio "1" - "0..* | valoraciones" Valoracion : tiene >
+    Episodio "1" - "0..* | reproducciones" Reproduccion : tiene >
     
-    Cliente "1" - "1 | activity" ActivityState : tiene >
+    Cliente "*" - "1 | activity" ActivityState : tiene >
     ActivityState <|-- IdleState : tiene >
     ActivityState <|-- ActiveState : tiene >
-
-    Cliente "1" - "1 | status" StatusState : tiene >
-    StatusState <|-- VipState : tiene >
-    StatusState <|-- NormalState : tiene >
 }
 Controlador.Totseries "1" -- "1" Vista.Vista : usa >
 Controlador.Totseries "1" -- "1" Vista.LoginJDialong : usa >
